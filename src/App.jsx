@@ -355,6 +355,52 @@ const EntranceScreen = ({ onOpen }) => {
   );
 };
 
+const ScrollIndicator = () => {
+  const { scrollY } = useScroll();
+  const opacity = useTransform(scrollY, [0, 100], [1, 0]);
+
+  return (
+    <motion.div 
+      style={{ 
+        position: 'absolute', 
+        bottom: '2rem', 
+        left: '50%', 
+        x: '-50%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        opacity,
+        pointerEvents: 'none',
+        zIndex: 20
+      }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 2.5, duration: 1.5 }}
+    >
+      <motion.p 
+        style={{ 
+          fontFamily: 'var(--font-heading)', 
+          fontSize: '0.65rem', 
+          textTransform: 'uppercase', 
+          letterSpacing: '4px',
+          color: '#4a3b3f',
+          marginBottom: '0.8rem',
+          opacity: 0.7
+        }}
+      >
+        Découvrir
+      </motion.p>
+      <div style={{ width: '1px', height: '40px', backgroundColor: 'rgba(74, 59, 63, 0.2)', overflow: 'hidden', position: 'relative' }}>
+        <motion.div 
+          style={{ width: '100%', height: '50%', backgroundColor: '#8a4b56' }}
+          animate={{ y: ['-100%', '200%'] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      </div>
+    </motion.div>
+  );
+};
+
 const Hero = () => {
   return (
     <section className="snap-section" style={{ 
@@ -454,6 +500,8 @@ const Hero = () => {
         </motion.div>
 
       </div>
+      
+      <ScrollIndicator />
     </section>
   );
 };
