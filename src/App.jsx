@@ -346,15 +346,15 @@ const EntranceScreen = ({ onOpen }) => {
             <motion.button 
               className="btn-primary" 
               style={{ 
-                padding: 'clamp(0.8rem, 3vw, 1rem) clamp(2.5rem, 6vw, 3.5rem)', backgroundColor: 'var(--color-accent)', border: 'none', borderRadius: '50px',
-                color: '#fff', boxShadow: '0 4px 15px rgba(229, 152, 155, 0.4)',
+                padding: 'clamp(0.8rem, 3vw, 1rem) clamp(2.5rem, 6vw, 3.5rem)', backgroundColor: '#f3a6b6', border: 'none', borderRadius: '50px',
+                color: '#fff', boxShadow: '0 4px 15px rgba(243, 166, 182, 0.4)',
                 fontFamily: 'var(--font-body)', fontWeight: '500', letterSpacing: '3px', fontSize: '0.85rem', textTransform: 'uppercase',
                 maxWidth: '92%', boxSizing: 'border-box'
               }}
               onClick={onOpen}
-              whileHover={{ scale: 1.05, backgroundColor: 'var(--color-text-secondary)' }}
+              whileHover={{ scale: 1.05, backgroundColor: '#e5989b' }}
               whileTap={{ scale: 0.95 }}
-              animate={{ boxShadow: ['0 4px 15px rgba(229, 152, 155, 0.4)', '0 4px 25px rgba(229, 152, 155, 0.7)', '0 4px 15px rgba(229, 152, 155, 0.4)'] }}
+              animate={{ boxShadow: ['0 4px 15px rgba(243, 166, 182, 0.4)', '0 4px 25px rgba(243, 166, 182, 0.7)', '0 4px 15px rgba(243, 166, 182, 0.4)'] }}
               transition={{ repeat: Infinity, duration: 3 }}
             >
               Ouvrir
