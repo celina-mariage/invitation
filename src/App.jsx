@@ -141,6 +141,58 @@ const StaggeredText = ({ text, className, style, delay = 0, speed = 0.08 }) => {
   );
 };
 
+const SVGTextWrite = ({ text, className, delay = 0 }) => {
+  return (
+    <div style={{ position: 'relative', display: 'inline-block' }}>
+      {/* The drawing stroke effect */}
+      <svg width="100%" height="100%" style={{ position: 'absolute', top: 0, left: 0, overflow: 'visible', pointerEvents: 'none' }}>
+        <defs>
+          <linearGradient id="rose-gold-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#b76e79" />
+            <stop offset="50%" stopColor="#c88d9b" />
+            <stop offset="100%" stopColor="#b76e79" />
+          </linearGradient>
+        </defs>
+        <motion.text
+          x="50%"
+          y="50%"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          className={className}
+          style={{ fill: 'transparent', stroke: 'url(#rose-gold-gradient)', strokeWidth: '2px', WebkitTextStroke: '1px #b76e79' }}
+          initial={{ strokeDasharray: '0 1000' }}
+          whileInView={{ strokeDasharray: '1000 0' }}
+          viewport={{ once: true }}
+          transition={{ duration: 3.5, delay, ease: "easeInOut" }}
+        >
+          {text}
+        </motion.text>
+      </svg>
+      {/* The actual filled text that fades in afterwards */}
+      <motion.div
+        className={`${className} rose-gold-foil`}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.5, delay: delay + 2.5 }}
+        style={{ visibility: 'hidden' }} /* reserve space */
+      >
+        {text}
+      </motion.div>
+      <motion.div
+        className={`${className} rose-gold-foil`}
+        style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1.5, delay: delay + 2.5 }}
+      >
+        {text}
+      </motion.div>
+    </div>
+  );
+};
+
 const TopFlourish = () => (
   <motion.div 
     initial={{ opacity: 0, y: -10 }} 
@@ -518,15 +570,14 @@ const Hero = () => {
           />
         </motion.div>
 
-        {/* Massive Center Title with Typewriter Effect */}
+        {/* Massive Center Title with Realistic SVG Writing Effect */}
         <motion.div
           style={{ textAlign: 'center' }}
         >
-          <TypewriterText 
+          <SVGTextWrite 
             text="Celina" 
-            className="script-heading-large rose-gold-foil" 
-            delay={2.6} 
-            duration={2.5} 
+            className="script-heading-large" 
+            delay={2.4} 
           />
         </motion.div>
 
