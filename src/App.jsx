@@ -1009,32 +1009,34 @@ const Footer = () => {
           </motion.div>
         </motion.div>
 
-        {/* Quranic Verse — wrapped in ornamental brackets */}
+        {/* Quranic Verse — framed with proper Unicode Quranic brackets */}
         <motion.div
           variants={{ 
             hidden: { opacity: 0 }, 
             visible: { opacity: 1, transition: { duration: 0.5 } } 
           }}
-          style={{ position: 'relative', display: 'inline-block', margin: '0.4rem 0 0.8rem 0', padding: '0.6rem 2.2rem' }}
+          style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center', 
+            gap: '0.3rem',
+            margin: '0.4rem 0 0.8rem 0',
+            flexWrap: 'nowrap'
+          }}
         >
-          {/* Left bracket */}
-          <motion.svg 
-            width="22" height="70" viewBox="0 0 22 70" fill="none"
-            style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)' }}
-            variants={{ hidden: { opacity: 0, scaleY: 0 }, visible: { opacity: 1, scaleY: 1, transition: { duration: 1.2, ease: 'easeInOut', delay: 0.3 } } }}
+          {/* Right Quranic bracket (RTL: right comes first visually) */}
+          <motion.span
+            variants={{ hidden: { opacity: 0, x: 15 }, visible: { opacity: 1, x: 0, transition: { duration: 1.2, ease: 'easeOut', delay: 0.2 } } }}
+            style={{ 
+              fontFamily: "'Lateef', serif", 
+              fontSize: 'clamp(3rem, 10vw, 5rem)', 
+              color: '#b76e79',
+              lineHeight: 1,
+              userSelect: 'none'
+            }}
           >
-            <defs>
-              <linearGradient id="bracket-grad" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stopColor="#b76e79" />
-                <stop offset="50%" stopColor="#d4a3b3" />
-                <stop offset="100%" stopColor="#b76e79" />
-              </linearGradient>
-            </defs>
-            <path d="M18 2 C10 2, 4 8, 4 16 L4 54 C4 62, 10 68, 18 68" stroke="url(#bracket-grad)" strokeWidth="1.8" fill="none" strokeLinecap="round"/>
-            <circle cx="4" cy="35" r="2.5" fill="url(#bracket-grad)" />
-            <circle cx="18" cy="2" r="1.5" fill="url(#bracket-grad)" opacity="0.6"/>
-            <circle cx="18" cy="68" r="1.5" fill="url(#bracket-grad)" opacity="0.6"/>
-          </motion.svg>
+            ﴿
+          </motion.span>
 
           {/* The verse text */}
           <motion.p 
@@ -1048,17 +1050,19 @@ const Footer = () => {
             وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
           </motion.p>
 
-          {/* Right bracket (mirrored) */}
-          <motion.svg 
-            width="22" height="70" viewBox="0 0 22 70" fill="none"
-            style={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%) scaleX(-1)' }}
-            variants={{ hidden: { opacity: 0, scaleY: 0 }, visible: { opacity: 1, scaleY: 1, transition: { duration: 1.2, ease: 'easeInOut', delay: 0.3 } } }}
+          {/* Left Quranic bracket */}
+          <motion.span
+            variants={{ hidden: { opacity: 0, x: -15 }, visible: { opacity: 1, x: 0, transition: { duration: 1.2, ease: 'easeOut', delay: 0.2 } } }}
+            style={{ 
+              fontFamily: "'Lateef', serif", 
+              fontSize: 'clamp(3rem, 10vw, 5rem)', 
+              color: '#b76e79',
+              lineHeight: 1,
+              userSelect: 'none'
+            }}
           >
-            <path d="M18 2 C10 2, 4 8, 4 16 L4 54 C4 62, 10 68, 18 68" stroke="url(#bracket-grad)" strokeWidth="1.8" fill="none" strokeLinecap="round"/>
-            <circle cx="4" cy="35" r="2.5" fill="url(#bracket-grad)" />
-            <circle cx="18" cy="2" r="1.5" fill="url(#bracket-grad)" opacity="0.6"/>
-            <circle cx="18" cy="68" r="1.5" fill="url(#bracket-grad)" opacity="0.6"/>
-          </motion.svg>
+            ﴾
+          </motion.span>
         </motion.div>
 
         <motion.div
