@@ -800,9 +800,9 @@ function App() {
           <motion.div
             key="content"
             className="fullpage-container"
-            initial={{ opacity: 0, y: 50, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ type: "spring", stiffness: 70, damping: 20, mass: 1 }}
+            initial={{ opacity: 0, scale: 1.12, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           >
             <AmbientPulse />
             <Hero />
