@@ -441,19 +441,19 @@ const Hero = () => {
             textAlign: 'center',
             maxWidth: '600px', 
             background: 'rgba(255,253,252,0.7)', 
-            padding: '1.5rem', 
+            padding: '1.2rem 1.5rem', 
             borderRadius: '20px', 
             backdropFilter: 'blur(10px)',
             boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
           }}
         >
-          <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, letterSpacing: '3px', textTransform: 'uppercase', fontSize: 'clamp(0.85rem, 3vw, 1.1rem)', marginBottom: '0.8rem', color: '#4a3b3f' }}>
+          <p className="subheader-uppercase" style={{ marginBottom: '0.6rem' }}>
             Monsieur et Madame Izri
           </p>
-          <p style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontSize: 'clamp(1.2rem, 4.5vw, 1.8rem)', color: '#8a4b56', fontWeight: 400, marginBottom: '0.3rem' }}>
+          <p className="body-italic" style={{ marginBottom: '0.2rem' }}>
             ont l'immense plaisir de vous annoncer
           </p>
-          <p style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontSize: 'clamp(1.2rem, 4.5vw, 1.8rem)', color: '#8a4b56', fontWeight: 400 }}>
+          <p className="body-italic">
             le mariage de leur fille
           </p>
         </motion.div>
@@ -466,13 +466,7 @@ const Hero = () => {
           transition={{ duration: 1.5, delay: 0.4 }}
           style={{ textAlign: 'center' }}
         >
-          <h1 className="script-text rose-gold-foil" style={{ 
-            fontSize: 'clamp(6.5rem, 28vw, 12rem)', 
-            lineHeight: '0.9', 
-            margin: 0, 
-            paddingRight: '10px',
-            textShadow: '0 4px 20px rgba(255,253,252,0.8), 0 0 10px rgba(183,110,121,0.3)'
-          }}>
+          <h1 className="script-heading-large rose-gold-foil">
             Celina
           </h1>
         </motion.div>
@@ -487,13 +481,13 @@ const Hero = () => {
             textAlign: 'center', 
             maxWidth: '500px', 
             background: 'rgba(255,253,252,0.7)', 
-            padding: '1.5rem', 
+            padding: '1.2rem 1.5rem', 
             borderRadius: '20px', 
             backdropFilter: 'blur(10px)',
             boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
           }}
         >
-          <p style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(1.2rem, 4.5vw, 1.8rem)', color: '#8a4b56', lineHeight: '1.6' }}>
+          <p className="body-italic">
             Votre présence en ce jour de célébration sera notre plus beau cadeau.
           </p>
         </motion.div>
@@ -582,16 +576,16 @@ END:VCALENDAR`;
         viewport={{ once: true }}
         style={{ textAlign: 'center', padding: '3rem 1.5rem', background: 'rgba(255,253,252,0.6)', borderRadius: '30px', backdropFilter: 'blur(10px)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', maxWidth: '95%', width: '700px' }}
       >
-        <CalendarHeart size={42} strokeWidth={1} color="#8a4b56" style={{ marginBottom: '1.5rem' }} />
-        <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, letterSpacing: '4px', textTransform: 'uppercase', fontSize: 'clamp(1rem, 3vw, 1.5rem)', color: '#4a3b3f' }}>Le Grand Jour</h2>
+        <CalendarHeart size={38} strokeWidth={1} color="#8a4b56" style={{ marginBottom: '1rem' }} />
+        <h2 className="subheader-uppercase">Le Grand Jour</h2>
         
         {/* Date perfectly clamped to stay on one line */}
-        <p className="script-text" style={{ fontSize: 'clamp(2rem, 9vw, 6rem)', color: '#8a4b56', margin: '0.5rem 0 1rem 0', whiteSpace: 'nowrap' }}>
+        <p className="script-heading" style={{ whiteSpace: 'nowrap', margin: '0.3rem 0 1rem 0' }}>
           Samedi 29 Août 2026
         </p>
         
         {/* Countdown units separated into distinct rectangles */}
-        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '3rem', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '0.8rem', justifyContent: 'center', marginTop: '1.8rem', flexWrap: 'wrap' }}>
           {Object.entries(timeLeft).map(([unit, value]) => (
             <div key={unit} style={{ 
               display: 'flex', 
@@ -601,22 +595,22 @@ END:VCALENDAR`;
               backgroundColor: 'rgba(255,253,252,0.85)',
               border: '1px solid rgba(138, 75, 86, 0.15)',
               borderRadius: '15px',
-              padding: '1.5rem 0.5rem',
+              padding: '1rem 0.5rem',
               flex: '1 1 20%',
-              minWidth: '70px',
+              minWidth: '65px',
               boxShadow: '0 5px 15px rgba(0,0,0,0.03)'
             }}>
-              <div className="script-text" style={{ fontSize: 'clamp(3rem, 10vw, 6rem)', color: '#4a3b3f', lineHeight: '0.8', marginBottom: '10px' }}>
+              <div className="script-heading" style={{ color: '#4a3b3f', lineHeight: '0.8', margin: 0 }}>
                 {String(value).padStart(2, '0')}
               </div>
-              <div style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(0.6rem, 2vw, 0.9rem)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '3px', marginTop: '8px', color: '#8a4b56' }}>{unit}</div>
+              <div className="label-uppercase" style={{ marginTop: '6px' }}>{unit}</div>
             </div>
           ))}
         </div>
         
         <motion.button 
-          className="btn-primary" 
-          style={{ padding: '0.8rem 2rem', fontSize: '0.9rem', width: '80%', maxWidth: '300px' }}
+          className="btn-primary label-uppercase" 
+          style={{ padding: '0.8rem 2rem', color: '#fff', width: '80%', maxWidth: '300px', marginTop: '1.8rem' }}
           onClick={downloadICS}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
@@ -655,28 +649,28 @@ const Venue = () => {
         <div style={{ position: 'absolute', bottom: '10px', left: '10px', width: '25px', height: '25px', borderBottom: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.5 }}></div>
         <div style={{ position: 'absolute', bottom: '10px', right: '10px', width: '25px', height: '25px', borderBottom: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.5 }}></div>
 
-        <div style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center', width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'rgba(138, 75, 86, 0.03)', marginBottom: '0.8rem' }}>
-          <MapPin size={26} strokeWidth={1.2} color="#8a4b56" />
+        <div style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center', width: '56px', height: '56px', borderRadius: '50%', backgroundColor: 'rgba(138, 75, 86, 0.03)', marginBottom: '0.6rem' }}>
+          <MapPin size={24} strokeWidth={1.2} color="#8a4b56" />
         </div>
         
-        <h2 className="script-text" style={{ fontSize: 'clamp(2.8rem, 6vw, 4.5rem)', color: '#4a3b3f', margin: '0 0 0.4rem 0', lineHeight: 1 }}>Rendez-vous à</h2>
+        <h2 className="script-heading">Rendez-vous à</h2>
         
-        <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 400, letterSpacing: '3px', textTransform: 'uppercase', fontSize: 'clamp(1.2rem, 4vw, 1.8rem)', margin: '0.8rem 0 0.5rem 0', color: '#4a3b3f', lineHeight: '1.3' }}>Salle des Fêtes<br/>Palais Royal</h3>
+        <h3 className="subheader-uppercase" style={{ margin: '0.6rem 0' }}>Salle des Fêtes<br/>Palais Royal</h3>
         
         <OrnateDivider />
         
-        <p style={{ fontFamily: 'var(--font-body)', fontWeight: 400, letterSpacing: '2px', textTransform: 'uppercase', fontSize: 'clamp(0.85rem, 2.5vw, 1rem)', color: '#8a4b56', marginTop: '0.8rem', marginBottom: '0.8rem' }}>Wilaya de Tizi Ouzou</p>
+        <p className="label-uppercase" style={{ margin: '0.6rem 0' }}>Wilaya de Tizi Ouzou</p>
         
-        <p style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontSize: 'clamp(1.1rem, 3.5vw, 1.5rem)', margin: '1.2rem 0', color: '#4a3b3f', lineHeight: 1.5 }}>Nous aurons le bonheur de vous y<br/>accueillir à partir de 10h30.</p>
+        <p className="body-italic" style={{ margin: '1rem 0' }}>Nous aurons le bonheur de vous y<br/>accueillir à partir de 10h30.</p>
         
         <motion.a 
           href="https://www.google.com/maps/search/?api=1&query=P4H4%2BPCR%2C%20Tizi%20Ouzou%2C%20Algeria" 
           target="_blank" 
           rel="noopener noreferrer"
+          className="label-uppercase"
           style={{ 
             display: 'inline-block', padding: '0.8rem 2.5rem', backgroundColor: 'transparent', border: '1px solid rgba(74, 59, 63, 0.3)', borderRadius: '50px',
             color: '#4a3b3f', textDecoration: 'none',
-            fontFamily: 'var(--font-heading)', fontWeight: '600', letterSpacing: '2px', fontSize: 'clamp(0.85rem, 2.5vw, 1rem)', textTransform: 'uppercase',
             transition: 'all 0.3s ease'
           }}
           whileHover={{ scale: 1.02, backgroundColor: 'rgba(74, 59, 63, 0.02)', borderColor: '#4a3b3f' }}
@@ -718,9 +712,9 @@ const Footer = () => {
         viewport={{ once: true }}
         style={{ zIndex: 1, textAlign: 'center', padding: '2rem' }}
       >
-        <p className="arabic-text" style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', color: '#8a4b56', marginBottom: '3rem' }}>بارك الله لكما وجمع بينكما في خير</p>
+        <p className="arabic-text" style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', color: '#8a4b56', marginBottom: '2rem' }}>بارك الله لكما وجمع بينكما في خير</p>
         <OrnateDivider />
-        <p className="script-text" style={{ fontSize: 'clamp(3.5rem, 8vw, 5.5rem)', color: '#4a3b3f', marginTop: '3rem' }}>Avec toute notre affection</p>
+        <p className="script-heading" style={{ marginTop: '2rem' }}>Avec toute notre affection</p>
       </motion.div>
     </section>
   );
