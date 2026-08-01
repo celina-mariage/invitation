@@ -346,9 +346,10 @@ const EntranceScreen = ({ onOpen }) => {
             <motion.button 
               className="btn-primary" 
               style={{ 
-                padding: '1rem 3.5rem', backgroundColor: 'var(--color-text-secondary)', border: 'none', borderRadius: '50px',
+                padding: 'clamp(0.8rem, 3vw, 1rem) clamp(2.5rem, 6vw, 3.5rem)', backgroundColor: 'var(--color-text-secondary)', border: 'none', borderRadius: '50px',
                 color: '#fff', boxShadow: '0 4px 15px rgba(201, 107, 125, 0.3)',
-                fontFamily: 'var(--font-body)', fontWeight: '500', letterSpacing: '3px', fontSize: '0.85rem', textTransform: 'uppercase'
+                fontFamily: 'var(--font-body)', fontWeight: '500', letterSpacing: '3px', fontSize: '0.85rem', textTransform: 'uppercase',
+                maxWidth: '92%', boxSizing: 'border-box'
               }}
               onClick={onOpen}
               whileHover={{ scale: 1.05, backgroundColor: '#b55a6a' }}
@@ -862,13 +863,15 @@ const Footer = () => {
           display: 'inline-flex',
           alignItems: 'center',
           gap: '0.5rem',
-          padding: '0.7rem 1.6rem',
+          padding: '0.7rem clamp(1rem, 3vw, 1.6rem)',
           borderRadius: '50px',
           background: 'rgba(255, 253, 252, 0.9)',
           border: '1px solid rgba(138, 75, 86, 0.25)',
           color: '#8a4b56',
           cursor: 'pointer',
           boxShadow: '0 4px 15px rgba(138, 75, 86, 0.15)',
+          maxWidth: '92%',
+          boxSizing: 'border-box',
           zIndex: 10
         }}
         whileHover={{ scale: 1.05 }}
