@@ -796,10 +796,13 @@ const Venue = () => {
   return (
     <section className="snap-section" style={{ backgroundColor: 'var(--color-bg-primary)', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem 1.5rem 4rem 1.5rem', position: 'relative' }}>
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-10%" }}
+        variants={{
+          hidden: { opacity: 0, y: 30 },
+          visible: { opacity: 1, y: 0, transition: { duration: 0.7, staggerChildren: 0.12, delayChildren: 0.3 } }
+        }}
         style={{ 
           textAlign: 'center', 
           maxWidth: '600px',
@@ -816,42 +819,77 @@ const Venue = () => {
         <div style={{ position: 'absolute', bottom: '10px', left: '10px', width: '25px', height: '25px', borderBottom: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.5 }}></div>
         <div style={{ position: 'absolute', bottom: '10px', right: '10px', width: '25px', height: '25px', borderBottom: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.5 }}></div>
 
-        <div style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center', width: '56px', height: '56px', borderRadius: '50%', backgroundColor: 'rgba(138, 75, 86, 0.03)', marginBottom: '0.6rem' }}>
+        {/* Bouncing MapPin icon */}
+        <motion.div 
+          variants={{ hidden: { opacity: 0, y: -20 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 8, stiffness: 180 } } }}
+          style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center', width: '56px', height: '56px', borderRadius: '50%', backgroundColor: 'rgba(138, 75, 86, 0.06)', marginBottom: '0.6rem' }}
+        >
           <MapPin size={24} strokeWidth={1.2} color="#8a4b56" />
-        </div>
+        </motion.div>
         
-        <h2 className="script-heading">Rendez-vous à</h2>
+        <motion.h2 
+          className="script-heading"
+          variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+        >
+          Rendez-vous à
+        </motion.h2>
         
-        <h3 className="subheader-uppercase" style={{ margin: '0.6rem 0' }}>Salle des Fêtes<br/>Palais Royal</h3>
+        <motion.h3 
+          className="subheader-uppercase" 
+          style={{ margin: '0.6rem 0' }}
+          variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+        >
+          Salle des Fêtes<br/>Palais Royal
+        </motion.h3>
         
-        <OrnateDivider />
+        <motion.div
+          variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1, transition: { duration: 0.8 } } }}
+        >
+          <OrnateDivider />
+        </motion.div>
         
-        <p className="label-uppercase" style={{ margin: '0.6rem 0' }}>Wilaya de Tizi Ouzou</p>
+        <motion.p 
+          className="label-uppercase" 
+          style={{ margin: '0.6rem 0' }}
+          variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+        >
+          Wilaya de Tizi Ouzou
+        </motion.p>
         
-        <p className="body-italic" style={{ margin: '0.8rem 0 0.4rem 0' }}>Nous aurons le bonheur de vous y<br/>accueillir à partir de 10h30.</p>
+        <motion.p 
+          className="body-italic" 
+          style={{ margin: '0.8rem 0 0.4rem 0' }}
+          variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+        >
+          Nous aurons le bonheur de vous y<br/>accueillir à partir de 10h30.
+        </motion.p>
         
-        {/* Ftour Schedule Badge */}
-        <div style={{ 
-          display: 'inline-flex', 
-          alignItems: 'center', 
-          gap: '0.45rem', 
-          padding: '0.45rem 1.1rem', 
-          margin: '0.3rem 0 1.2rem 0',
-          backgroundColor: 'rgba(138, 75, 86, 0.05)', 
-          border: '1px solid rgba(138, 75, 86, 0.18)', 
-          borderRadius: '50px' 
-        }}>
+        {/* Meal Schedule Badge */}
+        <motion.div 
+          variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1, transition: { type: 'spring', damping: 14, stiffness: 200 } } }}
+          style={{ 
+            display: 'inline-flex', 
+            alignItems: 'center', 
+            gap: '0.45rem', 
+            padding: '0.45rem 1.1rem', 
+            margin: '0.3rem 0 1.2rem 0',
+            backgroundColor: 'rgba(138, 75, 86, 0.05)', 
+            border: '1px solid rgba(138, 75, 86, 0.18)', 
+            borderRadius: '50px' 
+          }}
+        >
           <Utensils size={13} color="#8a4b56" strokeWidth={1.5} />
           <span className="label-uppercase" style={{ fontSize: 'clamp(0.72rem, 2.1vw, 0.82rem)', color: '#8a4b56', letterSpacing: '1.2px' }}>
             Le déjeuner sera de 11h30 à 13h30
           </span>
-        </div>
+        </motion.div>
         
         <motion.a 
           href="https://www.google.com/maps/search/?api=1&query=P4H4%2BPCR%2C%20Tizi%20Ouzou%2C%20Algeria" 
           target="_blank" 
           rel="noopener noreferrer"
           className="label-uppercase"
+          variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
           style={{ 
             display: 'inline-block', 
             padding: '0.75rem clamp(1rem, 4vw, 2.2rem)', 
