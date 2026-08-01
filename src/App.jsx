@@ -736,17 +736,25 @@ const Venue = () => {
 };
 
 const Footer = () => {
+  const handleScrollTop = () => {
+    const container = document.querySelector('.fullpage-container');
+    if (container) {
+      container.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="snap-section" style={{ 
       backgroundImage: `url('${import.meta.env.BASE_URL}blush_floral_bg.jpg')`, 
       backgroundSize: 'cover', 
       backgroundPosition: 'center',
       display: 'flex', 
+      flexDirection: 'column',
       justifyContent: 'center', 
       alignItems: 'center',
       position: 'relative',
       overflow: 'hidden',
-      padding: '1.5rem'
+      padding: '2rem 1.5rem 3rem 1.5rem'
     }}>
       {/* Soft Frosted Glass Overlay */}
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 253, 252, 0.65)', backdropFilter: 'blur(3px)', zIndex: 0 }} />
@@ -754,15 +762,20 @@ const Footer = () => {
       {/* Subtle Background Watermark Text */}
       <motion.p 
         initial={{ opacity: 0 }}
-        whileInView={{ opacity: 0.025 }}
+        whileInView={{ opacity: 0.03 }}
         transition={{ duration: 2 }}
         className="arabic-text" 
-        style={{ position: 'absolute', fontSize: '18vw', color: '#4a3b3f', whiteSpace: 'nowrap', zIndex: 0, pointerEvents: 'none' }}
+        style={{ position: 'absolute', fontSize: '20vw', color: '#4a3b3f', whiteSpace: 'nowrap', zIndex: 0, pointerEvents: 'none' }}
       >
         وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
       </motion.p>
+
+      {/* Top Flourish */}
+      <div style={{ zIndex: 1, marginBottom: '0.8rem', width: '100%', display: 'flex', justifyContent: 'center' }}>
+        <TopFlourish />
+      </div>
       
-      {/* Compact Frosted Glass Plaque */}
+      {/* Opulent Glass Plaque Card */}
       <motion.div
         initial={{ opacity: 0, scale: 0.96, y: 15 }}
         whileInView={{ opacity: 1, scale: 1, y: 0 }}
@@ -771,62 +784,92 @@ const Footer = () => {
         style={{ 
           zIndex: 1, 
           textAlign: 'center', 
-          padding: '1.8rem 1.5rem',
-          background: 'rgba(255,253,252,0.8)',
-          borderRadius: '24px',
+          padding: 'clamp(2rem, 5vw, 2.8rem) clamp(1.5rem, 4vw, 2.2rem)',
+          background: 'rgba(255,253,252,0.82)',
+          borderRadius: '28px',
           backdropFilter: 'blur(14px)',
           WebkitBackdropFilter: 'blur(14px)',
-          boxShadow: '0 15px 35px rgba(0,0,0,0.06), 0 0 1px rgba(138, 75, 86, 0.25)',
+          boxShadow: '0 20px 45px rgba(0,0,0,0.06), 0 0 1px rgba(138, 75, 86, 0.25)',
           border: '1px solid rgba(138, 75, 86, 0.2)',
           maxWidth: '92%',
-          width: '500px',
+          width: '540px',
           position: 'relative'
         }}
       >
         {/* Decorative Corner Brackets */}
-        <div style={{ position: 'absolute', top: '10px', left: '10px', width: '20px', height: '20px', borderTop: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.4 }}></div>
-        <div style={{ position: 'absolute', top: '10px', right: '10px', width: '20px', height: '20px', borderTop: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.4 }}></div>
-        <div style={{ position: 'absolute', bottom: '10px', left: '10px', width: '20px', height: '20px', borderBottom: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.4 }}></div>
-        <div style={{ position: 'absolute', bottom: '10px', right: '10px', width: '20px', height: '20px', borderBottom: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.4 }}></div>
+        <div style={{ position: 'absolute', top: '12px', left: '12px', width: '22px', height: '22px', borderTop: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.4 }}></div>
+        <div style={{ position: 'absolute', top: '12px', right: '12px', width: '22px', height: '22px', borderTop: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.4 }}></div>
+        <div style={{ position: 'absolute', bottom: '12px', left: '12px', width: '22px', height: '22px', borderBottom: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.4 }}></div>
+        <div style={{ position: 'absolute', bottom: '12px', right: '12px', width: '22px', height: '22px', borderBottom: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.4 }}></div>
 
-        {/* Integrated Jewel Medallion */}
+        {/* Monogram Badge */}
         <motion.div 
-          animate={{ scale: [1, 1.06, 1] }}
+          animate={{ scale: [1, 1.05, 1] }}
           transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
           style={{ 
             display: 'inline-flex', 
             justifyContent: 'center', 
             alignItems: 'center', 
-            width: '46px', 
-            height: '46px', 
+            width: '52px', 
+            height: '52px', 
             borderRadius: '50%', 
             backgroundColor: '#fffdfc', 
             border: '1px solid rgba(138, 75, 86, 0.25)',
-            marginBottom: '0.6rem',
-            boxShadow: '0 4px 12px rgba(138, 75, 86, 0.12)'
+            marginBottom: '0.8rem',
+            boxShadow: '0 4px 15px rgba(138, 75, 86, 0.12)'
           }}
         >
-          <Heart size={20} strokeWidth={1.4} color="#8a4b56" fill="rgba(138, 75, 86, 0.2)" />
+          <Heart size={22} strokeWidth={1.3} color="#8a4b56" fill="rgba(138, 75, 86, 0.2)" />
         </motion.div>
 
         {/* Quranic Verse */}
-        <p className="arabic-text" style={{ fontSize: 'clamp(1.5rem, 5vw, 2.2rem)', color: '#8a4b56', margin: '0.2rem 0 0.6rem 0', lineHeight: 1.3 }}>
+        <p className="arabic-text" style={{ fontSize: 'clamp(1.6rem, 5.2vw, 2.3rem)', color: '#8a4b56', margin: '0.2rem 0 0.6rem 0', lineHeight: 1.3 }}>
           وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
         </p>
 
         <OrnateDivider />
 
-        {/* Single Signature Block */}
+        <p className="body-italic" style={{ fontSize: 'clamp(1.1rem, 3.5vw, 1.4rem)', color: '#8a4b56', margin: '0.6rem 0 0.8rem 0' }}>
+          Hâte de vous compter parmi nous pour célébrer cette union.
+        </p>
+
+        {/* Signature Block */}
         <div style={{ marginTop: '0.6rem' }}>
-          <p className="script-heading" style={{ fontSize: 'clamp(2.4rem, 7vw, 3.8rem)', margin: 0, color: '#8a4b56' }}>
+          <p className="script-heading" style={{ fontSize: 'clamp(2.4rem, 6.5vw, 3.6rem)', margin: 0, color: '#8a4b56' }}>
             Avec toute notre affection,
           </p>
 
-          <p className="subheader-uppercase rose-gold-foil" style={{ letterSpacing: '4px', marginTop: '0.4rem', fontWeight: 700, fontSize: 'clamp(0.9rem, 3vw, 1.2rem)' }}>
+          <p className="subheader-uppercase rose-gold-foil" style={{ letterSpacing: '4px', marginTop: '0.4rem', fontWeight: 700, fontSize: 'clamp(0.95rem, 3vw, 1.25rem)' }}>
             La Famille Izri
           </p>
         </div>
       </motion.div>
+
+      {/* Back to Top Interactive Button */}
+      <motion.button
+        onClick={handleScrollTop}
+        aria-label="Retour en haut"
+        style={{
+          marginTop: '1.5rem',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          padding: '0.6rem 1.4rem',
+          borderRadius: '50px',
+          background: 'rgba(255, 253, 252, 0.9)',
+          border: '1px solid rgba(138, 75, 86, 0.25)',
+          color: '#8a4b56',
+          cursor: 'pointer',
+          boxShadow: '0 4px 15px rgba(138, 75, 86, 0.15)',
+          zIndex: 10
+        }}
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <span className="label-uppercase" style={{ fontSize: '0.75rem', letterSpacing: '2px', color: '#8a4b56' }}>
+          Retour en haut
+        </span>
+      </motion.button>
     </section>
   );
 };
