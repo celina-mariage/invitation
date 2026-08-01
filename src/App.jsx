@@ -362,8 +362,8 @@ const ScrollIndicator = () => {
   return (
     <motion.div 
       style={{ 
-        position: 'absolute', 
-        bottom: '2rem', 
+        position: 'fixed', 
+        bottom: '3rem', 
         left: '50%', 
         x: '-50%',
         display: 'flex',
@@ -371,28 +371,29 @@ const ScrollIndicator = () => {
         alignItems: 'center',
         opacity,
         pointerEvents: 'none',
-        zIndex: 20
+        zIndex: 50
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: 2.5, duration: 1.5 }}
+      transition={{ delay: 1.5, duration: 1 }}
     >
       <motion.p 
         style={{ 
           fontFamily: 'var(--font-heading)', 
-          fontSize: '0.65rem', 
+          fontSize: '0.8rem', 
+          fontWeight: 600,
           textTransform: 'uppercase', 
           letterSpacing: '4px',
           color: '#4a3b3f',
           marginBottom: '0.8rem',
-          opacity: 0.7
+          textShadow: '0 0 10px rgba(255, 253, 252, 0.9)'
         }}
       >
         Découvrir
       </motion.p>
-      <div style={{ width: '1px', height: '40px', backgroundColor: 'rgba(74, 59, 63, 0.2)', overflow: 'hidden', position: 'relative' }}>
+      <div style={{ width: '2px', height: '50px', backgroundColor: 'rgba(74, 59, 63, 0.2)', overflow: 'hidden', position: 'relative', borderRadius: '2px' }}>
         <motion.div 
-          style={{ width: '100%', height: '50%', backgroundColor: '#8a4b56' }}
+          style={{ width: '100%', height: '50%', backgroundColor: '#8a4b56', borderRadius: '2px' }}
           animate={{ y: ['-100%', '200%'] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
         />
