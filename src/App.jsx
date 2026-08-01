@@ -306,7 +306,7 @@ const EntranceScreen = ({ onOpen }) => {
         
         <motion.div 
           className="glass-card" 
-          style={{ x: cardX, y: cardY, zIndex: 20, margin: '0 auto', boxSizing: 'border-box' }}
+          style={{ zIndex: 20, margin: '0 auto', boxSizing: 'border-box' }}
           initial={{ opacity: 0, y: 20 }} 
           animate={{ opacity: 1, y: 0 }} 
           transition={{ duration: 1 }}
