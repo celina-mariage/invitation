@@ -511,177 +511,59 @@ const Hero = () => {
   );
 };
 
-const CalendarModal = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
-
-  const eventDetails = {
-    title: "Mariage de Celina",
-    description: "Nous avons l'immense joie de vous annoncer le mariage de Celina.",
-    location: "Salle des Fêtes Palais Royal, Wilaya de Tizi Ouzou, Algeria",
-    startDateISO: "20260829T093000Z",
-    endDateISO: "20260829T223000Z",
-    startMillis: 1787999400000,
-    endMillis: 1788046200000,
-  };
-
-  const handleGoogleCalendar = () => {
-    const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(eventDetails.title)}&dates=${eventDetails.startDateISO}/${eventDetails.endDateISO}&details=${encodeURIComponent(eventDetails.description)}&location=${encodeURIComponent(eventDetails.location)}`;
-    window.open(url, '_blank');
-    onClose();
-  };
-
-  const handleAndroidNative = () => {
-    const intentUrl = `intent://#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.item/event;S.title=${encodeURIComponent(eventDetails.title)};S.description=${encodeURIComponent(eventDetails.description)};S.eventLocation=${encodeURIComponent(eventDetails.location)};l.beginTime=${eventDetails.startMillis};l.endTime=${eventDetails.endMillis};end`;
-    window.location.href = intentUrl;
-    onClose();
-  };
-
-  const handleICSDownload = () => {
-    const icsData = `BEGIN:VCALENDAR
-VERSION:2.0
-PRODID:-//Celina Wedding//FR
-BEGIN:VEVENT
-UID:${new Date().getTime()}@celinawedding.com
-DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
-DTSTART:${eventDetails.startDateISO}
-DTEND:${eventDetails.endDateISO}
-SUMMARY:${eventDetails.title}
-LOCATION:${eventDetails.location}
-DESCRIPTION:${eventDetails.description}
-END:VEVENT
-END:VCALENDAR`;
-    const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.setAttribute('download', 'mariage_celina.ics');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    onClose();
-  };
-
-  const handleOutlook = () => {
-    const url = `https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent&subject=${encodeURIComponent(eventDetails.title)}&startdt=2026-08-29T09:30:00Z&enddt=2026-08-29T22:30:00Z&body=${encodeURIComponent(eventDetails.description)}&location=${encodeURIComponent(eventDetails.location)}`;
-    window.open(url, '_blank');
-    onClose();
-  };
-
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          style={{
-            position: 'fixed', top: 0, left: 0, width: '100vw', height: '100dvh',
-            backgroundColor: 'rgba(0, 0, 0, 0.45)', backdropFilter: 'blur(5px)',
-            zIndex: 1000, display: 'flex', justifyContent: 'center', alignItems: 'center',
-            padding: '1rem'
-          }}
-          onClick={onClose}
-        >
-          <motion.div
-            initial={{ scale: 0.9, y: 20, opacity: 0 }}
-            animate={{ scale: 1, y: 0, opacity: 1 }}
-            exit={{ scale: 0.9, y: 20, opacity: 0 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            style={{
-              backgroundColor: '#fffdfc',
-              borderRadius: '24px',
-              padding: '2rem 1.5rem',
-              maxWidth: '400px',
-              width: '100%',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-              border: '1px solid rgba(138, 75, 86, 0.15)',
-              position: 'relative'
-            }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-              <CalendarHeart size={36} color="#8a4b56" style={{ marginBottom: '0.5rem' }} />
-              <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.1rem', color: '#4a3b3f', margin: 0, textTransform: 'uppercase', letterSpacing: '2px' }}>
-                Ajouter à votre agenda
-              </h3>
-              <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: '#8a4b56', marginTop: '0.25rem' }}>
-                Choisissez votre application préférée
-              </p>
-            </div>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-              <button
-                onClick={handleGoogleCalendar}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.85rem 1.2rem',
-                  borderRadius: '16px', border: '1px solid rgba(138, 75, 86, 0.15)',
-                  backgroundColor: 'rgba(255, 255, 255, 0.9)', cursor: 'pointer',
-                  fontSize: '0.9rem', fontWeight: '500', color: '#4a3b3f'
-                }}
-              >
-                <span style={{ fontSize: '1.2rem' }}>📅</span> Google Calendar
-              </button>
-
-              <button
-                onClick={handleAndroidNative}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.85rem 1.2rem',
-                  borderRadius: '16px', border: '1px solid rgba(138, 75, 86, 0.15)',
-                  backgroundColor: 'rgba(255, 255, 255, 0.9)', cursor: 'pointer',
-                  fontSize: '0.9rem', fontWeight: '500', color: '#4a3b3f'
-                }}
-              >
-                <span style={{ fontSize: '1.2rem' }}>🤖</span> Android Calendar (Samsung, Xiaomi...)
-              </button>
-
-              <button
-                onClick={handleICSDownload}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.85rem 1.2rem',
-                  borderRadius: '16px', border: '1px solid rgba(138, 75, 86, 0.15)',
-                  backgroundColor: 'rgba(255, 255, 255, 0.9)', cursor: 'pointer',
-                  fontSize: '0.9rem', fontWeight: '500', color: '#4a3b3f'
-                }}
-              >
-                <span style={{ fontSize: '1.2rem' }}>🍏</span> Apple Calendar / Fichier .ics
-              </button>
-
-              <button
-                onClick={handleOutlook}
-                style={{
-                  display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.85rem 1.2rem',
-                  borderRadius: '16px', border: '1px solid rgba(138, 75, 86, 0.15)',
-                  backgroundColor: 'rgba(255, 255, 255, 0.9)', cursor: 'pointer',
-                  fontSize: '0.9rem', fontWeight: '500', color: '#4a3b3f'
-                }}
-              >
-                <span style={{ fontSize: '1.2rem' }}>✉️</span> Outlook / Microsoft 365
-              </button>
-            </div>
-
-            <button
-              onClick={onClose}
-              style={{
-                marginTop: '1.25rem', width: '100%', padding: '0.6rem',
-                backgroundColor: 'transparent', border: 'none',
-                color: '#8a4b56', fontSize: '0.85rem', cursor: 'pointer',
-                fontFamily: 'var(--font-body)', fontWeight: 600
-              }}
-            >
-              Fermer
-            </button>
-          </motion.div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-};
-
 const Countdown = () => {
   const targetDate = new Date('2026-08-29T10:30:00').getTime();
   const [timeLeft, setTimeLeft] = useState({
     Jours: 0, Heures: 0, Min: 0, Sec: 0
   });
-  const [isCalendarModalOpen, setIsCalendarModalOpen] = useState(false);
+
+  const addToCalendar = () => {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isAndroid = /Android/.test(navigator.userAgent);
+
+    const downloadICS = () => {
+      const icsData = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Celina Wedding//FR
+BEGIN:VEVENT
+UID:${new Date().getTime()}@celinawedding.com
+DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
+DTSTART:20260829T093000Z
+DTEND:20260829T223000Z
+SUMMARY:Mariage de Celina
+LOCATION:Salle des Fêtes Palais Royal, Wilaya de Tizi Ouzou, Algeria
+DESCRIPTION:Nous avons l'immense joie de vous annoncer le mariage de Celina.
+END:VEVENT
+END:VCALENDAR`;
+      const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute('download', 'mariage_celina.ics');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
+    if (isIOS) {
+      downloadICS();
+    } else if (isAndroid) {
+      let start = Date.now();
+      const baseUrl = `calendar.google.com/calendar/render?action=TEMPLATE&text=Mariage+de+Celina&dates=20260829T093000Z/20260829T223000Z&details=Nous+avons+l'immense+joie+de+vous+annoncer+le+mariage+de+Celina.&location=Salle+des+Fêtes+Palais+Royal,+Wilaya+de+Tizi+Ouzou,+Algeria`;
+      
+      // Try opening Google Calendar App via intent
+      window.location.href = `intent://${baseUrl}#Intent;scheme=https;package=com.google.android.calendar;end`;
+
+      // Fallback: If page is still visible after 1.5s (app not installed), trigger download
+      setTimeout(() => {
+        if (Date.now() - start < 2200 && !document.hidden) {
+          downloadICS();
+        }
+      }, 1500);
+    } else {
+      const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mariage+de+Celina&dates=20260829T093000Z/20260829T223000Z&details=Nous+avons+l'immense+joie+de+vous+annoncer+le+mariage+de+Celina.&location=Salle+des+Fêtes+Palais+Royal,+Wilaya+de+Tizi+Ouzou,+Algeria`;
+      window.open(googleUrl, '_blank');
+    }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -752,14 +634,12 @@ const Countdown = () => {
         <motion.button 
           className="btn-primary" 
           style={{ padding: '0.8rem 2rem', fontSize: '0.9rem', width: '80%', maxWidth: '300px' }}
-          onClick={() => setIsCalendarModalOpen(true)}
+          onClick={addToCalendar}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
           Ajouter au calendrier
         </motion.button>
-
-        <CalendarModal isOpen={isCalendarModalOpen} onClose={() => setIsCalendarModalOpen(false)} />
       </motion.div>
     </section>
   );
