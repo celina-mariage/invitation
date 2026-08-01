@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useMotionTemplate } from 'framer-motion';
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useMotionTemplate, useSpring } from 'framer-motion';
 import { MapPin, CalendarHeart, Heart, Volume2, VolumeX, ChevronDown } from 'lucide-react';
 
 const ParallaxBanner = ({ className, style, imagePosition }) => {
@@ -232,14 +232,16 @@ const EntranceScreen = ({ onOpen }) => {
     }
   };
   
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const rawMouseX = useMotionValue(0);
+  const rawMouseY = useMotionValue(0);
+  const mouseX = useSpring(rawMouseX, { stiffness: 60, damping: 20 });
+  const mouseY = useSpring(rawMouseY, { stiffness: 60, damping: 20 });
 
   const handleMouseMove = (e) => {
     const { clientX, clientY } = e;
     const { innerWidth, innerHeight } = window;
-    mouseX.set((clientX / innerWidth - 0.5) * 2);
-    mouseY.set((clientY / innerHeight - 0.5) * 2);
+    rawMouseX.set((clientX / innerWidth - 0.5) * 2);
+    rawMouseY.set((clientY / innerHeight - 0.5) * 2);
   };
 
   useEffect(() => {
@@ -251,8 +253,8 @@ const EntranceScreen = ({ onOpen }) => {
       if (y > 30) y = 30;
       if (y < -30) y = -30;
       if (x !== null && y !== null) {
-        mouseX.set(x / 30);
-        mouseY.set(y / 30);
+        rawMouseX.set(x / 30);
+        rawMouseY.set(y / 30);
       }
     };
     if (window.DeviceOrientationEvent) {
@@ -367,6 +369,7 @@ const ScrollIndicator = () => {
         flexDirection: 'column',
         alignItems: 'center',
         marginTop: 'auto',
+        marginBottom: '0.5rem',
         pointerEvents: 'none',
         zIndex: 50
       }}
@@ -374,26 +377,22 @@ const ScrollIndicator = () => {
       animate={{ opacity: 1 }}
       transition={{ delay: 1.5, duration: 1 }}
     >
-      <motion.p 
-        style={{ 
-          fontFamily: 'var(--font-heading)', 
-          fontSize: '0.8rem', 
-          fontWeight: 600,
-          textTransform: 'uppercase', 
-          letterSpacing: '4px',
-          color: '#4a3b3f',
-          marginBottom: '0.8rem',
-          textShadow: '0 0 10px rgba(255, 253, 252, 0.9)'
-        }}
-      >
-        Découvrir
-      </motion.p>
       <motion.div
         animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ marginTop: '0.2rem' }}
+        transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ 
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '42px',
+          height: '42px',
+          borderRadius: '50%',
+          backgroundColor: 'rgba(255, 253, 252, 0.9)',
+          boxShadow: '0 4px 15px rgba(138, 75, 86, 0.25), 0 0 1px rgba(138, 75, 86, 0.2)',
+          backdropFilter: 'blur(8px)'
+        }}
       >
-        <ChevronDown size={28} color="#8a4b56" strokeWidth={1.5} />
+        <ChevronDown size={24} color="#8a4b56" strokeWidth={2.2} />
       </motion.div>
     </motion.div>
   );
