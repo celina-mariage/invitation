@@ -84,10 +84,10 @@ html, body {
 /* 2. Formal Subheaders (Monsieur et Madame Izri, Le Grand Jour, Salle des Fêtes Palais Royal) */
 .subheader-uppercase {
   font-family: var(--font-heading);
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
-  font-size: clamp(1rem, 4vw, 1.45rem);
+  font-size: clamp(1.05rem, 4.2vw, 1.5rem);
   color: var(--color-text-primary);
   text-align: center;
   line-height: 1.4;
@@ -98,7 +98,7 @@ html, body {
   font-family: var(--font-heading);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.25rem, 4.5vw, 1.85rem);
+  font-size: clamp(1.4rem, 5.2vw, 2.1rem);
   color: var(--color-text-rose);
   line-height: 1.5;
   text-align: center;
