@@ -594,15 +594,15 @@ const Venue = () => {
           <MapPin size={32} strokeWidth={1} color="#8a4b56" />
         </div>
         
-        <h2 className="script-text" style={{ fontSize: 'clamp(3rem, 7vw, 5rem)', color: '#4a3b3f', margin: '0 0 1rem 0', lineHeight: 1 }}>Rendez-vous à</h2>
+        <h2 className="script-text" style={{ fontSize: 'clamp(3.5rem, 8vw, 6rem)', color: '#4a3b3f', margin: '0 0 1rem 0', lineHeight: 1 }}>Rendez-vous à</h2>
         
-        <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 400, letterSpacing: '4px', textTransform: 'uppercase', fontSize: 'clamp(1.2rem, 4vw, 2rem)', margin: '2rem 0 1rem 0', color: '#4a3b3f', lineHeight: '1.4' }}>Salle des Fêtes<br/>Palais Royal</h3>
+        <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 400, letterSpacing: '4px', textTransform: 'uppercase', fontSize: 'clamp(1.5rem, 6vw, 2.5rem)', margin: '2rem 0 1rem 0', color: '#4a3b3f', lineHeight: '1.4' }}>Salle des Fêtes<br/>Palais Royal</h3>
         
         <OrnateDivider />
         
-        <p style={{ fontFamily: 'var(--font-body)', fontWeight: 400, letterSpacing: '3px', textTransform: 'uppercase', fontSize: '0.85rem', color: '#8a4b56', marginTop: '1.5rem' }}>Wilaya de Tizi Ouzou</p>
+        <p style={{ fontFamily: 'var(--font-body)', fontWeight: 400, letterSpacing: '3px', textTransform: 'uppercase', fontSize: 'clamp(0.9rem, 3vw, 1.2rem)', color: '#8a4b56', marginTop: '1.5rem' }}>Wilaya de Tizi Ouzou</p>
         
-        <p style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontSize: 'clamp(1.1rem, 3.5vw, 1.3rem)', margin: '3rem 0', color: '#4a3b3f', lineHeight: 1.6 }}>Nous aurons le bonheur de vous y<br/>accueillir à partir de 10h30.</p>
+        <p style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontSize: 'clamp(1.3rem, 4vw, 1.8rem)', margin: '3rem 0', color: '#4a3b3f', lineHeight: 1.6 }}>Nous aurons le bonheur de vous y<br/>accueillir à partir de 10h30.</p>
         
         <motion.a 
           href="https://www.google.com/maps/search/?api=1&query=P4H4%2BPCR%2C%20Tizi%20Ouzou%2C%20Algeria" 
@@ -611,7 +611,7 @@ const Venue = () => {
           style={{ 
             display: 'inline-block', padding: '1.2rem 3.5rem', backgroundColor: 'transparent', border: '1px solid rgba(74, 59, 63, 0.3)', borderRadius: '50px',
             color: '#4a3b3f', textDecoration: 'none',
-            fontFamily: 'var(--font-heading)', fontWeight: '600', letterSpacing: '3px', fontSize: '0.85rem', textTransform: 'uppercase',
+            fontFamily: 'var(--font-heading)', fontWeight: '600', letterSpacing: '3px', fontSize: 'clamp(0.9rem, 3vw, 1.1rem)', textTransform: 'uppercase',
             transition: 'all 0.3s ease'
           }}
           whileHover={{ scale: 1.02, backgroundColor: 'rgba(74, 59, 63, 0.02)', borderColor: '#4a3b3f' }}
