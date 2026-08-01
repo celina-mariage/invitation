@@ -528,7 +528,7 @@ DTSTART:20260829T100000Z
 DTEND:20260829T140000Z
 SUMMARY:Invitation de mariage IZRI
 LOCATION:Salle des Fêtes Palais Royal, Wilaya de Tizi Ouzou, Algeria
-DESCRIPTION:Nous avons l'immense joie de vous annoncer notre mariage.
+DESCRIPTION:C'est avec une grande joie que nous vous convions à célébrer notre union. Soyez les bienvenus pour partager ce moment inoubliable à nos côtés.
 BEGIN:VALARM
 TRIGGER:-PT1D
 ACTION:DISPLAY
