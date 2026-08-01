@@ -300,13 +300,13 @@ const EntranceScreen = ({ onOpen }) => {
         }}
       />
       
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '1rem', boxSizing: 'border-box' }}>
         <Petals />
         <Sparkles />
         
         <motion.div 
           className="glass-card" 
-          style={{ x: cardX, y: cardY, zIndex: 20 }}
+          style={{ x: cardX, y: cardY, zIndex: 20, margin: '0 auto', boxSizing: 'border-box' }}
           initial={{ opacity: 0, y: 20 }} 
           animate={{ opacity: 1, y: 0 }} 
           transition={{ duration: 1 }}
@@ -316,7 +316,7 @@ const EntranceScreen = ({ onOpen }) => {
           <TypewriterText 
             text="بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ" 
             className="arabic-text rose-gold-foil" 
-            style={{ fontSize: 'clamp(2.5rem, 11vw, 4.8rem)', marginBottom: '0', zIndex: 2, padding: '0 5px' }} 
+            style={{ fontSize: 'clamp(1.6rem, 7.5vw, 3.4rem)', marginBottom: '0', zIndex: 2, padding: '0 5px' }} 
             delay={1.0} 
             duration={2} 
             rtl={true} 
