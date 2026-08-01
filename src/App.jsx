@@ -760,22 +760,23 @@ function App() {
         {isPlaying ? <AudioVisualizer /> : <VolumeX size={18} />}
       </motion.button>
 
-      {/* Pre-rendered main invitation container */}
-      <div 
-        className="fullpage-container"
-        style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
-      >
-        <AmbientPulse />
-        <Hero />
-        <Countdown />
-        <Venue />
-        <Footer />
-      </div>
-
-      {/* Entrance Screen Overlay */}
-      <AnimatePresence>
-        {!isOpen && (
+      <AnimatePresence mode="wait">
+        {!isOpen ? (
           <EntranceScreen key="entrance" onOpen={handleOpen} />
+        ) : (
+          <motion.div
+            key="content"
+            className="fullpage-container"
+            initial={{ opacity: 0, y: 50, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ type: "spring", stiffness: 70, damping: 20, mass: 1 }}
+          >
+            <AmbientPulse />
+            <Hero />
+            <Countdown />
+            <Venue />
+            <Footer />
+          </motion.div>
         )}
       </AnimatePresence>
     </main>
