@@ -542,8 +542,18 @@ END:VCALENDAR`;
       link.click();
       document.body.removeChild(link);
     } else {
-      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mariage+de+Celina&dates=20260829T093000Z/20260829T223000Z&details=Nous+avons+l'immense+joie+de+vous+annoncer+le+mariage+de+Celina.&location=Salle+des+Fêtes+Palais+Royal,+Wilaya+de+Tizi+Ouzou,+Algeria`;
-      window.open(url, '_blank');
+      const isAndroid = /Android/.test(navigator.userAgent);
+      
+      const baseUrl = `calendar.google.com/calendar/render?action=TEMPLATE&text=Mariage+de+Celina&dates=20260829T093000Z/20260829T223000Z&details=Nous+avons+l'immense+joie+de+vous+annoncer+le+mariage+de+Celina.&location=Salle+des+Fêtes+Palais+Royal,+Wilaya+de+Tizi+Ouzou,+Algeria`;
+      
+      if (isAndroid) {
+        // Force native Google Calendar App via intent scheme, fallback to browser
+        const fallbackUrl = encodeURIComponent(`https://${baseUrl}`);
+        window.location.href = `intent://${baseUrl}#Intent;scheme=https;package=com.google.android.calendar;S.browser_fallback_url=${fallbackUrl};end`;
+      } else {
+        // Desktop
+        window.open(`https://${baseUrl}`, '_blank');
+      }
     }
   };
 
