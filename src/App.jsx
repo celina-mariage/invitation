@@ -694,7 +694,7 @@ const Venue = () => {
         
         <p className="label-uppercase" style={{ margin: '0.6rem 0' }}>Wilaya de Tizi Ouzou</p>
         
-        <p className="body-italic" style={{ margin: '1rem 0' }}>Nous aurons le bonheur de vous y<br/>accueillir à partir de 10h30.</p>
+        <p className="body-italic" style={{ margin: '1rem 0' }}>Nous aurons le bonheur de vous y<br/>accueillir à partir de 11h.</p>
         
         <motion.a 
           href="https://www.google.com/maps/search/?api=1&query=P4H4%2BPCR%2C%20Tizi%20Ouzou%2C%20Algeria" 
