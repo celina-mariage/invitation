@@ -714,9 +714,9 @@ END:VCALENDAR`;
           <motion.div 
             animate={{ scale: [1, 1.15, 1] }} 
             transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-            style={{ display: 'inline-block', marginBottom: '1.2rem' }}
+            style={{ display: 'inline-block', marginBottom: 'clamp(0.8rem, 3vw, 1.2rem)' }}
           >
-            <CalendarHeart size={48} strokeWidth={1} color="#8a4b56" />
+            <CalendarHeart size="clamp(32px, 8vw, 52px)" strokeWidth={1} color="#8a4b56" />
           </motion.div>
         </motion.div>
         
@@ -738,7 +738,7 @@ END:VCALENDAR`;
         
         {/* Countdown units separated into distinct elegant rectangles */}
         <motion.div 
-          style={{ display: 'flex', gap: '0.8rem', justifyContent: 'center', marginTop: '1.5rem', flexWrap: 'wrap' }}
+          style={{ display: 'flex', gap: 'clamp(0.4rem, 1.5vw, 0.8rem)', justifyContent: 'center', marginTop: 'clamp(1rem, 4vw, 1.5rem)', flexWrap: 'wrap' }}
           variants={{
             hidden: { opacity: 0 },
             visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.6 } }
@@ -755,10 +755,12 @@ END:VCALENDAR`;
                 justifyContent: 'center',
                 backgroundColor: 'rgba(255,253,252,0.9)',
                 border: '1px solid rgba(138, 75, 86, 0.2)',
-                borderRadius: '16px',
-                padding: '0.8rem 1.2rem',
-                minWidth: '72px',
-                boxShadow: '0 8px 20px rgba(0,0,0,0.04)'
+                borderRadius: 'clamp(10px, 3vw, 16px)',
+                padding: 'clamp(0.5rem, 2vw, 0.8rem) clamp(0.6rem, 2.5vw, 1.2rem)',
+                minWidth: 'clamp(58px, 16vw, 75px)',
+                boxShadow: '0 8px 20px rgba(0,0,0,0.04)',
+                flex: '1 1 auto',
+                maxWidth: '120px'
               }}
             >
               <div style={{ 
@@ -780,7 +782,7 @@ END:VCALENDAR`;
           variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
           style={{ 
             display: 'inline-block', 
-            padding: '0.9rem clamp(1.4rem, 5vw, 2.8rem)', 
+            padding: 'clamp(0.7rem, 2.5vw, 1rem) clamp(1.2rem, 5vw, 2.8rem)', 
             backgroundColor: 'transparent', 
             border: '1.5px solid rgba(74, 59, 63, 0.4)', 
             borderRadius: '50px',
@@ -788,10 +790,10 @@ END:VCALENDAR`;
             whiteSpace: 'normal',
             maxWidth: '92%',
             boxSizing: 'border-box',
-            marginTop: '2.5rem',
+            marginTop: 'clamp(1.5rem, 5vw, 2.5rem)',
             cursor: 'pointer',
-            fontSize: 'clamp(0.8rem, 2.8vw, 1.05rem)',
-            letterSpacing: '2.5px',
+            fontSize: 'clamp(0.75rem, 2.8vw, 1.05rem)',
+            letterSpacing: 'clamp(1.5px, 1vw, 2.5px)',
             transition: 'all 0.3s ease'
           }}
           onClick={downloadICS}
