@@ -18,7 +18,7 @@ const ParallaxBanner = ({ className, style, imagePosition }) => {
         style={{ 
           y,
           position: 'absolute', top: '-30%', left: 0, right: 0, bottom: '-30%',
-          backgroundImage: "url('/bg.jpg')",
+          backgroundImage: `url('${import.meta.env.BASE_URL}bg.jpg')`,
           backgroundSize: 'cover',
           backgroundPosition: imagePosition || 'center'
         }} 
@@ -47,45 +47,7 @@ const AudioVisualizer = () => {
   );
 };
 
-const AudioPlayer = () => {
-  const [isPlaying, setIsPlaying] = useState(true);
-  const audioRef = useRef(null);
-
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.play().catch(error => {
-        console.log("Autoplay was prevented by the browser:", error);
-        setIsPlaying(false);
-      });
-    }
-  }, []);
-
-  const togglePlay = () => {
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
-    setIsPlaying(!isPlaying);
-  };
-
-  return (
-    <>
-      <audio ref={audioRef} loop src="https://kad-jemputan-kahwin.vercel.app/music/Beautiful%20in%20White%20x%20Canon%20in%20D%20(Piano%20Cover%20by%20Riyandi%20Kusuma).mp3" />
-      <motion.button
-        onClick={togglePlay}
-        className="fab-audio"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 1, duration: 0.8, type: 'spring' }}
-      >
-        {isPlaying ? <AudioVisualizer /> : <VolumeX size={18} />}
-      </motion.button>
-    </>
-  );
-};
+// Audio handling moved directly to App.jsx to ensure synchronous play on click
 
 const Petals = () => {
   const petals = Array.from({ length: 45 }).map((_, i) => ({
@@ -537,7 +499,7 @@ END:VCALENDAR`;
 
   return (
     <section className="snap-section" style={{ 
-      backgroundImage: "url('/blush_floral_bg.jpg')", 
+      backgroundImage: `url('${import.meta.env.BASE_URL}blush_floral_bg.jpg')`, 
       backgroundSize: 'cover', 
       backgroundPosition: 'center',
       backgroundAttachment: 'fixed',
@@ -692,17 +654,34 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    if (isOpen && audioRef.current && !isPlaying) {
-      audioRef.current.play().then(() => setIsPlaying(true)).catch(e => console.log("Autoplay prevented:", e));
+  const handleOpen = () => {
+    setIsOpen(true);
+    if (audioRef.current && !isPlaying) {
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+      }).catch(e => {
+        console.log("Autoplay prevented:", e);
+      });
     }
-  }, [isOpen]);
+  };
 
   return (
     <main style={{ backgroundColor: 'var(--color-bg-primary)', minHeight: '100vh', width: '100%', position: 'relative' }}>
-      <AudioPlayer />
+      <audio ref={audioRef} loop src="https://kad-jemputan-kahwin.vercel.app/music/Beautiful%20in%20White%20x%20Canon%20in%20D%20(Piano%20Cover%20by%20Riyandi%20Kusuma).mp3" />
+      <motion.button
+        onClick={toggleAudio}
+        className="fab-audio"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1, duration: 0.8, type: 'spring' }}
+      >
+        {isPlaying ? <AudioVisualizer /> : <VolumeX size={18} />}
+      </motion.button>
+
       <AnimatePresence onExitComplete={() => setIsEntranceDone(true)}>
-        {!isOpen && <EntranceScreen key="entrance" onOpen={() => setIsOpen(true)} />}
+        {!isOpen && <EntranceScreen key="entrance" onOpen={handleOpen} />}
       </AnimatePresence>
       
       {isEntranceDone && (
