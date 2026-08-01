@@ -801,8 +801,6 @@ const Footer = () => {
         <div style={{ position: 'absolute', top: '12px', right: '12px', width: '22px', height: '22px', borderTop: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.4 }}></div>
         <div style={{ position: 'absolute', bottom: '12px', left: '12px', width: '22px', height: '22px', borderBottom: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.4 }}></div>
         <div style={{ position: 'absolute', bottom: '12px', right: '12px', width: '22px', height: '22px', borderBottom: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.4 }}></div>
-
-        {/* Monogram Badge */}
         <motion.div 
           animate={{ scale: [1, 1.05, 1] }}
           transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
@@ -823,23 +821,23 @@ const Footer = () => {
         </motion.div>
 
         {/* Quranic Verse */}
-        <p className="arabic-text" style={{ fontSize: 'clamp(1.6rem, 5.2vw, 2.3rem)', color: '#8a4b56', margin: '0.2rem 0 0.6rem 0', lineHeight: 1.3 }}>
+        <p className="arabic-text" style={{ fontSize: 'clamp(1.85rem, 6.2vw, 2.8rem)', color: '#8a4b56', margin: '0.2rem 0 0.6rem 0', lineHeight: 1.3 }}>
           وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
         </p>
 
         <OrnateDivider />
 
-        <p className="body-italic" style={{ fontSize: 'clamp(1.1rem, 3.5vw, 1.4rem)', color: '#8a4b56', margin: '0.6rem 0 0.8rem 0' }}>
+        <p className="body-italic" style={{ fontSize: 'clamp(1.35rem, 4.8vw, 1.85rem)', color: '#8a4b56', margin: '0.6rem 0 0.8rem 0' }}>
           Hâte de vous compter parmi nous pour célébrer cette union.
         </p>
 
         {/* Signature Block */}
         <div style={{ marginTop: '0.6rem' }}>
-          <p className="script-heading" style={{ fontSize: 'clamp(2.4rem, 6.5vw, 3.6rem)', margin: 0, color: '#8a4b56' }}>
+          <p className="script-heading" style={{ fontSize: 'clamp(2.8rem, 8vw, 4.2rem)', margin: 0, color: '#8a4b56' }}>
             Avec toute notre affection,
           </p>
 
-          <p className="subheader-uppercase rose-gold-foil" style={{ letterSpacing: '4px', marginTop: '0.4rem', fontWeight: 700, fontSize: 'clamp(0.95rem, 3vw, 1.25rem)' }}>
+          <p className="subheader-uppercase rose-gold-foil" style={{ letterSpacing: '4px', marginTop: '0.4rem', fontWeight: 700, fontSize: 'clamp(1.15rem, 4vw, 1.5rem)' }}>
             La Famille Izri
           </p>
         </div>
@@ -854,7 +852,7 @@ const Footer = () => {
           display: 'inline-flex',
           alignItems: 'center',
           gap: '0.5rem',
-          padding: '0.6rem 1.4rem',
+          padding: '0.7rem 1.6rem',
           borderRadius: '50px',
           background: 'rgba(255, 253, 252, 0.9)',
           border: '1px solid rgba(138, 75, 86, 0.25)',
@@ -866,7 +864,7 @@ const Footer = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >
-        <span className="label-uppercase" style={{ fontSize: '0.75rem', letterSpacing: '2px', color: '#8a4b56' }}>
+        <span className="label-uppercase" style={{ fontSize: '0.85rem', letterSpacing: '2px', color: '#8a4b56' }}>
           Retour en haut
         </span>
       </motion.button>
