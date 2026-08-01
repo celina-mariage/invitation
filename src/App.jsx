@@ -683,35 +683,70 @@ END:VCALENDAR`;
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 253, 252, 0.6)', backdropFilter: 'blur(3px)', zIndex: 0 }} />
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', zIndex: 1, width: '100%' }}>
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1 }}
-        viewport={{ once: true }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-10%" }}
+        variants={{
+          hidden: { opacity: 0, scale: 0.95 },
+          visible: { 
+            opacity: 1, 
+            scale: 1, 
+            transition: { duration: 0.8, staggerChildren: 0.15, delayChildren: 0.3 } 
+          }
+        }}
         style={{ textAlign: 'center', padding: 'clamp(1.5rem, 4vw, 2rem) clamp(0.6rem, 3vw, 1.5rem)', background: 'rgba(255,253,252,0.65)', borderRadius: '30px', backdropFilter: 'blur(10px)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', maxWidth: '95%', width: '700px', boxSizing: 'border-box' }}
       >
-        <CalendarHeart size={38} strokeWidth={1} color="#8a4b56" style={{ marginBottom: '1rem' }} />
-        <h2 className="subheader-uppercase">Le Grand Jour</h2>
+        <motion.div 
+          variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+        >
+          <motion.div 
+            animate={{ scale: [1, 1.15, 1] }} 
+            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+            style={{ display: 'inline-block', marginBottom: '1rem' }}
+          >
+            <CalendarHeart size={38} strokeWidth={1} color="#8a4b56" />
+          </motion.div>
+        </motion.div>
         
-        {/* Date perfectly clamped to stay on one line inside rectangle */}
-        <p className="date-script-heading">
+        <motion.h2 
+          className="subheader-uppercase"
+          variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+        >
+          Le Grand Jour
+        </motion.h2>
+        
+        <motion.p 
+          className="date-script-heading"
+          variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+        >
           Samedi 29 Août 2026
-        </p>
+        </motion.p>
         
         {/* Countdown units separated into distinct elegant rectangles */}
-        <div style={{ display: 'flex', gap: '0.6rem', justifyContent: 'center', marginTop: '1.2rem', flexWrap: 'wrap' }}>
+        <motion.div 
+          style={{ display: 'flex', gap: '0.6rem', justifyContent: 'center', marginTop: '1.2rem', flexWrap: 'wrap' }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.6 } }
+          }}
+        >
           {Object.entries(timeLeft).map(([unit, value]) => (
-            <div key={unit} style={{ 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center',
-              justifyContent: 'center',
-              backgroundColor: 'rgba(255,253,252,0.9)',
-              border: '1px solid rgba(138, 75, 86, 0.2)',
-              borderRadius: '12px',
-              padding: '0.5rem 0.8rem',
-              minWidth: '58px',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
-            }}>
+            <motion.div 
+              key={unit} 
+              variants={{ hidden: { opacity: 0, scale: 0.5 }, visible: { opacity: 1, scale: 1, transition: { type: 'spring', damping: 12, stiffness: 200 } } }}
+              style={{ 
+                display: 'flex', 
+                flexDirection: 'column', 
+                alignItems: 'center',
+                justifyContent: 'center',
+                backgroundColor: 'rgba(255,253,252,0.9)',
+                border: '1px solid rgba(138, 75, 86, 0.2)',
+                borderRadius: '12px',
+                padding: '0.5rem 0.8rem',
+                minWidth: '58px',
+                boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
+              }}
+            >
               <div style={{ 
                 fontFamily: 'var(--font-heading)', 
                 fontSize: 'clamp(1.5rem, 4.5vw, 2.2rem)', 
@@ -722,12 +757,13 @@ END:VCALENDAR`;
                 {String(value).padStart(2, '0')}
               </div>
               <div className="label-uppercase" style={{ fontSize: 'clamp(0.6rem, 1.8vw, 0.75rem)', marginTop: '4px', opacity: 0.85 }}>{unit}</div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
         
         <motion.button 
           className="label-uppercase" 
+          variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
           style={{ 
             display: 'inline-block', 
             padding: '0.75rem clamp(1rem, 4vw, 2.2rem)', 
