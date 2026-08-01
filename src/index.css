@@ -51,19 +51,30 @@ html, body {
 
 /* Unified Typography Hierarchy System */
 
-/* 1. Main Script Headings (Celina, Rendez-vous à, Avec toute notre affection, Samedi 29 Août 2026) */
+/* 1. Main Script Headings */
 .script-heading {
   font-family: var(--font-script);
-  font-size: clamp(3rem, 9vw, 5.5rem);
+  font-size: clamp(3.2rem, 10vw, 5.8rem);
   color: var(--color-text-rose);
   line-height: 1.1;
   text-align: center;
   margin: 0.3rem 0;
 }
 
+.date-script-heading {
+  font-family: var(--font-script);
+  font-size: clamp(1.8rem, 6.5vw, 3.8rem);
+  color: var(--color-text-rose);
+  line-height: 1.1;
+  text-align: center;
+  margin: 0.3rem 0 1rem 0;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
 .script-heading-large {
   font-family: var(--font-script);
-  font-size: clamp(5.5rem, 24vw, 10rem);
+  font-size: clamp(6rem, 26vw, 11rem);
   line-height: 0.9;
   text-align: center;
   margin: 0;
@@ -76,7 +87,7 @@ html, body {
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  font-size: clamp(0.85rem, 3.2vw, 1.25rem);
+  font-size: clamp(1rem, 4vw, 1.45rem);
   color: var(--color-text-primary);
   text-align: center;
   line-height: 1.4;
@@ -87,19 +98,19 @@ html, body {
   font-family: var(--font-heading);
   font-style: italic;
   font-weight: 400;
-  font-size: clamp(1.1rem, 3.6vw, 1.55rem);
+  font-size: clamp(1.25rem, 4.5vw, 1.85rem);
   color: var(--color-text-rose);
   line-height: 1.5;
   text-align: center;
 }
 
-/* 4. Labels and Buttons (Wilaya de Tizi Ouzou, Countdown labels, Map button) */
+/* 4. Labels and Buttons */
 .label-uppercase {
   font-family: var(--font-body);
   font-weight: 600;
   letter-spacing: 3px;
   text-transform: uppercase;
-  font-size: clamp(0.75rem, 2.5vw, 0.95rem);
+  font-size: clamp(0.85rem, 2.8vw, 1.05rem);
   color: var(--color-text-rose);
   text-align: center;
 }

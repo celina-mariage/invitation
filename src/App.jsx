@@ -579,8 +579,8 @@ END:VCALENDAR`;
         <CalendarHeart size={38} strokeWidth={1} color="#8a4b56" style={{ marginBottom: '1rem' }} />
         <h2 className="subheader-uppercase">Le Grand Jour</h2>
         
-        {/* Date perfectly clamped to stay on one line */}
-        <p className="script-heading" style={{ whiteSpace: 'nowrap', margin: '0.3rem 0 1rem 0' }}>
+        {/* Date perfectly clamped to stay on one line inside rectangle */}
+        <p className="date-script-heading">
           Samedi 29 Août 2026
         </p>
         
