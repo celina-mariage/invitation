@@ -390,6 +390,7 @@ const Hero = () => {
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 1, delay: 0.2 }}
           style={{ 
             textAlign: 'center',
@@ -416,6 +417,7 @@ const Hero = () => {
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 1.5, delay: 0.4 }}
           style={{ textAlign: 'center' }}
         >
@@ -434,6 +436,7 @@ const Hero = () => {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 1, delay: 0.6 }}
           style={{ 
             textAlign: 'center', 
