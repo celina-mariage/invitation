@@ -584,26 +584,31 @@ END:VCALENDAR`;
           Samedi 29 Août 2026
         </p>
         
-        {/* Countdown units separated into distinct rectangles */}
-        <div style={{ display: 'flex', gap: '0.8rem', justifyContent: 'center', marginTop: '1.8rem', flexWrap: 'wrap' }}>
+        {/* Countdown units separated into distinct elegant rectangles */}
+        <div style={{ display: 'flex', gap: '0.6rem', justifyContent: 'center', marginTop: '1.2rem', flexWrap: 'wrap' }}>
           {Object.entries(timeLeft).map(([unit, value]) => (
             <div key={unit} style={{ 
               display: 'flex', 
               flexDirection: 'column', 
               alignItems: 'center',
               justifyContent: 'center',
-              backgroundColor: 'rgba(255,253,252,0.85)',
-              border: '1px solid rgba(138, 75, 86, 0.15)',
-              borderRadius: '15px',
-              padding: '1rem 0.5rem',
-              flex: '1 1 20%',
-              minWidth: '65px',
-              boxShadow: '0 5px 15px rgba(0,0,0,0.03)'
+              backgroundColor: 'rgba(255,253,252,0.9)',
+              border: '1px solid rgba(138, 75, 86, 0.2)',
+              borderRadius: '12px',
+              padding: '0.5rem 0.8rem',
+              minWidth: '58px',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
             }}>
-              <div className="script-heading" style={{ color: '#4a3b3f', lineHeight: '0.8', margin: 0 }}>
+              <div style={{ 
+                fontFamily: 'var(--font-heading)', 
+                fontSize: 'clamp(1.5rem, 4.5vw, 2.2rem)', 
+                fontWeight: 500, 
+                color: '#4a3b3f', 
+                lineHeight: 1 
+              }}>
                 {String(value).padStart(2, '0')}
               </div>
-              <div className="label-uppercase" style={{ marginTop: '6px' }}>{unit}</div>
+              <div className="label-uppercase" style={{ fontSize: 'clamp(0.6rem, 1.8vw, 0.75rem)', marginTop: '4px', opacity: 0.85 }}>{unit}</div>
             </div>
           ))}
         </div>
