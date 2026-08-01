@@ -730,7 +730,14 @@ END:VCALENDAR`;
         
         <motion.p 
           className="date-script-heading"
-          style={{ fontSize: 'clamp(3rem, 10vw, 5.5rem)', margin: '0.5rem 0 1.5rem 0' }}
+          style={{ 
+            fontSize: 'clamp(1.8rem, 8vw, 4.5rem)', 
+            margin: '0.5rem 0 1.5rem 0',
+            whiteSpace: 'normal',
+            wordWrap: 'break-word',
+            width: '100%',
+            lineHeight: '1.2'
+          }}
           variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
         >
           Samedi 29 août 2026
@@ -782,18 +789,20 @@ END:VCALENDAR`;
           variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
           style={{ 
             display: 'inline-block', 
-            padding: 'clamp(0.7rem, 2.5vw, 1rem) clamp(1.2rem, 5vw, 2.8rem)', 
+            padding: 'clamp(0.6rem, 2vw, 1rem) clamp(1rem, 4vw, 2.8rem)', 
             backgroundColor: 'transparent', 
             border: '1.5px solid rgba(74, 59, 63, 0.4)', 
             borderRadius: '50px',
             color: '#4a3b3f', 
             whiteSpace: 'normal',
-            maxWidth: '92%',
+            wordWrap: 'break-word',
+            maxWidth: '100%',
+            width: 'auto',
             boxSizing: 'border-box',
             marginTop: 'clamp(1.5rem, 5vw, 2.5rem)',
             cursor: 'pointer',
-            fontSize: 'clamp(0.75rem, 2.8vw, 1.05rem)',
-            letterSpacing: 'clamp(1.5px, 1vw, 2.5px)',
+            fontSize: 'clamp(0.65rem, 2.5vw, 1rem)',
+            letterSpacing: 'clamp(1px, 1vw, 2.5px)',
             transition: 'all 0.3s ease'
           }}
           onClick={downloadICS}
