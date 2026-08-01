@@ -224,7 +224,12 @@ const EntranceScreen = ({ onOpen }) => {
   const container = {
     hidden: { opacity: 0 },
     show: { opacity: 1, transition: { staggerChildren: 0.4, delayChildren: 0.5 } },
-    exit: { opacity: 0, scale: 2, transition: { duration: 0.8, ease: "easeInOut" } }
+    exit: { 
+      opacity: 0, 
+      scale: 1.15,
+      filter: 'blur(8px)',
+      transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] } 
+    }
   };
   
   const mouseX = useMotionValue(0);
@@ -267,8 +272,7 @@ const EntranceScreen = ({ onOpen }) => {
 
   return (
     <motion.section 
-      className="snap-section" 
-      style={{ padding: 0, position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 50, overflow: 'hidden' }}
+      style={{ padding: 0, position: 'fixed', top: 0, left: 0, width: '100vw', height: '100dvh', zIndex: 100, overflow: 'hidden' }}
       variants={container}
       initial="hidden"
       animate="show"
@@ -715,7 +719,6 @@ const Footer = () => {
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isEntranceDone, setIsEntranceDone] = useState(false);
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const { scrollYProgress } = useScroll();
@@ -743,7 +746,7 @@ function App() {
   };
 
   return (
-    <main style={{ backgroundColor: 'var(--color-bg-primary)', minHeight: '100vh', width: '100%', position: 'relative' }}>
+    <main style={{ backgroundColor: 'var(--color-bg-primary)', minHeight: '100vh', width: '100%', position: 'relative', overflow: 'hidden' }}>
       <audio ref={audioRef} loop src="https://kad-jemputan-kahwin.vercel.app/music/Beautiful%20in%20White%20x%20Canon%20in%20D%20(Piano%20Cover%20by%20Riyandi%20Kusuma).mp3" />
       <motion.button
         onClick={toggleAudio}
@@ -757,25 +760,24 @@ function App() {
         {isPlaying ? <AudioVisualizer /> : <VolumeX size={18} />}
       </motion.button>
 
-      <AnimatePresence onExitComplete={() => setIsEntranceDone(true)}>
-        {!isOpen && <EntranceScreen key="entrance" onOpen={handleOpen} />}
+      {/* Pre-rendered main invitation container */}
+      <div 
+        className="fullpage-container"
+        style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
+      >
+        <AmbientPulse />
+        <Hero />
+        <Countdown />
+        <Venue />
+        <Footer />
+      </div>
+
+      {/* Entrance Screen Overlay */}
+      <AnimatePresence>
+        {!isOpen && (
+          <EntranceScreen key="entrance" onOpen={handleOpen} />
+        )}
       </AnimatePresence>
-      
-      {isEntranceDone && (
-        <motion.div
-          key="content"
-          className="fullpage-container"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-        >
-          <AmbientPulse />
-          <Hero />
-          <Countdown />
-          <Venue />
-          <Footer />
-        </motion.div>
-      )}
     </main>
   );
 }
