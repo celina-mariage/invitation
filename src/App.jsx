@@ -740,9 +740,9 @@ const Footer = () => {
         whileInView={{ opacity: 0.04 }}
         transition={{ duration: 2 }}
         className="arabic-text" 
-        style={{ position: 'absolute', fontSize: '22vw', color: '#4a3b3f', whiteSpace: 'nowrap', zIndex: 0, pointerEvents: 'none' }}
+        style={{ position: 'absolute', fontSize: '18vw', color: '#4a3b3f', whiteSpace: 'nowrap', zIndex: 0, pointerEvents: 'none' }}
       >
-        بارك الله لكما وجمع بينكما في خير
+        وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
       </motion.p>
       
       {/* Frosted Glass Frame Card */}
@@ -788,8 +788,8 @@ const Footer = () => {
           <Heart size={26} strokeWidth={1.2} color="#8a4b56" fill="rgba(138, 75, 86, 0.15)" />
         </div>
 
-        <p className="arabic-text" style={{ fontSize: 'clamp(1.5rem, 5vw, 2.4rem)', color: '#8a4b56', marginBottom: '1.2rem' }}>
-          بارك الله لكما وجمع بينكما في خير
+        <p className="arabic-text" style={{ fontSize: 'clamp(1.6rem, 5.5vw, 2.6rem)', color: '#8a4b56', marginBottom: '1.2rem' }}>
+          وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
         </p>
 
         <OrnateDivider />
