@@ -360,20 +360,13 @@ const EntranceScreen = ({ onOpen }) => {
 };
 
 const ScrollIndicator = () => {
-  const { scrollY } = useScroll();
-  const opacity = useTransform(scrollY, [0, 100], [1, 0]);
-
   return (
     <motion.div 
       style={{ 
-        position: 'fixed', 
-        bottom: '3rem', 
-        left: '50%', 
-        x: '-50%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        opacity,
+        marginTop: 'auto',
         pointerEvents: 'none',
         zIndex: 50
       }}
@@ -431,13 +424,12 @@ const Hero = () => {
         minHeight: '100dvh',
         display: 'flex', 
         flexDirection: 'column', 
-        justifyContent: 'center', 
         alignItems: 'center',
         padding: '2rem',
-        paddingBottom: '8rem', /* Adds space at the bottom so text doesn't overlap with ScrollIndicator */
-        gap: '2.5rem'
+        paddingTop: '3rem',
+        paddingBottom: '2rem'
       }}>
-        
+        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '2.5rem' }}>
         {/* Top text with frosted glass backing */}
         <motion.div 
           initial={{ opacity: 0, y: -20 }}
@@ -504,10 +496,10 @@ const Hero = () => {
             Votre présence en ce jour de célébration sera notre plus beau cadeau.
           </p>
         </motion.div>
-
+        </div>
+        
+        <ScrollIndicator />
       </div>
-      
-      <ScrollIndicator />
     </section>
   );
 };
