@@ -362,8 +362,18 @@ const EntranceScreen = ({ onOpen }) => {
 };
 
 const ScrollIndicator = () => {
+  const handleScrollDown = (e) => {
+    e.stopPropagation();
+    const container = document.querySelector('.fullpage-container');
+    if (container) {
+      container.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+    }
+  };
+
   return (
-    <motion.div 
+    <motion.button 
+      onClick={handleScrollDown}
+      aria-label="Section suivante"
       style={{ 
         position: 'absolute',
         bottom: '1.5rem',
@@ -372,12 +382,17 @@ const ScrollIndicator = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        pointerEvents: 'none',
-        zIndex: 50
+        background: 'none',
+        border: 'none',
+        cursor: 'pointer',
+        pointerEvents: 'auto',
+        zIndex: 50,
+        padding: 0
       }}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ delay: 1.5, duration: 1 }}
+      whileTap={{ scale: 0.9 }}
     >
       <motion.div
         animate={{ y: [0, 8, 0] }}
@@ -396,7 +411,7 @@ const ScrollIndicator = () => {
       >
         <ChevronDown size={24} color="#8a4b56" strokeWidth={2.2} />
       </motion.div>
-    </motion.div>
+    </motion.button>
   );
 };
 
