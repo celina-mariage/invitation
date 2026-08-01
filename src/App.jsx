@@ -517,12 +517,8 @@ const Countdown = () => {
     Jours: 0, Heures: 0, Min: 0, Sec: 0
   });
 
-  const addToCalendar = () => {
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    const isAndroid = /Android/.test(navigator.userAgent);
-
-    const downloadICS = () => {
-      const icsData = `BEGIN:VCALENDAR
+  const downloadICS = () => {
+    const icsData = `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Celina Wedding//FR
 BEGIN:VEVENT
@@ -535,34 +531,13 @@ LOCATION:Salle des Fêtes Palais Royal, Wilaya de Tizi Ouzou, Algeria
 DESCRIPTION:Nous avons l'immense joie de vous annoncer le mariage de Celina.
 END:VEVENT
 END:VCALENDAR`;
-      const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.setAttribute('download', 'mariage_celina.ics');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    };
-
-    if (isIOS) {
-      downloadICS();
-    } else if (isAndroid) {
-      let start = Date.now();
-      const baseUrl = `calendar.google.com/calendar/render?action=TEMPLATE&text=Mariage+de+Celina&dates=20260829T093000Z/20260829T223000Z&details=Nous+avons+l'immense+joie+de+vous+annoncer+le+mariage+de+Celina.&location=Salle+des+Fêtes+Palais+Royal,+Wilaya+de+Tizi+Ouzou,+Algeria`;
-      
-      // Try opening Google Calendar App via intent
-      window.location.href = `intent://${baseUrl}#Intent;scheme=https;package=com.google.android.calendar;end`;
-
-      // Fallback: If page is still visible after 1.5s (app not installed), trigger download
-      setTimeout(() => {
-        if (Date.now() - start < 2200 && !document.hidden) {
-          downloadICS();
-        }
-      }, 1500);
-    } else {
-      const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mariage+de+Celina&dates=20260829T093000Z/20260829T223000Z&details=Nous+avons+l'immense+joie+de+vous+annoncer+le+mariage+de+Celina.&location=Salle+des+Fêtes+Palais+Royal,+Wilaya+de+Tizi+Ouzou,+Algeria`;
-      window.open(googleUrl, '_blank');
-    }
+    const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.setAttribute('download', 'mariage_celina.ics');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   useEffect(() => {
@@ -634,7 +609,7 @@ END:VCALENDAR`;
         <motion.button 
           className="btn-primary" 
           style={{ padding: '0.8rem 2rem', fontSize: '0.9rem', width: '80%', maxWidth: '300px' }}
-          onClick={addToCalendar}
+          onClick={downloadICS}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
