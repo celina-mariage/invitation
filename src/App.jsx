@@ -75,6 +75,8 @@ const Petals = () => {
             borderRadius: '100% 0 100% 0',
             boxShadow: '0 0 8px rgba(255, 230, 235, 0.5)',
             scale: petal.scale,
+            willChange: 'transform',
+            transform: 'translateZ(0)',
           }}
           animate={{
             y: ['0vh', '120vh'],
@@ -178,6 +180,8 @@ const Sparkles = () => {
             backgroundColor: '#FFD700',
             borderRadius: '50%',
             boxShadow: '0 0 12px 3px rgba(255, 215, 0, 0.7)',
+            willChange: 'transform',
+            transform: 'translateZ(0)',
           }}
           animate={{
             y: ['0vh', '-120vh'],
@@ -421,7 +425,6 @@ const Hero = () => {
       backgroundImage: `url('${import.meta.env.BASE_URL}bg.jpg')`, 
       backgroundSize: 'cover', 
       backgroundPosition: 'center',
-      backgroundAttachment: 'fixed',
       position: 'relative',
       overflow: 'hidden'
     }}>
@@ -573,7 +576,6 @@ END:VCALENDAR`;
       backgroundImage: `url('${import.meta.env.BASE_URL}blush_floral_bg.jpg')`, 
       backgroundSize: 'cover', 
       backgroundPosition: 'center',
-      backgroundAttachment: 'fixed',
       display: 'flex', 
       flexDirection: 'column',
       justifyContent: 'center', 
