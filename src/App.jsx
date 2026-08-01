@@ -276,7 +276,7 @@ const EntranceScreen = ({ onOpen }) => {
       <motion.div 
         style={{
           position: 'absolute', top: '-5%', left: '-5%', width: '110%', height: '110%',
-          backgroundImage: "url('/bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center',
+          backgroundImage: `url('${import.meta.env.BASE_URL}bg.jpg')`, backgroundSize: 'cover', backgroundPosition: 'center',
           x: bgX, y: bgY
         }}
       />
@@ -356,7 +356,7 @@ const EntranceScreen = ({ onOpen }) => {
 const Hero = () => {
   return (
     <section className="snap-section" style={{ 
-      backgroundImage: "url('/bg.jpg')", 
+      backgroundImage: `url('${import.meta.env.BASE_URL}bg.jpg')`, 
       backgroundSize: 'cover', 
       backgroundPosition: 'center',
       backgroundAttachment: 'fixed',
