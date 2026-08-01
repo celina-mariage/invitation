@@ -16,28 +16,35 @@
   box-sizing: border-box;
 }
 
-body {
-  font-family: var(--font-body);
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
-  overflow-x: hidden;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }
 
-/* Smooth Proximity Section Snapping */
-html {
-  scroll-snap-type: y proximity;
+/* Dedicated Full-Page Scroll Snap Container */
+.fullpage-container {
+  height: 100dvh;
+  width: 100%;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
-  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
 }
 
 .snap-section {
-  scroll-snap-align: center;
-  scroll-snap-stop: normal;
-  min-height: 100dvh;
+  height: 100dvh;
+  width: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   position: relative;
+  overflow: hidden;
 }
 
 h1, h2, h3 {
