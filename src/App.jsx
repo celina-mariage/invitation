@@ -512,23 +512,33 @@ const Hero = () => {
 };
 
 const Countdown = () => {
-  const targetDate = new Date('2026-08-29T10:30:00').getTime();
+  const targetDate = new Date('2026-08-29T11:00:00+01:00').getTime();
   const [timeLeft, setTimeLeft] = useState({
     Jours: 0, Heures: 0, Min: 0, Sec: 0
   });
 
   const downloadICS = () => {
-    const icsData = `BEGIN:VCALENDAR
+      const icsData = `BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Celina Wedding//FR
+PRODID:-//IZRI Wedding//FR
 BEGIN:VEVENT
-UID:${new Date().getTime()}@celinawedding.com
+UID:${new Date().getTime()}@izriwedding.com
 DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
-DTSTART:20260829T093000Z
-DTEND:20260829T223000Z
-SUMMARY:Mariage de Celina
+DTSTART:20260829T100000Z
+DTEND:20260829T140000Z
+SUMMARY:Invitation de mariage IZRI
 LOCATION:Salle des Fêtes Palais Royal, Wilaya de Tizi Ouzou, Algeria
-DESCRIPTION:Nous avons l'immense joie de vous annoncer le mariage de Celina.
+DESCRIPTION:Nous avons l'immense joie de vous annoncer notre mariage.
+BEGIN:VALARM
+TRIGGER:-PT1D
+ACTION:DISPLAY
+DESCRIPTION:Rappel: Invitation de mariage IZRI demain !
+END:VALARM
+BEGIN:VALARM
+TRIGGER:-PT2H
+ACTION:DISPLAY
+DESCRIPTION:Rappel: Invitation de mariage IZRI dans 2 heures !
+END:VALARM
 END:VEVENT
 END:VCALENDAR`;
     const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
