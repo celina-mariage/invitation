@@ -63,13 +63,14 @@ html, body {
 
 .date-script-heading {
   font-family: var(--font-script);
-  font-size: clamp(2.4rem, 8vw, 5rem);
+  font-size: clamp(1.5rem, 6.5vw, 4.5rem);
   color: var(--color-text-rose);
-  line-height: 1.1;
+  line-height: 1.15;
   text-align: center;
   margin: 0.3rem 0 1rem 0;
   white-space: nowrap;
   max-width: 100%;
+  box-sizing: border-box;
 }
 
 .script-heading-large {

@@ -591,7 +591,7 @@ END:VCALENDAR`;
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
-        style={{ textAlign: 'center', padding: '2rem 1rem', background: 'rgba(255,253,252,0.6)', borderRadius: '30px', backdropFilter: 'blur(10px)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', maxWidth: '95%', width: '700px' }}
+        style={{ textAlign: 'center', padding: 'clamp(1.5rem, 4vw, 2rem) clamp(0.6rem, 3vw, 1.5rem)', background: 'rgba(255,253,252,0.65)', borderRadius: '30px', backdropFilter: 'blur(10px)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', maxWidth: '95%', width: '700px', boxSizing: 'border-box' }}
       >
         <CalendarHeart size={38} strokeWidth={1} color="#8a4b56" style={{ marginBottom: '1rem' }} />
         <h2 className="subheader-uppercase">Le Grand Jour</h2>
