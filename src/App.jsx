@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useMotionTemplate } from 'framer-motion';
-import { MapPin, CalendarHeart, Heart, Volume2, VolumeX } from 'lucide-react';
+import { MapPin, CalendarHeart, Heart, Volume2, VolumeX, ChevronDown } from 'lucide-react';
 
 const ParallaxBanner = ({ className, style, imagePosition }) => {
   const ref = useRef(null);
@@ -388,13 +388,13 @@ const ScrollIndicator = () => {
       >
         Découvrir
       </motion.p>
-      <div style={{ width: '2px', height: '50px', backgroundColor: 'rgba(74, 59, 63, 0.2)', overflow: 'hidden', position: 'relative', borderRadius: '2px' }}>
-        <motion.div 
-          style={{ width: '100%', height: '50%', backgroundColor: '#8a4b56', borderRadius: '2px' }}
-          animate={{ y: ['-100%', '200%'] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      </div>
+      <motion.div
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ marginTop: '0.2rem' }}
+      >
+        <ChevronDown size={28} color="#8a4b56" strokeWidth={1.5} />
+      </motion.div>
     </motion.div>
   );
 };
