@@ -378,7 +378,7 @@ const ScrollIndicator = () => {
         position: 'absolute',
         bottom: '1.5rem',
         left: '50%',
-        transform: 'translateX(-50%)',
+        x: '-50%',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
