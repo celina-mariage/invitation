@@ -50,7 +50,8 @@ const AudioVisualizer = () => {
 // Audio handling moved directly to App.jsx to ensure synchronous play on click
 
 const Petals = () => {
-  const petals = Array.from({ length: 45 }).map((_, i) => ({
+  const isMobile = window.innerWidth < 768;
+  const petals = Array.from({ length: isMobile ? 15 : 45 }).map((_, i) => ({
     id: i,
     left: Math.random() * 100, 
     delay: Math.random() * 5, 
@@ -76,9 +77,9 @@ const Petals = () => {
             scale: petal.scale,
           }}
           animate={{
-            top: '110%',
-            left: `${petal.left + (Math.random() * 20 - 10)}%`,
-            rotate: [petal.rotationStart, petal.rotationStart + 360],
+            y: ['0vh', '120vh'],
+            x: [0, (Math.random() * 100 - 50)],
+            rotate: [petal.rotationStart, petal.rotationStart + 360 * (Math.random() > 0.5 ? 1 : -1)]
           }}
           transition={{
             duration: petal.duration,
@@ -154,7 +155,8 @@ const OrnateDivider = () => (
 );
 
 const Sparkles = () => {
-  const sparkles = Array.from({ length: 40 }).map((_, i) => ({
+  const isMobile = window.innerWidth < 768;
+  const sparkles = Array.from({ length: isMobile ? 15 : 40 }).map((_, i) => ({
     id: i,
     left: Math.random() * 100, 
     delay: Math.random() * 5, 
@@ -178,8 +180,8 @@ const Sparkles = () => {
             boxShadow: '0 0 12px 3px rgba(255, 215, 0, 0.7)',
           }}
           animate={{
-            bottom: '110%',
-            left: `${sparkle.left + (Math.random() * 10 - 5)}%`,
+            y: ['0vh', '-120vh'],
+            x: [0, (Math.random() * 50 - 25)],
             opacity: [0, 1, 1, 0]
           }}
           transition={{
@@ -222,7 +224,7 @@ const EntranceScreen = ({ onOpen }) => {
   const container = {
     hidden: { opacity: 0 },
     show: { opacity: 1, transition: { staggerChildren: 0.4, delayChildren: 0.5 } },
-    exit: { opacity: 0, scale: 4, filter: 'blur(20px)', transition: { duration: 1.5, ease: "easeInOut" } }
+    exit: { opacity: 0, scale: 2, transition: { duration: 0.8, ease: "easeInOut" } }
   };
   
   const mouseX = useMotionValue(0);
