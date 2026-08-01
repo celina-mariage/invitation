@@ -517,8 +517,11 @@ const Countdown = () => {
     Jours: 0, Heures: 0, Min: 0, Sec: 0
   });
 
-  const downloadICS = () => {
-    const icsData = `BEGIN:VCALENDAR
+  const addToCalendar = () => {
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    
+    if (isIOS) {
+      const icsData = `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//Celina Wedding//FR
 BEGIN:VEVENT
@@ -531,13 +534,17 @@ LOCATION:Salle des Fêtes Palais Royal, Wilaya de Tizi Ouzou, Algeria
 DESCRIPTION:Nous avons l'immense joie de vous annoncer le mariage de Celina.
 END:VEVENT
 END:VCALENDAR`;
-    const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.setAttribute('download', 'mariage_celina.ics');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute('download', 'mariage_celina.ics');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } else {
+      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Mariage+de+Celina&dates=20260829T093000Z/20260829T223000Z&details=Nous+avons+l'immense+joie+de+vous+annoncer+le+mariage+de+Celina.&location=Salle+des+Fêtes+Palais+Royal,+Wilaya+de+Tizi+Ouzou,+Algeria`;
+      window.open(url, '_blank');
+    }
   };
 
   useEffect(() => {
@@ -607,17 +614,13 @@ END:VCALENDAR`;
         </div>
         
         <motion.button 
-          onClick={downloadICS}
-          style={{ 
-            marginTop: '4rem', padding: '1.2rem 2rem', backgroundColor: 'rgba(255,253,252,0.8)', border: '1px solid rgba(138, 75, 86, 0.3)', borderRadius: '50px',
-            color: '#4a3b3f', cursor: 'pointer', boxShadow: '0 10px 30px rgba(0, 0, 0, 0.05)',
-            fontFamily: 'var(--font-heading)', fontWeight: '600', letterSpacing: '3px', fontSize: 'clamp(0.85rem, 2.5vw, 1.1rem)', textTransform: 'uppercase',
-            width: '100%', maxWidth: '350px'
-          }}
-          whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,253,252,1)' }}
+          className="btn-primary" 
+          style={{ padding: '0.8rem 2rem', fontSize: '0.9rem', width: '80%', maxWidth: '300px' }}
+          onClick={addToCalendar}
+          whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          Ajouter au Calendrier
+          Ajouter au calendrier
         </motion.button>
       </motion.div>
     </section>
