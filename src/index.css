@@ -23,15 +23,20 @@ body {
   overflow-x: hidden;
 }
 
-/* Smooth scrolling */
+/* Smooth Proximity Section Snapping */
 html {
+  scroll-snap-type: y proximity;
   scroll-behavior: smooth;
+  overscroll-behavior-y: contain;
 }
 
 .snap-section {
+  scroll-snap-align: center;
+  scroll-snap-stop: normal;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   position: relative;
 }
 
