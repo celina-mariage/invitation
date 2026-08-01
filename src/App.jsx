@@ -1037,7 +1037,7 @@ const Footer = () => {
               userSelect: 'none'
             }}
           >
-            ﴿
+            ﴾
           </motion.span>
 
           {/* The verse text */}
@@ -1063,7 +1063,7 @@ const Footer = () => {
               userSelect: 'none'
             }}
           >
-            ﴾
+            ﴿
           </motion.span>
         </motion.div>
 
