@@ -634,12 +634,14 @@ END:VCALENDAR`;
           className="label-uppercase" 
           style={{ 
             display: 'inline-block', 
-            padding: '0.8rem 2.5rem', 
+            padding: '0.75rem clamp(1rem, 4vw, 2.2rem)', 
             backgroundColor: 'transparent', 
             border: '1px solid rgba(74, 59, 63, 0.3)', 
             borderRadius: '50px',
             color: '#4a3b3f', 
             whiteSpace: 'nowrap',
+            maxWidth: '92%',
+            boxSizing: 'border-box',
             marginTop: '1.8rem',
             cursor: 'pointer',
             transition: 'all 0.3s ease'
@@ -719,8 +721,16 @@ const Venue = () => {
           rel="noopener noreferrer"
           className="label-uppercase"
           style={{ 
-            display: 'inline-block', padding: '0.8rem 2.5rem', backgroundColor: 'transparent', border: '1px solid rgba(74, 59, 63, 0.3)', borderRadius: '50px',
-            color: '#4a3b3f', textDecoration: 'none',
+            display: 'inline-block', 
+            padding: '0.75rem clamp(1rem, 4vw, 2.2rem)', 
+            backgroundColor: 'transparent', 
+            border: '1px solid rgba(74, 59, 63, 0.3)', 
+            borderRadius: '50px',
+            color: '#4a3b3f', 
+            textDecoration: 'none',
+            whiteSpace: 'nowrap',
+            maxWidth: '92%',
+            boxSizing: 'border-box',
             transition: 'all 0.3s ease'
           }}
           whileHover={{ scale: 1.02, backgroundColor: 'rgba(74, 59, 63, 0.02)', borderColor: '#4a3b3f' }}

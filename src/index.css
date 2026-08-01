@@ -109,9 +109,9 @@ html, body {
 .label-uppercase {
   font-family: var(--font-body);
   font-weight: 600;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  font-size: clamp(0.85rem, 2.8vw, 1.05rem);
+  font-size: clamp(0.72rem, 2.5vw, 0.95rem);
   color: var(--color-text-rose);
   text-align: center;
 }
