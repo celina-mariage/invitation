@@ -293,23 +293,6 @@ const AmbientPulse = () => (
   />
 );
 
-const GoldenThread = ({ containerRef }) => {
-  const { scrollYProgress } = useScroll({ container: containerRef });
-  return (
-    <div style={{ position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)', height: '100dvh', width: '2px', zIndex: 1, pointerEvents: 'none' }}>
-      <svg width="2" height="100%" viewBox="0 0 2 100" preserveAspectRatio="none">
-         <motion.line 
-           x1="1" y1="0" x2="1" y2="100" 
-           stroke="#b76e79" 
-           strokeWidth="2"
-           vectorEffect="non-scaling-stroke"
-           style={{ pathLength: scrollYProgress, opacity: scrollYProgress }} 
-         />
-      </svg>
-    </div>
-  );
-};
-
 const EntranceScreen = ({ onOpen }) => {
   const container = {
     hidden: { opacity: 0 },
@@ -1236,7 +1219,6 @@ function App() {
             animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <GoldenThread containerRef={containerRef} />
             <AmbientPulse />
             <Hero />
             <Countdown />
