@@ -534,7 +534,7 @@ DTSTART:20260829T093000Z
 DTEND:20260829T180000Z
 SUMMARY:Invitation de mariage IZRI
 LOCATION:Salle des Fêtes Palais Royal, Wilaya de Tizi Ouzou, Algeria
-DESCRIPTION:Faites-nous l'honneur de votre présence lors de cette merveilleuse journée. Le ftour sera de 11h30 à 13h30.
+DESCRIPTION:Faites-nous l'honneur de votre présence lors de cette merveilleuse journée. Le déjeuner sera de 11h30 à 13h30.
 BEGIN:VALARM
 TRIGGER:-PT1D
 ACTION:DISPLAY
@@ -709,7 +709,7 @@ const Venue = () => {
         }}>
           <Utensils size={13} color="#8a4b56" strokeWidth={1.5} />
           <span className="label-uppercase" style={{ fontSize: 'clamp(0.72rem, 2.1vw, 0.82rem)', color: '#8a4b56', letterSpacing: '1.2px' }}>
-            Le ftour sera de 11h30 à 13h30
+            Le déjeuner sera de 11h30 à 13h30
           </span>
         </div>
         
