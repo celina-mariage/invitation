@@ -568,31 +568,54 @@ END:VCALENDAR`;
 
 const Venue = () => {
   return (
-    <section className="snap-section" style={{ backgroundColor: 'var(--color-bg-primary)', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '6rem 2rem' }}>
+    <section className="snap-section" style={{ backgroundColor: 'var(--color-bg-primary)', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '4rem 1.5rem' }}>
       <motion.div
-        initial={{ opacity: 0, x: -30 }}
-        whileInView={{ opacity: 1, x: 0 }}
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
-        style={{ textAlign: 'center', maxWidth: '600px' }}
+        style={{ 
+          textAlign: 'center', 
+          maxWidth: '650px',
+          width: '100%',
+          padding: 'clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem)',
+          border: '1px solid rgba(138, 75, 86, 0.2)',
+          position: 'relative',
+          backgroundColor: '#fffdfc'
+        }}
       >
-        <MapPin size={36} strokeWidth={1} color="#4a3b3f" style={{ marginBottom: '2rem' }} />
-        <h2 style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', color: '#8a4b56', marginBottom: '1rem' }}>Rendez-vous à</h2>
-        <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', fontSize: 'clamp(1.5rem, 6vw, 3rem)', margin: '1rem 0', color: '#4a3b3f', lineHeight: '1.2' }}>Salle des Fêtes<br/>Palais Royal</h3>
-        <p style={{ fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '3px', textTransform: 'uppercase', fontSize: '0.8rem', color: '#8a4b56', marginTop: '1.5rem' }}>Wilaya de Tizi Ouzou</p>
-        <p style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontSize: '1.3rem', margin: '3.5rem 0', color: '#4a3b3f' }}>Nous aurons le plaisir de vous y accueillir à partir de 10h30.</p>
+        {/* Decorative corner brackets */}
+        <div style={{ position: 'absolute', top: '10px', left: '10px', width: '30px', height: '30px', borderTop: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.5 }}></div>
+        <div style={{ position: 'absolute', top: '10px', right: '10px', width: '30px', height: '30px', borderTop: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.5 }}></div>
+        <div style={{ position: 'absolute', bottom: '10px', left: '10px', width: '30px', height: '30px', borderBottom: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.5 }}></div>
+        <div style={{ position: 'absolute', bottom: '10px', right: '10px', width: '30px', height: '30px', borderBottom: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.5 }}></div>
+
+        <div style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center', width: '80px', height: '80px', borderRadius: '50%', backgroundColor: 'rgba(138, 75, 86, 0.03)', marginBottom: '1.5rem' }}>
+          <MapPin size={32} strokeWidth={1} color="#8a4b56" />
+        </div>
+        
+        <h2 className="script-text" style={{ fontSize: 'clamp(3rem, 7vw, 5rem)', color: '#4a3b3f', margin: '0 0 1rem 0', lineHeight: 1 }}>Rendez-vous à</h2>
+        
+        <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 400, letterSpacing: '4px', textTransform: 'uppercase', fontSize: 'clamp(1.2rem, 4vw, 2rem)', margin: '2rem 0 1rem 0', color: '#4a3b3f', lineHeight: '1.4' }}>Salle des Fêtes<br/>Palais Royal</h3>
+        
+        <OrnateDivider />
+        
+        <p style={{ fontFamily: 'var(--font-body)', fontWeight: 400, letterSpacing: '3px', textTransform: 'uppercase', fontSize: '0.85rem', color: '#8a4b56', marginTop: '1.5rem' }}>Wilaya de Tizi Ouzou</p>
+        
+        <p style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontSize: 'clamp(1.1rem, 3.5vw, 1.3rem)', margin: '3rem 0', color: '#4a3b3f', lineHeight: 1.6 }}>Nous aurons le bonheur de vous y<br/>accueillir à partir de 10h30.</p>
         
         <motion.a 
           href="https://www.google.com/maps/search/?api=1&query=P4H4%2BPCR%2C%20Tizi%20Ouzou%2C%20Algeria" 
           target="_blank" 
           rel="noopener noreferrer"
           style={{ 
-            display: 'inline-block', padding: '1.2rem 3.5rem', backgroundColor: '#4a3b3f', border: 'none', borderRadius: '50px',
-            color: '#fffdfc', textDecoration: 'none', boxShadow: '0 15px 30px rgba(74, 59, 63, 0.2)',
-            fontFamily: 'var(--font-heading)', fontWeight: '600', letterSpacing: '3px', fontSize: '0.9rem', textTransform: 'uppercase'
+            display: 'inline-block', padding: '1.2rem 3.5rem', backgroundColor: 'transparent', border: '1px solid rgba(74, 59, 63, 0.3)', borderRadius: '50px',
+            color: '#4a3b3f', textDecoration: 'none',
+            fontFamily: 'var(--font-heading)', fontWeight: '600', letterSpacing: '3px', fontSize: '0.85rem', textTransform: 'uppercase',
+            transition: 'all 0.3s ease'
           }}
-          whileHover={{ scale: 1.05, backgroundColor: '#362a2d' }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.02, backgroundColor: 'rgba(74, 59, 63, 0.02)', borderColor: '#4a3b3f' }}
+          whileTap={{ scale: 0.98 }}
         >
           Voir sur la Carte
         </motion.a>
