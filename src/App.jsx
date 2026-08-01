@@ -694,7 +694,7 @@ const Venue = () => {
         
         <p className="label-uppercase" style={{ margin: '0.6rem 0' }}>Wilaya de Tizi Ouzou</p>
         
-        <p className="body-italic" style={{ margin: '0.8rem 0 0.4rem 0' }}>Nous aurons le bonheur de vous y<br/>accueillir à partir de 11h.</p>
+        <p className="body-italic" style={{ margin: '0.8rem 0 0.4rem 0' }}>Nous aurons le bonheur de vous y<br/>accueillir à partir de 10h30.</p>
         
         {/* Ftour Schedule Badge */}
         <div style={{ 
