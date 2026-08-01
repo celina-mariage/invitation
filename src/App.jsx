@@ -737,7 +737,7 @@ const Footer = () => {
       {/* Subtle Background Watermark Text */}
       <motion.p 
         initial={{ opacity: 0 }}
-        whileInView={{ opacity: 0.04 }}
+        whileInView={{ opacity: 0.025 }}
         transition={{ duration: 2 }}
         className="arabic-text" 
         style={{ position: 'absolute', fontSize: '18vw', color: '#4a3b3f', whiteSpace: 'nowrap', zIndex: 0, pointerEvents: 'none' }}
@@ -747,58 +747,65 @@ const Footer = () => {
       
       {/* Frosted Glass Frame Card */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        initial={{ opacity: 0, scale: 0.96, y: 20 }}
         whileInView={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 1.2 }}
+        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         viewport={{ once: true }}
         style={{ 
           zIndex: 1, 
           textAlign: 'center', 
-          padding: 'clamp(2rem, 5vw, 3rem) clamp(1.5rem, 4vw, 2.5rem)',
-          background: 'rgba(255,253,252,0.7)',
+          padding: 'clamp(2.5rem, 6vw, 3.5rem) clamp(1.5rem, 5vw, 2.5rem)',
+          background: 'rgba(255,253,252,0.75)',
           borderRadius: '30px',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-          boxShadow: '0 20px 40px rgba(0,0,0,0.05)',
-          border: '1px solid rgba(138, 75, 86, 0.2)',
+          backdropFilter: 'blur(14px)',
+          WebkitBackdropFilter: 'blur(14px)',
+          boxShadow: '0 20px 45px rgba(0,0,0,0.06), 0 1px 3px rgba(138, 75, 86, 0.1)',
+          border: '1px solid rgba(138, 75, 86, 0.18)',
           maxWidth: '95%',
-          width: '600px',
+          width: '580px',
           position: 'relative'
         }}
       >
         {/* Decorative Corner Brackets */}
-        <div style={{ position: 'absolute', top: '12px', left: '12px', width: '25px', height: '25px', borderTop: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.5 }}></div>
-        <div style={{ position: 'absolute', top: '12px', right: '12px', width: '25px', height: '25px', borderTop: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.5 }}></div>
-        <div style={{ position: 'absolute', bottom: '12px', left: '12px', width: '25px', height: '25px', borderBottom: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.5 }}></div>
-        <div style={{ position: 'absolute', bottom: '12px', right: '12px', width: '25px', height: '25px', borderBottom: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.5 }}></div>
+        <div style={{ position: 'absolute', top: '14px', left: '14px', width: '25px', height: '25px', borderTop: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.5 }}></div>
+        <div style={{ position: 'absolute', top: '14px', right: '14px', width: '25px', height: '25px', borderTop: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.5 }}></div>
+        <div style={{ position: 'absolute', bottom: '14px', left: '14px', width: '25px', height: '25px', borderBottom: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.5 }}></div>
+        <div style={{ position: 'absolute', bottom: '14px', right: '14px', width: '25px', height: '25px', borderBottom: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.5 }}></div>
 
-        {/* Monogram / Emblem Badge */}
-        <div style={{ 
-          display: 'inline-flex', 
-          justifyContent: 'center', 
-          alignItems: 'center', 
-          width: '60px', 
-          height: '60px', 
-          borderRadius: '50%', 
-          backgroundColor: 'rgba(138, 75, 86, 0.05)', 
-          border: '1px solid rgba(138, 75, 86, 0.2)',
-          marginBottom: '1rem',
-          boxShadow: '0 4px 15px rgba(138, 75, 86, 0.1)'
-        }}>
-          <Heart size={26} strokeWidth={1.2} color="#8a4b56" fill="rgba(138, 75, 86, 0.15)" />
-        </div>
+        {/* Monogram / Jewel Badge */}
+        <motion.div 
+          animate={{ scale: [1, 1.05, 1] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+          style={{ 
+            display: 'inline-flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            width: '54px', 
+            height: '54px', 
+            borderRadius: '50%', 
+            backgroundColor: 'rgba(255, 253, 252, 0.9)', 
+            border: '1px solid rgba(138, 75, 86, 0.25)',
+            marginBottom: '1.2rem',
+            boxShadow: '0 4px 18px rgba(138, 75, 86, 0.15)'
+          }}
+        >
+          <Heart size={24} strokeWidth={1.2} color="#8a4b56" fill="rgba(138, 75, 86, 0.18)" />
+        </motion.div>
 
-        <p className="arabic-text" style={{ fontSize: 'clamp(1.6rem, 5.5vw, 2.6rem)', color: '#8a4b56', marginBottom: '1.2rem' }}>
+        {/* Quranic Verse */}
+        <p className="arabic-text" style={{ fontSize: 'clamp(1.6rem, 5.5vw, 2.5rem)', color: '#8a4b56', marginBottom: '1rem', lineHeight: 1.4 }}>
           وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
         </p>
 
         <OrnateDivider />
 
-        <p className="script-heading" style={{ marginTop: '1.2rem', marginBottom: '0.4rem' }}>
+        {/* Closing Warm Message */}
+        <p className="script-heading" style={{ marginTop: '1rem', marginBottom: '0.6rem' }}>
           Avec toute notre affection
         </p>
 
-        <p className="subheader-uppercase" style={{ letterSpacing: '4px', marginTop: '0.8rem' }}>
+        {/* Family Sign-off */}
+        <p className="subheader-uppercase rose-gold-foil" style={{ letterSpacing: '4px', marginTop: '0.8rem', fontWeight: 700 }}>
           La Famille Izri
         </p>
       </motion.div>
