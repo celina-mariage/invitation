@@ -574,7 +574,7 @@ END:VCALENDAR`;
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
-        style={{ textAlign: 'center', padding: '3rem 1.5rem', background: 'rgba(255,253,252,0.6)', borderRadius: '30px', backdropFilter: 'blur(10px)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', maxWidth: '95%', width: '700px' }}
+        style={{ textAlign: 'center', padding: '2rem 1rem', background: 'rgba(255,253,252,0.6)', borderRadius: '30px', backdropFilter: 'blur(10px)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', maxWidth: '95%', width: '700px' }}
       >
         <CalendarHeart size={38} strokeWidth={1} color="#8a4b56" style={{ marginBottom: '1rem' }} />
         <h2 className="subheader-uppercase">Le Grand Jour</h2>
@@ -609,11 +609,22 @@ END:VCALENDAR`;
         </div>
         
         <motion.button 
-          className="btn-primary label-uppercase" 
-          style={{ padding: '0.8rem 2rem', color: '#fff', width: '80%', maxWidth: '300px', marginTop: '1.8rem' }}
+          className="label-uppercase" 
+          style={{ 
+            display: 'inline-block', 
+            padding: '0.8rem 2.5rem', 
+            backgroundColor: 'transparent', 
+            border: '1px solid rgba(74, 59, 63, 0.3)', 
+            borderRadius: '50px',
+            color: '#4a3b3f', 
+            whiteSpace: 'nowrap',
+            marginTop: '1.8rem',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease'
+          }}
           onClick={downloadICS}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.02, backgroundColor: 'rgba(74, 59, 63, 0.02)', borderColor: '#4a3b3f' }}
+          whileTap={{ scale: 0.98 }}
         >
           Ajouter au calendrier
         </motion.button>

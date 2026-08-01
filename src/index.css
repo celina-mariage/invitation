@@ -63,7 +63,7 @@ html, body {
 
 .date-script-heading {
   font-family: var(--font-script);
-  font-size: clamp(1.8rem, 6.5vw, 3.8rem);
+  font-size: clamp(2.4rem, 8vw, 5rem);
   color: var(--color-text-rose);
   line-height: 1.1;
   text-align: center;
