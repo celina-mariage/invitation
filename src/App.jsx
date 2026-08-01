@@ -1,0 +1,726 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useMotionTemplate } from 'framer-motion';
+import { MapPin, CalendarHeart, Heart, Volume2, VolumeX } from 'lucide-react';
+
+const ParallaxBanner = ({ className, style, imagePosition }) => {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+  
+  // Move image in opposite direction to scroll for a 3D depth effect
+  const y = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
+
+  return (
+    <div ref={ref} className={className} style={{ ...style, overflow: 'hidden', position: 'relative' }}>
+      <motion.div 
+        style={{ 
+          y,
+          position: 'absolute', top: '-30%', left: 0, right: 0, bottom: '-30%',
+          backgroundImage: "url('/bg.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: imagePosition || 'center'
+        }} 
+      />
+    </div>
+  );
+};
+
+const AudioVisualizer = () => {
+  return (
+    <div style={{ display: 'flex', gap: '3px', height: '14px', alignItems: 'flex-end' }}>
+      {[0, 1, 2].map((i) => (
+        <motion.div
+          key={i}
+          style={{ width: '3px', backgroundColor: 'var(--color-text-secondary)', borderRadius: '2px' }}
+          animate={{ height: ['4px', '14px', '4px'] }}
+          transition={{
+            duration: 0.6,
+            repeat: Infinity,
+            delay: i * 0.2,
+            ease: "easeInOut"
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+const AudioPlayer = () => {
+  const [isPlaying, setIsPlaying] = useState(true);
+  const audioRef = useRef(null);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.play().catch(error => {
+        console.log("Autoplay was prevented by the browser:", error);
+        setIsPlaying(false);
+      });
+    }
+  }, []);
+
+  const togglePlay = () => {
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
+
+  return (
+    <>
+      <audio ref={audioRef} loop src="https://kad-jemputan-kahwin.vercel.app/music/Beautiful%20in%20White%20x%20Canon%20in%20D%20(Piano%20Cover%20by%20Riyandi%20Kusuma).mp3" />
+      <motion.button
+        onClick={togglePlay}
+        className="fab-audio"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1, duration: 0.8, type: 'spring' }}
+      >
+        {isPlaying ? <AudioVisualizer /> : <VolumeX size={18} />}
+      </motion.button>
+    </>
+  );
+};
+
+const Petals = () => {
+  const petals = Array.from({ length: 45 }).map((_, i) => ({
+    id: i,
+    left: Math.random() * 100, 
+    delay: Math.random() * 5, 
+    duration: 10 + Math.random() * 15, 
+    scale: 0.2 + Math.random() * 0.6,
+    rotationStart: Math.random() * 360,
+  }));
+
+  return (
+    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', overflow: 'hidden', pointerEvents: 'none', zIndex: 10 }}>
+      {petals.map(petal => (
+        <motion.div
+          key={petal.id}
+          style={{
+            position: 'absolute',
+            top: '-10%',
+            left: `${petal.left}%`,
+            width: '12px',
+            height: '20px',
+            backgroundColor: 'rgba(255, 230, 235, 0.7)',
+            borderRadius: '100% 0 100% 0',
+            boxShadow: '0 0 8px rgba(255, 230, 235, 0.5)',
+            scale: petal.scale,
+          }}
+          animate={{
+            top: '110%',
+            left: `${petal.left + (Math.random() * 20 - 10)}%`,
+            rotate: [petal.rotationStart, petal.rotationStart + 360],
+          }}
+          transition={{
+            duration: petal.duration,
+            repeat: Infinity,
+            ease: 'linear',
+            delay: petal.delay,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+const TypewriterText = ({ text, className, style, delay = 0, duration = 2, rtl = false }) => {
+  return (
+    <motion.div
+      className={className}
+      style={{ ...style, display: 'inline-block', whiteSpace: 'nowrap' }}
+      initial={{ clipPath: rtl ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)' }}
+      animate={{ clipPath: 'inset(0 0 0 0)' }}
+      transition={{ duration, delay, ease: "easeInOut" }}
+    >
+      {text}
+    </motion.div>
+  );
+};
+
+const TopFlourish = () => (
+  <motion.div 
+    initial={{ opacity: 0, y: -10 }} 
+    animate={{ opacity: 1, y: 0 }} 
+    transition={{ delay: 0.5, duration: 1.5, ease: "easeOut" }}
+    style={{ marginBottom: '1rem', display: 'flex', justifyContent: 'center', width: '100%' }}
+  >
+    <svg width="120" height="20" viewBox="0 0 120 20" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ maxWidth: '100%', height: 'auto' }}>
+      <defs>
+        <linearGradient id="rose-gold-svg" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stopColor="#b76e79" />
+          <stop offset="50%" stopColor="#c88d9b" />
+          <stop offset="100%" stopColor="#b76e79" />
+        </linearGradient>
+      </defs>
+      <path d="M60 2 C45 18, 20 18, 0 10" stroke="url(#rose-gold-svg)" strokeWidth="1.5" fill="none" />
+      <path d="M60 2 C75 18, 100 18, 120 10" stroke="url(#rose-gold-svg)" strokeWidth="1.5" fill="none" />
+      <circle cx="60" cy="8" r="3" fill="url(#rose-gold-svg)" />
+    </svg>
+  </motion.div>
+);
+
+const OrnateDivider = () => (
+  <motion.div 
+    initial={{ opacity: 0, scale: 0.5 }} 
+    animate={{ opacity: 1, scale: 1 }} 
+    transition={{ delay: 2.5, duration: 1.5, ease: "easeOut" }}
+    style={{ margin: '1.5rem 0 2rem 0', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}
+  >
+    <svg width="240" height="24" viewBox="0 0 240 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ maxWidth: '100%', height: 'auto' }}>
+      {/* Left side flourish */}
+      <path d="M110 12 C90 12, 80 2, 60 2 C40 2, 25 22, 5 12" stroke="url(#rose-gold-svg)" strokeWidth="1.2" fill="none" />
+      <path d="M100 12 C85 12, 75 22, 60 22 C45 22, 30 2, 10 12" stroke="url(#rose-gold-svg)" strokeWidth="0.8" fill="none" opacity="0.7"/>
+      {/* Right side flourish */}
+      <path d="M130 12 C150 12, 160 2, 180 2 C200 2, 215 22, 235 12" stroke="url(#rose-gold-svg)" strokeWidth="1.2" fill="none" />
+      <path d="M140 12 C155 12, 165 22, 180 22 C195 22, 210 2, 230 12" stroke="url(#rose-gold-svg)" strokeWidth="0.8" fill="none" opacity="0.7"/>
+      {/* Center ornate diamond/flower */}
+      <path d="M120 4 C124 4, 126 8, 126 12 C126 16, 124 20, 120 20 C116 20, 114 16, 114 12 C114 8, 116 4, 120 4 Z" fill="url(#rose-gold-svg)" />
+      <circle cx="120" cy="12" r="2.5" fill="#fff" />
+      <path d="M120 0 L122.5 6 L120 4 L117.5 6 Z" fill="url(#rose-gold-svg)" />
+      <path d="M120 24 L122.5 18 L120 20 L117.5 18 Z" fill="url(#rose-gold-svg)" />
+      <path d="M108 12 L114 9.5 L112 12 L114 14.5 Z" fill="url(#rose-gold-svg)" />
+      <path d="M132 12 L126 9.5 L128 12 L126 14.5 Z" fill="url(#rose-gold-svg)" />
+    </svg>
+  </motion.div>
+);
+
+const Sparkles = () => {
+  const sparkles = Array.from({ length: 40 }).map((_, i) => ({
+    id: i,
+    left: Math.random() * 100, 
+    delay: Math.random() * 5, 
+    duration: 5 + Math.random() * 10, 
+    size: 1.5 + Math.random() * 3,
+  }));
+
+  return (
+    <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', overflow: 'hidden', pointerEvents: 'none', zIndex: 15 }}>
+      {sparkles.map(sparkle => (
+        <motion.div
+          key={sparkle.id}
+          style={{
+            position: 'absolute',
+            bottom: '-10%',
+            left: `${sparkle.left}%`,
+            width: `${sparkle.size}px`,
+            height: `${sparkle.size}px`,
+            backgroundColor: '#FFD700',
+            borderRadius: '50%',
+            boxShadow: '0 0 12px 3px rgba(255, 215, 0, 0.7)',
+          }}
+          animate={{
+            bottom: '110%',
+            left: `${sparkle.left + (Math.random() * 10 - 5)}%`,
+            opacity: [0, 1, 1, 0]
+          }}
+          transition={{
+            duration: sparkle.duration,
+            repeat: Infinity,
+            ease: 'linear',
+            delay: sparkle.delay,
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
+const AmbientPulse = () => (
+  <motion.div
+    style={{ position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 0 }}
+    animate={{ backgroundColor: ['rgba(255, 230, 235, 0)', 'rgba(255, 230, 235, 0.25)', 'rgba(255, 230, 235, 0)'] }}
+    transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
+  />
+);
+
+const GoldenThread = ({ scrollYProgress }) => {
+  return (
+    <div style={{ position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)', height: '100dvh', width: '2px', zIndex: 1, pointerEvents: 'none' }}>
+      <svg width="2" height="100%" viewBox="0 0 2 100" preserveAspectRatio="none">
+         <motion.line 
+           x1="1" y1="0" x2="1" y2="100" 
+           stroke="#b76e79" 
+           strokeWidth="2"
+           vectorEffect="non-scaling-stroke"
+           style={{ pathLength: scrollYProgress, opacity: scrollYProgress }} 
+         />
+      </svg>
+    </div>
+  );
+};
+
+const EntranceScreen = ({ onOpen }) => {
+  const container = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { staggerChildren: 0.4, delayChildren: 0.5 } },
+    exit: { opacity: 0, scale: 4, filter: 'blur(20px)', transition: { duration: 1.5, ease: "easeInOut" } }
+  };
+  
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    mouseX.set((clientX / innerWidth - 0.5) * 2);
+    mouseY.set((clientY / innerHeight - 0.5) * 2);
+  };
+
+  useEffect(() => {
+    const handleOrientation = (event) => {
+      let x = event.gamma; 
+      let y = event.beta;
+      if (x > 30) x = 30;
+      if (x < -30) x = -30;
+      if (y > 30) y = 30;
+      if (y < -30) y = -30;
+      if (x !== null && y !== null) {
+        mouseX.set(x / 30);
+        mouseY.set(y / 30);
+      }
+    };
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', handleOrientation);
+    }
+    return () => window.removeEventListener('deviceorientation', handleOrientation);
+  }, []);
+
+  const bgX = useTransform(mouseX, [-1, 1], ['-3%', '3%']);
+  const bgY = useTransform(mouseY, [-1, 1], ['-3%', '3%']);
+  const cardX = useTransform(mouseX, [-1, 1], ['3%', '-3%']);
+  const cardY = useTransform(mouseY, [-1, 1], ['3%', '-3%']);
+  
+  const spotlightX = useTransform(mouseX, [-1, 1], ['40%', '60%']);
+  const spotlightY = useTransform(mouseY, [-1, 1], ['40%', '60%']);
+  const spotlightStyle = useMotionTemplate`radial-gradient(circle at ${spotlightX} ${spotlightY}, transparent 0%, rgba(0,0,0,0.45) 130%)`;
+
+  return (
+    <motion.section 
+      className="snap-section" 
+      style={{ padding: 0, position: 'absolute', top: 0, left: 0, width: '100%', zIndex: 50, overflow: 'hidden' }}
+      variants={container}
+      initial="hidden"
+      animate="show"
+      exit="exit"
+      onMouseMove={handleMouseMove}
+    >
+      <motion.div 
+        style={{
+          position: 'absolute', top: '-5%', left: '-5%', width: '110%', height: '110%',
+          backgroundImage: "url('/bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center',
+          x: bgX, y: bgY
+        }}
+      />
+      
+      <motion.div 
+        style={{
+          position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', pointerEvents: 'none', zIndex: 1,
+          background: spotlightStyle
+        }}
+      />
+      
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Petals />
+        <Sparkles />
+        
+        <motion.div 
+          className="glass-card" 
+          style={{ x: cardX, y: cardY, zIndex: 20 }}
+          initial={{ opacity: 0, y: 20 }} 
+          animate={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 1 }}
+        >
+          <TopFlourish />
+
+          <TypewriterText 
+            text="بِسْمِ ٱللَّٰهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ" 
+            className="arabic-text rose-gold-foil" 
+            style={{ fontSize: 'clamp(2.5rem, 11vw, 4.8rem)', marginBottom: '0', zIndex: 2, padding: '0 5px' }} 
+            delay={1.0} 
+            duration={2} 
+            rtl={true} 
+          />
+          
+          <OrnateDivider />
+          
+          <motion.h3 
+            style={{ 
+              fontFamily: 'var(--font-body)', fontWeight: '400', fontSize: 'clamp(0.95rem, 4.5vw, 1.25rem)', letterSpacing: '2px', 
+              color: 'var(--color-text-primary)', textAlign: 'center', 
+              lineHeight: '1.6', marginTop: '0', marginBottom: '0', textTransform: 'uppercase', width: '100%'
+            }}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 3.5, duration: 1.5 }}
+          >
+            Une heureuse nouvelle<br/>vous est destinée
+          </motion.h3>
+
+          <motion.div 
+            style={{ marginTop: '2rem' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 5.0, duration: 1 }}
+          >
+            <motion.button 
+              className="btn-primary" 
+              style={{ 
+                padding: '1rem 3.5rem', backgroundColor: 'var(--color-text-secondary)', border: 'none', borderRadius: '50px',
+                color: '#fff', boxShadow: '0 4px 15px rgba(201, 107, 125, 0.3)',
+                fontFamily: 'var(--font-body)', fontWeight: '500', letterSpacing: '3px', fontSize: '0.85rem', textTransform: 'uppercase'
+              }}
+              onClick={onOpen}
+              whileHover={{ scale: 1.05, backgroundColor: '#b55a6a' }}
+              whileTap={{ scale: 0.95 }}
+              animate={{ boxShadow: ['0 4px 15px rgba(201, 107, 125, 0.3)', '0 4px 25px rgba(201, 107, 125, 0.6)', '0 4px 15px rgba(201, 107, 125, 0.3)'] }}
+              transition={{ repeat: Infinity, duration: 3 }}
+            >
+              Ouvrir
+            </motion.button>
+          </motion.div>
+        </motion.div>
+      </div>
+    </motion.section>
+  );
+};
+
+const Hero = () => {
+  return (
+    <section className="snap-section" style={{ 
+      backgroundImage: "url('/bg.jpg')", 
+      backgroundSize: 'cover', 
+      backgroundPosition: 'center',
+      backgroundAttachment: 'fixed',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      {/* Soft overlay to ensure readability */}
+      <div style={{ 
+        position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', 
+        background: 'rgba(255,253,252,0.4)',
+        zIndex: 0
+      }} />
+      
+      <div style={{ 
+        position: 'relative', 
+        zIndex: 1, 
+        width: '100%', 
+        height: '100%', 
+        minHeight: '100dvh',
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        padding: '2rem',
+        gap: '2.5rem'
+      }}>
+        
+        {/* Top text with frosted glass backing */}
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.2 }}
+          style={{ 
+            textAlign: 'center',
+            maxWidth: '600px', 
+            background: 'rgba(255,253,252,0.7)', 
+            padding: '1.5rem', 
+            borderRadius: '20px', 
+            backdropFilter: 'blur(10px)',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
+          }}
+        >
+          <p style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, letterSpacing: '3px', textTransform: 'uppercase', fontSize: 'clamp(0.85rem, 3vw, 1.1rem)', marginBottom: '0.8rem', color: '#4a3b3f' }}>
+            Monsieur et Madame Izri
+          </p>
+          <p style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontSize: 'clamp(1.2rem, 4.5vw, 1.8rem)', color: '#8a4b56', fontWeight: 400, marginBottom: '0.3rem' }}>
+            ont l'immense plaisir de vous annoncer
+          </p>
+          <p style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontSize: 'clamp(1.2rem, 4.5vw, 1.8rem)', color: '#8a4b56', fontWeight: 400 }}>
+            le mariage de leur fille
+          </p>
+        </motion.div>
+
+        {/* Massive Center Title */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, delay: 0.4 }}
+          style={{ textAlign: 'center' }}
+        >
+          <h1 className="script-text rose-gold-foil" style={{ 
+            fontSize: 'clamp(6.5rem, 28vw, 12rem)', 
+            lineHeight: '0.9', 
+            margin: 0, 
+            paddingRight: '10px',
+            textShadow: '0 4px 20px rgba(255,253,252,0.8), 0 0 10px rgba(183,110,121,0.3)'
+          }}>
+            Celina
+          </h1>
+        </motion.div>
+
+        {/* Bottom text with frosted glass backing */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.6 }}
+          style={{ 
+            textAlign: 'center', 
+            maxWidth: '500px', 
+            background: 'rgba(255,253,252,0.7)', 
+            padding: '1.5rem', 
+            borderRadius: '20px', 
+            backdropFilter: 'blur(10px)',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
+          }}
+        >
+          <p style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(1.2rem, 4.5vw, 1.8rem)', color: '#8a4b56', lineHeight: '1.6' }}>
+            Votre présence en ce jour de célébration sera notre plus beau cadeau.
+          </p>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+};
+
+const Countdown = () => {
+  const targetDate = new Date('2026-08-29T10:30:00').getTime();
+  const [timeLeft, setTimeLeft] = useState({
+    Jours: 0, Heures: 0, Min: 0, Sec: 0
+  });
+
+  const downloadICS = () => {
+    const icsData = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Celina Wedding//FR
+BEGIN:VEVENT
+UID:${new Date().getTime()}@celinawedding.com
+DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
+DTSTART:20260829T093000Z
+DTEND:20260829T223000Z
+SUMMARY:Mariage de Celina
+LOCATION:Salle des Fêtes Palais Royal, Wilaya de Tizi Ouzou, Algeria
+DESCRIPTION:Nous avons l'immense joie de vous annoncer le mariage de Celina.
+END:VEVENT
+END:VCALENDAR`;
+    const blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.setAttribute('download', 'mariage_celina.ics');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      setTimeLeft({
+        Jours: Math.floor(distance / (1000 * 60 * 60 * 24)),
+        Heures: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        Min: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+        Sec: Math.floor((distance % (1000 * 60)) / 1000)
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [targetDate]);
+
+  return (
+    <section className="snap-section" style={{ 
+      backgroundImage: "url('/blush_floral_bg.jpg')", 
+      backgroundSize: 'cover', 
+      backgroundPosition: 'center',
+      backgroundAttachment: 'fixed',
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center',
+      position: 'relative'
+    }}>
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 253, 252, 0.6)', backdropFilter: 'blur(3px)' }} />
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+        style={{ zIndex: 1, textAlign: 'center', padding: '3rem 1.5rem', background: 'rgba(255,253,252,0.6)', borderRadius: '30px', backdropFilter: 'blur(10px)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', maxWidth: '95%', width: '700px' }}
+      >
+        <CalendarHeart size={42} strokeWidth={1} color="#8a4b56" style={{ marginBottom: '1.5rem' }} />
+        <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, letterSpacing: '4px', textTransform: 'uppercase', fontSize: 'clamp(1rem, 3vw, 1.5rem)', color: '#4a3b3f' }}>Le Grand Jour</h2>
+        
+        {/* Date perfectly clamped to stay on one line */}
+        <p className="script-text" style={{ fontSize: 'clamp(2rem, 9vw, 6rem)', color: '#8a4b56', margin: '0.5rem 0 1rem 0', whiteSpace: 'nowrap' }}>
+          Samedi 29 Août 2026
+        </p>
+        
+        {/* Countdown units separated into distinct rectangles */}
+        <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '3rem', flexWrap: 'wrap' }}>
+          {Object.entries(timeLeft).map(([unit, value]) => (
+            <div key={unit} style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              alignItems: 'center',
+              justifyContent: 'center',
+              backgroundColor: 'rgba(255,253,252,0.85)',
+              border: '1px solid rgba(138, 75, 86, 0.15)',
+              borderRadius: '15px',
+              padding: '1.5rem 0.5rem',
+              flex: '1 1 20%', /* Allows them to stay large and wrap into 2 rows of 2 on small screens */
+              minWidth: '70px',
+              boxShadow: '0 5px 15px rgba(0,0,0,0.03)'
+            }}>
+              <div className="script-text" style={{ fontSize: 'clamp(3rem, 10vw, 6rem)', color: '#4a3b3f', lineHeight: '0.8', marginBottom: '10px' }}>
+                {String(value).padStart(2, '0')}
+              </div>
+              <div style={{ fontFamily: 'var(--font-body)', fontSize: 'clamp(0.6rem, 2vw, 0.9rem)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '3px', marginTop: '8px', color: '#8a4b56' }}>{unit}</div>
+            </div>
+          ))}
+        </div>
+        
+        <motion.button 
+          onClick={downloadICS}
+          style={{ 
+            marginTop: '4rem', padding: '1.2rem 2rem', backgroundColor: 'rgba(255,253,252,0.8)', border: '1px solid rgba(138, 75, 86, 0.3)', borderRadius: '50px',
+            color: '#4a3b3f', cursor: 'pointer', boxShadow: '0 10px 30px rgba(0, 0, 0, 0.05)',
+            fontFamily: 'var(--font-heading)', fontWeight: '600', letterSpacing: '3px', fontSize: 'clamp(0.85rem, 2.5vw, 1.1rem)', textTransform: 'uppercase',
+            width: '100%', maxWidth: '350px'
+          }}
+          whileHover={{ scale: 1.05, backgroundColor: 'rgba(255,253,252,1)' }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Ajouter au Calendrier
+        </motion.button>
+      </motion.div>
+    </section>
+  );
+};
+
+const Venue = () => {
+  return (
+    <section className="snap-section" style={{ backgroundColor: 'var(--color-bg-primary)', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '6rem 2rem' }}>
+      <motion.div
+        initial={{ opacity: 0, x: -30 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+        style={{ textAlign: 'center', maxWidth: '600px' }}
+      >
+        <MapPin size={36} strokeWidth={1} color="#4a3b3f" style={{ marginBottom: '2rem' }} />
+        <h2 style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontWeight: 400, fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', color: '#8a4b56', marginBottom: '1rem' }}>Rendez-vous à</h2>
+        <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, letterSpacing: '2px', textTransform: 'uppercase', fontSize: 'clamp(1.5rem, 6vw, 3rem)', margin: '1rem 0', color: '#4a3b3f', lineHeight: '1.2' }}>Salle des Fêtes<br/>Palais Royal</h3>
+        <p style={{ fontFamily: 'var(--font-body)', fontWeight: 500, letterSpacing: '3px', textTransform: 'uppercase', fontSize: '0.8rem', color: '#8a4b56', marginTop: '1.5rem' }}>Wilaya de Tizi Ouzou</p>
+        <p style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontSize: '1.3rem', margin: '3.5rem 0', color: '#4a3b3f' }}>Nous aurons le plaisir de vous y accueillir à partir de 10h30.</p>
+        
+        <motion.a 
+          href="https://www.google.com/maps/search/?api=1&query=P4H4%2BPCR%2C%20Tizi%20Ouzou%2C%20Algeria" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style={{ 
+            display: 'inline-block', padding: '1.2rem 3.5rem', backgroundColor: '#4a3b3f', border: 'none', borderRadius: '50px',
+            color: '#fffdfc', textDecoration: 'none', boxShadow: '0 15px 30px rgba(74, 59, 63, 0.2)',
+            fontFamily: 'var(--font-heading)', fontWeight: '600', letterSpacing: '3px', fontSize: '0.9rem', textTransform: 'uppercase'
+          }}
+          whileHover={{ scale: 1.05, backgroundColor: '#362a2d' }}
+          whileTap={{ scale: 0.95 }}
+        >
+          Voir sur la Carte
+        </motion.a>
+      </motion.div>
+    </section>
+  );
+};
+
+const Footer = () => {
+  return (
+    <section className="snap-section" style={{ 
+      backgroundColor: 'var(--color-bg-primary)', 
+      display: 'flex', 
+      justifyContent: 'center', 
+      alignItems: 'center',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      <motion.p 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 0.02 }}
+        transition={{ duration: 2 }}
+        className="arabic-text" 
+        style={{ position: 'absolute', fontSize: '25vw', color: '#4a3b3f', whiteSpace: 'nowrap', zIndex: 0, pointerEvents: 'none' }}
+      >
+        بارك الله لكما وجمع بينكما في خير
+      </motion.p>
+      
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1.5, delay: 0.5 }}
+        viewport={{ once: true }}
+        style={{ zIndex: 1, textAlign: 'center', padding: '2rem' }}
+      >
+        <p className="arabic-text" style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', color: '#8a4b56', marginBottom: '3rem' }}>بارك الله لكما وجمع بينكما في خير</p>
+        <OrnateDivider />
+        <p className="script-text" style={{ fontSize: 'clamp(3.5rem, 8vw, 5.5rem)', color: '#4a3b3f', marginTop: '3rem' }}>Avec toute notre affection</p>
+      </motion.div>
+    </section>
+  );
+};
+
+function App() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isEntranceDone, setIsEntranceDone] = useState(false);
+  const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const { scrollYProgress } = useScroll();
+
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  useEffect(() => {
+    if (isOpen && audioRef.current && !isPlaying) {
+      audioRef.current.play().then(() => setIsPlaying(true)).catch(e => console.log("Autoplay prevented:", e));
+    }
+  }, [isOpen]);
+
+  return (
+    <main style={{ backgroundColor: 'var(--color-bg-primary)', minHeight: '100vh', width: '100%', position: 'relative' }}>
+      <AudioPlayer />
+      <AnimatePresence onExitComplete={() => setIsEntranceDone(true)}>
+        {!isOpen && <EntranceScreen key="entrance" onOpen={() => setIsOpen(true)} />}
+      </AnimatePresence>
+      
+      {isEntranceDone && (
+        <motion.div
+          key="content"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <AmbientPulse />
+          <Hero />
+          <Countdown />
+          <Venue />
+          <Footer />
+        </motion.div>
+      )}
+    </main>
+  );
+}
+
+export default App;
