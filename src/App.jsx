@@ -565,17 +565,21 @@ END:VCALENDAR`;
       backgroundPosition: 'center',
       backgroundAttachment: 'fixed',
       display: 'flex', 
+      flexDirection: 'column',
       justifyContent: 'center', 
       alignItems: 'center',
-      position: 'relative'
+      position: 'relative',
+      paddingTop: '3rem',
+      paddingBottom: '2rem'
     }}>
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 253, 252, 0.6)', backdropFilter: 'blur(3px)' }} />
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 253, 252, 0.6)', backdropFilter: 'blur(3px)', zIndex: 0 }} />
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', zIndex: 1, width: '100%' }}>
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
         viewport={{ once: true }}
-        style={{ zIndex: 1, textAlign: 'center', padding: '3rem 1.5rem', background: 'rgba(255,253,252,0.6)', borderRadius: '30px', backdropFilter: 'blur(10px)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', maxWidth: '95%', width: '700px' }}
+        style={{ textAlign: 'center', padding: '3rem 1.5rem', background: 'rgba(255,253,252,0.6)', borderRadius: '30px', backdropFilter: 'blur(10px)', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', maxWidth: '95%', width: '700px' }}
       >
         <CalendarHeart size={42} strokeWidth={1} color="#8a4b56" style={{ marginBottom: '1.5rem' }} />
         <h2 style={{ fontFamily: 'var(--font-heading)', fontWeight: 600, letterSpacing: '4px', textTransform: 'uppercase', fontSize: 'clamp(1rem, 3vw, 1.5rem)', color: '#4a3b3f' }}>Le Grand Jour</h2>
@@ -619,13 +623,17 @@ END:VCALENDAR`;
           Ajouter au calendrier
         </motion.button>
       </motion.div>
+      </div>
+      
+      <ScrollIndicator />
     </section>
   );
 };
 
 const Venue = () => {
   return (
-    <section className="snap-section" style={{ backgroundColor: 'var(--color-bg-primary)', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '4rem 1.5rem' }}>
+    <section className="snap-section" style={{ backgroundColor: 'var(--color-bg-primary)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem 1.5rem 2rem 1.5rem', position: 'relative' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -677,6 +685,9 @@ const Venue = () => {
           Voir sur la Carte
         </motion.a>
       </motion.div>
+      </div>
+
+      <ScrollIndicator />
     </section>
   );
 };
