@@ -640,7 +640,7 @@ END:VCALENDAR`;
             border: '1px solid rgba(74, 59, 63, 0.3)', 
             borderRadius: '50px',
             color: '#4a3b3f', 
-            whiteSpace: 'nowrap',
+            whiteSpace: 'normal',
             maxWidth: '92%',
             boxSizing: 'border-box',
             marginTop: '1.8rem',
@@ -729,7 +729,7 @@ const Venue = () => {
             borderRadius: '50px',
             color: '#4a3b3f', 
             textDecoration: 'none',
-            whiteSpace: 'nowrap',
+            whiteSpace: 'normal',
             maxWidth: '92%',
             boxSizing: 'border-box',
             transition: 'all 0.3s ease'
