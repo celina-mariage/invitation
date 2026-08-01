@@ -218,8 +218,9 @@ const TopFlourish = () => (
 const OrnateDivider = () => (
   <motion.div 
     initial={{ opacity: 0, scale: 0.5 }} 
-    animate={{ opacity: 1, scale: 1 }} 
-    transition={{ delay: 2.5, duration: 1.5, ease: "easeOut" }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    viewport={{ once: true }}
+    transition={{ delay: 0.3, duration: 1.2, ease: "easeOut" }}
     style={{ margin: '1.5rem 0 2rem 0', display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}
   >
     <svg width="240" height="24" viewBox="0 0 240 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ maxWidth: '100%', height: 'auto' }}>
@@ -292,7 +293,8 @@ const AmbientPulse = () => (
   />
 );
 
-const GoldenThread = ({ scrollYProgress }) => {
+const GoldenThread = ({ containerRef }) => {
+  const { scrollYProgress } = useScroll({ container: containerRef });
   return (
     <div style={{ position: 'fixed', top: 0, left: '50%', transform: 'translateX(-50%)', height: '100dvh', width: '2px', zIndex: 1, pointerEvents: 'none' }}>
       <svg width="2" height="100%" viewBox="0 0 2 100" preserveAspectRatio="none">
@@ -1143,8 +1145,8 @@ const Footer = () => {
 function App() {
   const [isOpen, setIsOpen] = useState(false);
   const audioRef = useRef(null);
+  const containerRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const { scrollYProgress } = useScroll();
 
   const toggleAudio = () => {
     if (audioRef.current) {
@@ -1203,11 +1205,13 @@ function App() {
         ) : (
           <motion.div
             key="content"
+            ref={containerRef}
             className="fullpage-container"
             initial={{ opacity: 0, scale: 1.12, filter: 'blur(10px)' }}
             animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           >
+            <GoldenThread containerRef={containerRef} />
             <AmbientPulse />
             <Hero />
             <Countdown />
