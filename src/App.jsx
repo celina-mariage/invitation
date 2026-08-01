@@ -434,6 +434,7 @@ const Hero = () => {
         justifyContent: 'center', 
         alignItems: 'center',
         padding: '2rem',
+        paddingBottom: '8rem', /* Adds space at the bottom so text doesn't overlap with ScrollIndicator */
         gap: '2.5rem'
       }}>
         
