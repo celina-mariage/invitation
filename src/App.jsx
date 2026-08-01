@@ -801,7 +801,7 @@ const Venue = () => {
         viewport={{ once: true, margin: "-10%" }}
         variants={{
           hidden: { opacity: 0, y: 30 },
-          visible: { opacity: 1, y: 0, transition: { duration: 0.7, staggerChildren: 0.12, delayChildren: 0.3 } }
+          visible: { opacity: 1, y: 0, transition: { duration: 1, staggerChildren: 0.22, delayChildren: 0.4 } }
         }}
         style={{ 
           textAlign: 'center', 
@@ -821,7 +821,7 @@ const Venue = () => {
 
         {/* Bouncing MapPin icon */}
         <motion.div 
-          variants={{ hidden: { opacity: 0, y: -20 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 8, stiffness: 180 } } }}
+          variants={{ hidden: { opacity: 0, y: -25 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 10, stiffness: 120 } } }}
           style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center', width: '56px', height: '56px', borderRadius: '50%', backgroundColor: 'rgba(138, 75, 86, 0.06)', marginBottom: '0.6rem' }}
         >
           <MapPin size={24} strokeWidth={1.2} color="#8a4b56" />
@@ -829,7 +829,7 @@ const Venue = () => {
         
         <motion.h2 
           className="script-heading"
-          variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+          variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 20, mass: 1.2 } } }}
         >
           Rendez-vous à
         </motion.h2>
@@ -837,13 +837,13 @@ const Venue = () => {
         <motion.h3 
           className="subheader-uppercase" 
           style={{ margin: '0.6rem 0' }}
-          variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+          variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 20, mass: 1.2 } } }}
         >
           Salle des Fêtes<br/>Palais Royal
         </motion.h3>
         
         <motion.div
-          variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1, transition: { duration: 0.8 } } }}
+          variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1, transition: { duration: 1.4, ease: 'easeInOut' } } }}
         >
           <OrnateDivider />
         </motion.div>
@@ -851,7 +851,7 @@ const Venue = () => {
         <motion.p 
           className="label-uppercase" 
           style={{ margin: '0.6rem 0' }}
-          variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+          variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 20, mass: 1.2 } } }}
         >
           Wilaya de Tizi Ouzou
         </motion.p>
@@ -859,14 +859,14 @@ const Venue = () => {
         <motion.p 
           className="body-italic" 
           style={{ margin: '0.8rem 0 0.4rem 0' }}
-          variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+          variants={{ hidden: { opacity: 0, y: 10 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 20, mass: 1.2 } } }}
         >
           Nous aurons le bonheur de vous y<br/>accueillir à partir de 10h30.
         </motion.p>
         
         {/* Meal Schedule Badge */}
         <motion.div 
-          variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1, transition: { type: 'spring', damping: 14, stiffness: 200 } } }}
+          variants={{ hidden: { opacity: 0, scale: 0.8 }, visible: { opacity: 1, scale: 1, transition: { type: 'spring', damping: 18, stiffness: 120 } } }}
           style={{ 
             display: 'inline-flex', 
             alignItems: 'center', 
@@ -889,7 +889,7 @@ const Venue = () => {
           target="_blank" 
           rel="noopener noreferrer"
           className="label-uppercase"
-          variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+          variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 20, mass: 1.2 } } }}
           style={{ 
             display: 'inline-block', 
             padding: '0.75rem clamp(1rem, 4vw, 2.2rem)', 
@@ -962,7 +962,7 @@ const Footer = () => {
         viewport={{ once: true, margin: "-10%" }}
         variants={{
           hidden: { opacity: 0, scale: 0.96, y: 15 },
-          visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], staggerChildren: 0.15, delayChildren: 0.4 } }
+          visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1], staggerChildren: 0.25, delayChildren: 0.5 } }
         }}
         style={{ 
           zIndex: 1, 
@@ -987,7 +987,7 @@ const Footer = () => {
 
         {/* Pulsing Heart */}
         <motion.div
-          variants={{ hidden: { opacity: 0, scale: 0 }, visible: { opacity: 1, scale: 1, transition: { type: 'spring', damping: 8, stiffness: 180 } } }}
+          variants={{ hidden: { opacity: 0, scale: 0 }, visible: { opacity: 1, scale: 1, transition: { type: 'spring', damping: 10, stiffness: 120 } } }}
           style={{ display: 'inline-block', marginBottom: '0.8rem' }}
         >
           <motion.div 
@@ -1015,14 +1015,14 @@ const Footer = () => {
           style={{ fontSize: 'clamp(1.85rem, 6.2vw, 2.8rem)', color: '#8a4b56', margin: '0.2rem 0 0.6rem 0', lineHeight: 1.3 }}
           variants={{ 
             hidden: { opacity: 0, clipPath: 'inset(0 0 0 100%)' }, 
-            visible: { opacity: 1, clipPath: 'inset(0 0 0 0)', transition: { duration: 1.4, ease: 'easeInOut' } } 
+            visible: { opacity: 1, clipPath: 'inset(0 0 0 0)', transition: { duration: 2, ease: 'easeInOut' } } 
           }}
         >
           وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
         </motion.p>
 
         <motion.div
-          variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1, transition: { duration: 0.9 } } }}
+          variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1, transition: { duration: 1.5, ease: 'easeInOut' } } }}
         >
           <OrnateDivider />
         </motion.div>
@@ -1030,7 +1030,7 @@ const Footer = () => {
         <motion.p 
           className="body-italic" 
           style={{ fontSize: 'clamp(1.35rem, 4.8vw, 1.85rem)', color: '#8a4b56', margin: '0.6rem 0 0.8rem 0' }}
-          variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+          variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 20, mass: 1.4 } } }}
         >
           Hâte de vous compter parmi nous pour célébrer cette union.
         </motion.p>
@@ -1038,14 +1038,14 @@ const Footer = () => {
         {/* Signature Block */}
         <motion.div 
           style={{ marginTop: '0.6rem' }}
-          variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.2 } } }}
+          variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.35 } } }}
         >
           <motion.p 
             className="script-heading" 
             style={{ fontSize: 'clamp(2.8rem, 8vw, 4.2rem)', margin: 0, color: '#8a4b56', display: 'inline-block' }}
             variants={{ 
               hidden: { opacity: 0, clipPath: 'inset(0 100% 0 0)' }, 
-              visible: { opacity: 1, clipPath: 'inset(0 0 0 0)', transition: { duration: 1.2, ease: 'easeInOut' } } 
+              visible: { opacity: 1, clipPath: 'inset(0 0 0 0)', transition: { duration: 2, ease: 'easeInOut' } } 
             }}
           >
             Avec toute notre affection,
@@ -1054,7 +1054,7 @@ const Footer = () => {
           <motion.p 
             className="subheader-uppercase rose-gold-foil" 
             style={{ letterSpacing: '4px', marginTop: '0.4rem', fontWeight: 700, fontSize: 'clamp(1.15rem, 4vw, 1.5rem)' }}
-            variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+            variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 20, mass: 1.4 } } }}
           >
             La Famille Izri
           </motion.p>
@@ -1068,7 +1068,7 @@ const Footer = () => {
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: 1.2, duration: 0.7, type: 'spring', damping: 15 }}
+        transition={{ delay: 1.8, duration: 0.9, type: 'spring', damping: 18 }}
         style={{
           marginTop: '1.5rem',
           display: 'inline-flex',
