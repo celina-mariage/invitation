@@ -365,11 +365,13 @@ const ScrollIndicator = () => {
   return (
     <motion.div 
       style={{ 
+        position: 'absolute',
+        bottom: '1.5rem',
+        left: '50%',
+        transform: 'translateX(-50%)',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        marginTop: 'auto',
-        marginBottom: '0.5rem',
         pointerEvents: 'none',
         zIndex: 50
       }}
@@ -631,8 +633,7 @@ END:VCALENDAR`;
 
 const Venue = () => {
   return (
-    <section className="snap-section" style={{ backgroundColor: 'var(--color-bg-primary)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', padding: '3rem 1.5rem 2rem 1.5rem', position: 'relative' }}>
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+    <section className="snap-section" style={{ backgroundColor: 'var(--color-bg-primary)', display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem 1.5rem 4rem 1.5rem', position: 'relative' }}>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -640,42 +641,42 @@ const Venue = () => {
         viewport={{ once: true }}
         style={{ 
           textAlign: 'center', 
-          maxWidth: '650px',
+          maxWidth: '600px',
           width: '100%',
-          padding: 'clamp(3rem, 6vw, 5rem) clamp(1.5rem, 4vw, 3rem)',
+          padding: 'clamp(1.5rem, 4vw, 2.5rem) clamp(1.2rem, 3vw, 2rem)',
           border: '1px solid rgba(138, 75, 86, 0.2)',
           position: 'relative',
           backgroundColor: '#fffdfc'
         }}
       >
         {/* Decorative corner brackets */}
-        <div style={{ position: 'absolute', top: '10px', left: '10px', width: '30px', height: '30px', borderTop: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.5 }}></div>
-        <div style={{ position: 'absolute', top: '10px', right: '10px', width: '30px', height: '30px', borderTop: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.5 }}></div>
-        <div style={{ position: 'absolute', bottom: '10px', left: '10px', width: '30px', height: '30px', borderBottom: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.5 }}></div>
-        <div style={{ position: 'absolute', bottom: '10px', right: '10px', width: '30px', height: '30px', borderBottom: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.5 }}></div>
+        <div style={{ position: 'absolute', top: '10px', left: '10px', width: '25px', height: '25px', borderTop: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.5 }}></div>
+        <div style={{ position: 'absolute', top: '10px', right: '10px', width: '25px', height: '25px', borderTop: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.5 }}></div>
+        <div style={{ position: 'absolute', bottom: '10px', left: '10px', width: '25px', height: '25px', borderBottom: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.5 }}></div>
+        <div style={{ position: 'absolute', bottom: '10px', right: '10px', width: '25px', height: '25px', borderBottom: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.5 }}></div>
 
-        <div style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center', width: '80px', height: '80px', borderRadius: '50%', backgroundColor: 'rgba(138, 75, 86, 0.03)', marginBottom: '1.5rem' }}>
-          <MapPin size={32} strokeWidth={1} color="#8a4b56" />
+        <div style={{ display: 'inline-flex', justifyContent: 'center', alignItems: 'center', width: '60px', height: '60px', borderRadius: '50%', backgroundColor: 'rgba(138, 75, 86, 0.03)', marginBottom: '0.8rem' }}>
+          <MapPin size={26} strokeWidth={1.2} color="#8a4b56" />
         </div>
         
-        <h2 className="script-text" style={{ fontSize: 'clamp(3.5rem, 8vw, 6rem)', color: '#4a3b3f', margin: '0 0 1rem 0', lineHeight: 1 }}>Rendez-vous à</h2>
+        <h2 className="script-text" style={{ fontSize: 'clamp(2.8rem, 6vw, 4.5rem)', color: '#4a3b3f', margin: '0 0 0.4rem 0', lineHeight: 1 }}>Rendez-vous à</h2>
         
-        <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 400, letterSpacing: '4px', textTransform: 'uppercase', fontSize: 'clamp(1.5rem, 6vw, 2.5rem)', margin: '2rem 0 1rem 0', color: '#4a3b3f', lineHeight: '1.4' }}>Salle des Fêtes<br/>Palais Royal</h3>
+        <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 400, letterSpacing: '3px', textTransform: 'uppercase', fontSize: 'clamp(1.2rem, 4vw, 1.8rem)', margin: '0.8rem 0 0.5rem 0', color: '#4a3b3f', lineHeight: '1.3' }}>Salle des Fêtes<br/>Palais Royal</h3>
         
         <OrnateDivider />
         
-        <p style={{ fontFamily: 'var(--font-body)', fontWeight: 400, letterSpacing: '3px', textTransform: 'uppercase', fontSize: 'clamp(0.9rem, 3vw, 1.2rem)', color: '#8a4b56', marginTop: '1.5rem' }}>Wilaya de Tizi Ouzou</p>
+        <p style={{ fontFamily: 'var(--font-body)', fontWeight: 400, letterSpacing: '2px', textTransform: 'uppercase', fontSize: 'clamp(0.85rem, 2.5vw, 1rem)', color: '#8a4b56', marginTop: '0.8rem', marginBottom: '0.8rem' }}>Wilaya de Tizi Ouzou</p>
         
-        <p style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontSize: 'clamp(1.3rem, 4vw, 1.8rem)', margin: '3rem 0', color: '#4a3b3f', lineHeight: 1.6 }}>Nous aurons le bonheur de vous y<br/>accueillir à partir de 10h30.</p>
+        <p style={{ fontFamily: 'var(--font-heading)', fontStyle: 'italic', fontSize: 'clamp(1.1rem, 3.5vw, 1.5rem)', margin: '1.2rem 0', color: '#4a3b3f', lineHeight: 1.5 }}>Nous aurons le bonheur de vous y<br/>accueillir à partir de 10h30.</p>
         
         <motion.a 
           href="https://www.google.com/maps/search/?api=1&query=P4H4%2BPCR%2C%20Tizi%20Ouzou%2C%20Algeria" 
           target="_blank" 
           rel="noopener noreferrer"
           style={{ 
-            display: 'inline-block', padding: '1.2rem 3.5rem', backgroundColor: 'transparent', border: '1px solid rgba(74, 59, 63, 0.3)', borderRadius: '50px',
+            display: 'inline-block', padding: '0.8rem 2.5rem', backgroundColor: 'transparent', border: '1px solid rgba(74, 59, 63, 0.3)', borderRadius: '50px',
             color: '#4a3b3f', textDecoration: 'none',
-            fontFamily: 'var(--font-heading)', fontWeight: '600', letterSpacing: '3px', fontSize: 'clamp(0.9rem, 3vw, 1.1rem)', textTransform: 'uppercase',
+            fontFamily: 'var(--font-heading)', fontWeight: '600', letterSpacing: '2px', fontSize: 'clamp(0.85rem, 2.5vw, 1rem)', textTransform: 'uppercase',
             transition: 'all 0.3s ease'
           }}
           whileHover={{ scale: 1.02, backgroundColor: 'rgba(74, 59, 63, 0.02)', borderColor: '#4a3b3f' }}
@@ -684,7 +685,6 @@ const Venue = () => {
           Voir sur la Carte
         </motion.a>
       </motion.div>
-      </div>
 
       <ScrollIndicator />
     </section>
