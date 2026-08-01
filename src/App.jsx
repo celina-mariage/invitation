@@ -630,9 +630,9 @@ UID:${new Date().getTime()}@izriwedding.com
 DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
 DTSTART:20260829T093000Z
 DTEND:20260829T180000Z
-SUMMARY:Invitation de mariage IZRI
+SUMMARY:Mariage de Celina – Famille Izri
 LOCATION:Salle des Fêtes Palais Royal, Wilaya de Tizi Ouzou, Algeria
-DESCRIPTION:Faites-nous l'honneur de votre présence lors de cette merveilleuse journée. Le déjeuner sera de 11h30 à 13h30.
+DESCRIPTION:Faites-nous l'honneur de votre présence lors de cette merveilleuse journée. Le déjeuner aura lieu de 11h30 à 13h30.
 BEGIN:VALARM
 TRIGGER:-PT1D
 ACTION:DISPLAY
@@ -882,7 +882,7 @@ const Venue = () => {
         >
           <Utensils size={13} color="#8a4b56" strokeWidth={1.5} />
           <span className="label-uppercase" style={{ fontSize: 'clamp(0.72rem, 2.1vw, 0.82rem)', color: '#8a4b56', letterSpacing: '1.2px' }}>
-            Le déjeuner sera de 11h30 à 13h30
+            Le déjeuner aura lieu de 11h30 à 13h30
           </span>
         </motion.div>
         
@@ -1078,7 +1078,7 @@ const Footer = () => {
           style={{ fontSize: 'clamp(1.35rem, 4.8vw, 1.85rem)', color: '#8a4b56', margin: '0.6rem 0 0.8rem 0' }}
           variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 20, mass: 1.4 } } }}
         >
-          Hâte de vous compter parmi nous pour célébrer cette union.
+          Nous sommes impatients de vous accueillir pour célébrer cette belle union.
         </motion.p>
 
         {/* Signature Block */}
