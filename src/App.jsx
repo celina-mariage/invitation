@@ -101,10 +101,42 @@ const TypewriterText = ({ text, className, style, delay = 0, duration = 2, rtl =
       className={className}
       style={{ ...style, display: 'inline-block', whiteSpace: 'nowrap' }}
       initial={{ clipPath: rtl ? 'inset(0 0 0 100%)' : 'inset(0 100% 0 0)' }}
-      animate={{ clipPath: 'inset(0 0 0 0)' }}
+      whileInView={{ clipPath: 'inset(0 0 0 0)' }}
+      viewport={{ once: true }}
       transition={{ duration, delay, ease: "easeInOut" }}
     >
       {text}
+    </motion.div>
+  );
+};
+
+const StaggeredText = ({ text, className, style, delay = 0, speed = 0.08 }) => {
+  const words = text.split(" ");
+  const container = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: speed, delayChildren: delay }
+    }
+  };
+  const child = {
+    hidden: { opacity: 0, y: 10, filter: 'blur(5px)' },
+    visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.8, ease: "easeOut" } }
+  };
+  return (
+    <motion.div 
+      className={className} 
+      style={{ ...style, display: 'inline-flex', flexWrap: 'wrap', justifyContent: 'center', columnGap: '0.25em' }}
+      variants={container}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-10%" }}
+    >
+      {words.map((word, index) => (
+        <motion.span key={index} variants={child}>
+          {word}
+        </motion.span>
+      ))}
     </motion.div>
   );
 };
@@ -466,28 +498,36 @@ const Hero = () => {
             boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
           }}
         >
-          <p className="subheader-uppercase" style={{ marginBottom: '0.6rem' }}>
-            Monsieur et Madame Izri
-          </p>
-          <p className="body-italic" style={{ marginBottom: '0.2rem' }}>
-            ont l'immense plaisir de vous annoncer
-          </p>
-          <p className="body-italic">
-            le mariage de leur fille
-          </p>
+          <StaggeredText 
+            text="Monsieur et Madame Izri" 
+            className="subheader-uppercase" 
+            style={{ marginBottom: '0.6rem' }} 
+            delay={0.6} 
+          />
+          <StaggeredText 
+            text="ont l'immense plaisir de vous annoncer" 
+            className="body-italic" 
+            style={{ marginBottom: '0.2rem', display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }} 
+            delay={1.2} 
+          />
+          <StaggeredText 
+            text="le mariage de leur fille" 
+            className="body-italic" 
+            style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }} 
+            delay={2.0} 
+          />
         </motion.div>
 
-        {/* Massive Center Title */}
+        {/* Massive Center Title with Typewriter Effect */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-10%" }}
-          transition={{ duration: 1.5, delay: 0.4 }}
           style={{ textAlign: 'center' }}
         >
-          <h1 className="script-heading-large rose-gold-foil">
-            Celina
-          </h1>
+          <TypewriterText 
+            text="Celina" 
+            className="script-heading-large rose-gold-foil" 
+            delay={2.6} 
+            duration={2.5} 
+          />
         </motion.div>
 
         {/* Bottom text with frosted glass backing */}
@@ -506,9 +546,13 @@ const Hero = () => {
             boxShadow: '0 10px 30px rgba(0,0,0,0.05)'
           }}
         >
-          <p className="body-italic">
-            Votre présence en ce jour de célébration sera notre plus beau cadeau.
-          </p>
+          <StaggeredText 
+            text="Votre présence en ce jour de célébration sera notre plus beau cadeau." 
+            className="body-italic" 
+            style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }} 
+            delay={3.6} 
+            speed={0.06}
+          />
         </motion.div>
         </div>
         
