@@ -957,10 +957,13 @@ const Footer = () => {
       
       {/* Opulent Glass Plaque Card */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.96, y: 15 }}
-        whileInView={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        viewport={{ once: true }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-10%" }}
+        variants={{
+          hidden: { opacity: 0, scale: 0.96, y: 15 },
+          visible: { opacity: 1, scale: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], staggerChildren: 0.15, delayChildren: 0.4 } }
+        }}
         style={{ 
           zIndex: 1, 
           textAlign: 'center', 
@@ -981,52 +984,91 @@ const Footer = () => {
         <div style={{ position: 'absolute', top: '12px', right: '12px', width: '22px', height: '22px', borderTop: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.4 }}></div>
         <div style={{ position: 'absolute', bottom: '12px', left: '12px', width: '22px', height: '22px', borderBottom: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.4 }}></div>
         <div style={{ position: 'absolute', bottom: '12px', right: '12px', width: '22px', height: '22px', borderBottom: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.4 }}></div>
-        <motion.div 
-          animate={{ scale: [1, 1.05, 1] }}
-          transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-          style={{ 
-            display: 'inline-flex', 
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            width: '52px', 
-            height: '52px', 
-            borderRadius: '50%', 
-            backgroundColor: '#fffdfc', 
-            border: '1px solid rgba(138, 75, 86, 0.25)',
-            marginBottom: '0.8rem',
-            boxShadow: '0 4px 15px rgba(138, 75, 86, 0.12)'
-          }}
+
+        {/* Pulsing Heart */}
+        <motion.div
+          variants={{ hidden: { opacity: 0, scale: 0 }, visible: { opacity: 1, scale: 1, transition: { type: 'spring', damping: 8, stiffness: 180 } } }}
+          style={{ display: 'inline-block', marginBottom: '0.8rem' }}
         >
-          <Heart size={22} strokeWidth={1.3} color="#8a4b56" fill="rgba(138, 75, 86, 0.2)" />
+          <motion.div 
+            animate={{ scale: [1, 1.12, 1] }}
+            transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+            style={{ 
+              display: 'inline-flex', 
+              justifyContent: 'center', 
+              alignItems: 'center', 
+              width: '52px', 
+              height: '52px', 
+              borderRadius: '50%', 
+              backgroundColor: '#fffdfc', 
+              border: '1px solid rgba(138, 75, 86, 0.25)',
+              boxShadow: '0 4px 15px rgba(138, 75, 86, 0.12)'
+            }}
+          >
+            <Heart size={22} strokeWidth={1.3} color="#8a4b56" fill="rgba(138, 75, 86, 0.2)" />
+          </motion.div>
         </motion.div>
 
-        {/* Quranic Verse */}
-        <p className="arabic-text" style={{ fontSize: 'clamp(1.85rem, 6.2vw, 2.8rem)', color: '#8a4b56', margin: '0.2rem 0 0.6rem 0', lineHeight: 1.3 }}>
+        {/* Quranic Verse — swipes in like a typewriter from right to left */}
+        <motion.p 
+          className="arabic-text" 
+          style={{ fontSize: 'clamp(1.85rem, 6.2vw, 2.8rem)', color: '#8a4b56', margin: '0.2rem 0 0.6rem 0', lineHeight: 1.3 }}
+          variants={{ 
+            hidden: { opacity: 0, clipPath: 'inset(0 0 0 100%)' }, 
+            visible: { opacity: 1, clipPath: 'inset(0 0 0 0)', transition: { duration: 1.4, ease: 'easeInOut' } } 
+          }}
+        >
           وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
-        </p>
+        </motion.p>
 
-        <OrnateDivider />
+        <motion.div
+          variants={{ hidden: { opacity: 0, scaleX: 0 }, visible: { opacity: 1, scaleX: 1, transition: { duration: 0.9 } } }}
+        >
+          <OrnateDivider />
+        </motion.div>
 
-        <p className="body-italic" style={{ fontSize: 'clamp(1.35rem, 4.8vw, 1.85rem)', color: '#8a4b56', margin: '0.6rem 0 0.8rem 0' }}>
+        <motion.p 
+          className="body-italic" 
+          style={{ fontSize: 'clamp(1.35rem, 4.8vw, 1.85rem)', color: '#8a4b56', margin: '0.6rem 0 0.8rem 0' }}
+          variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+        >
           Hâte de vous compter parmi nous pour célébrer cette union.
-        </p>
+        </motion.p>
 
         {/* Signature Block */}
-        <div style={{ marginTop: '0.6rem' }}>
-          <p className="script-heading" style={{ fontSize: 'clamp(2.8rem, 8vw, 4.2rem)', margin: 0, color: '#8a4b56' }}>
+        <motion.div 
+          style={{ marginTop: '0.6rem' }}
+          variants={{ hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.2 } } }}
+        >
+          <motion.p 
+            className="script-heading" 
+            style={{ fontSize: 'clamp(2.8rem, 8vw, 4.2rem)', margin: 0, color: '#8a4b56', display: 'inline-block' }}
+            variants={{ 
+              hidden: { opacity: 0, clipPath: 'inset(0 100% 0 0)' }, 
+              visible: { opacity: 1, clipPath: 'inset(0 0 0 0)', transition: { duration: 1.2, ease: 'easeInOut' } } 
+            }}
+          >
             Avec toute notre affection,
-          </p>
+          </motion.p>
 
-          <p className="subheader-uppercase rose-gold-foil" style={{ letterSpacing: '4px', marginTop: '0.4rem', fontWeight: 700, fontSize: 'clamp(1.15rem, 4vw, 1.5rem)' }}>
+          <motion.p 
+            className="subheader-uppercase rose-gold-foil" 
+            style={{ letterSpacing: '4px', marginTop: '0.4rem', fontWeight: 700, fontSize: 'clamp(1.15rem, 4vw, 1.5rem)' }}
+            variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+          >
             La Famille Izri
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </motion.div>
 
       {/* Back to Top Interactive Button */}
       <motion.button
         onClick={handleScrollTop}
         aria-label="Retour en haut"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: 1.2, duration: 0.7, type: 'spring', damping: 15 }}
         style={{
           marginTop: '1.5rem',
           display: 'inline-flex',
