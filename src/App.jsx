@@ -721,33 +721,86 @@ const Venue = () => {
 const Footer = () => {
   return (
     <section className="snap-section" style={{ 
-      backgroundColor: 'var(--color-bg-primary)', 
+      backgroundImage: `url('${import.meta.env.BASE_URL}blush_floral_bg.jpg')`, 
+      backgroundSize: 'cover', 
+      backgroundPosition: 'center',
       display: 'flex', 
       justifyContent: 'center', 
       alignItems: 'center',
       position: 'relative',
-      overflow: 'hidden'
+      overflow: 'hidden',
+      padding: '2rem 1.5rem'
     }}>
+      {/* Soft Frosted Glass Overlay */}
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundColor: 'rgba(255, 253, 252, 0.65)', backdropFilter: 'blur(3px)', zIndex: 0 }} />
+
+      {/* Subtle Background Watermark Text */}
       <motion.p 
         initial={{ opacity: 0 }}
-        whileInView={{ opacity: 0.02 }}
+        whileInView={{ opacity: 0.04 }}
         transition={{ duration: 2 }}
         className="arabic-text" 
-        style={{ position: 'absolute', fontSize: '25vw', color: '#4a3b3f', whiteSpace: 'nowrap', zIndex: 0, pointerEvents: 'none' }}
+        style={{ position: 'absolute', fontSize: '22vw', color: '#4a3b3f', whiteSpace: 'nowrap', zIndex: 0, pointerEvents: 'none' }}
       >
         بارك الله لكما وجمع بينكما في خير
       </motion.p>
       
+      {/* Frosted Glass Frame Card */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1.5, delay: 0.5 }}
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 1.2 }}
         viewport={{ once: true }}
-        style={{ zIndex: 1, textAlign: 'center', padding: '2rem' }}
+        style={{ 
+          zIndex: 1, 
+          textAlign: 'center', 
+          padding: 'clamp(2rem, 5vw, 3rem) clamp(1.5rem, 4vw, 2.5rem)',
+          background: 'rgba(255,253,252,0.7)',
+          borderRadius: '30px',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          boxShadow: '0 20px 40px rgba(0,0,0,0.05)',
+          border: '1px solid rgba(138, 75, 86, 0.2)',
+          maxWidth: '95%',
+          width: '600px',
+          position: 'relative'
+        }}
       >
-        <p className="arabic-text" style={{ fontSize: 'clamp(1.5rem, 5vw, 2.5rem)', color: '#8a4b56', marginBottom: '2rem' }}>بارك الله لكما وجمع بينكما في خير</p>
+        {/* Decorative Corner Brackets */}
+        <div style={{ position: 'absolute', top: '12px', left: '12px', width: '25px', height: '25px', borderTop: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.5 }}></div>
+        <div style={{ position: 'absolute', top: '12px', right: '12px', width: '25px', height: '25px', borderTop: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.5 }}></div>
+        <div style={{ position: 'absolute', bottom: '12px', left: '12px', width: '25px', height: '25px', borderBottom: '1px solid #8a4b56', borderLeft: '1px solid #8a4b56', opacity: 0.5 }}></div>
+        <div style={{ position: 'absolute', bottom: '12px', right: '12px', width: '25px', height: '25px', borderBottom: '1px solid #8a4b56', borderRight: '1px solid #8a4b56', opacity: 0.5 }}></div>
+
+        {/* Monogram / Emblem Badge */}
+        <div style={{ 
+          display: 'inline-flex', 
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          width: '60px', 
+          height: '60px', 
+          borderRadius: '50%', 
+          backgroundColor: 'rgba(138, 75, 86, 0.05)', 
+          border: '1px solid rgba(138, 75, 86, 0.2)',
+          marginBottom: '1rem',
+          boxShadow: '0 4px 15px rgba(138, 75, 86, 0.1)'
+        }}>
+          <Heart size={26} strokeWidth={1.2} color="#8a4b56" fill="rgba(138, 75, 86, 0.15)" />
+        </div>
+
+        <p className="arabic-text" style={{ fontSize: 'clamp(1.5rem, 5vw, 2.4rem)', color: '#8a4b56', marginBottom: '1.2rem' }}>
+          بارك الله لكما وجمع بينكما في خير
+        </p>
+
         <OrnateDivider />
-        <p className="script-heading" style={{ marginTop: '2rem' }}>Avec toute notre affection</p>
+
+        <p className="script-heading" style={{ marginTop: '1.2rem', marginBottom: '0.4rem' }}>
+          Avec toute notre affection
+        </p>
+
+        <p className="subheader-uppercase" style={{ letterSpacing: '4px', marginTop: '0.8rem' }}>
+          La Famille Izri
+        </p>
       </motion.div>
     </section>
   );
