@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useMotionTemplate, useSpring } from 'framer-motion';
-import { MapPin, CalendarHeart, Heart, Volume2, VolumeX, ChevronDown } from 'lucide-react';
+import { MapPin, CalendarHeart, Heart, Volume2, VolumeX, ChevronDown, Utensils } from 'lucide-react';
 
 const ParallaxBanner = ({ className, style, imagePosition }) => {
   const ref = useRef(null);
@@ -530,11 +530,11 @@ PRODID:-//IZRI Wedding//FR
 BEGIN:VEVENT
 UID:${new Date().getTime()}@izriwedding.com
 DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
-DTSTART:20260829T100000Z
-DTEND:20260829T140000Z
+DTSTART:20260829T093000Z
+DTEND:20260829T180000Z
 SUMMARY:Invitation de mariage IZRI
 LOCATION:Salle des Fêtes Palais Royal, Wilaya de Tizi Ouzou, Algeria
-DESCRIPTION:Faites-nous l'honneur de votre présence lors de cette merveilleuse journée.
+DESCRIPTION:Faites-nous l'honneur de votre présence lors de cette merveilleuse journée. Le ftour sera de 11h30 à 13h30.
 BEGIN:VALARM
 TRIGGER:-PT1D
 ACTION:DISPLAY
@@ -694,7 +694,24 @@ const Venue = () => {
         
         <p className="label-uppercase" style={{ margin: '0.6rem 0' }}>Wilaya de Tizi Ouzou</p>
         
-        <p className="body-italic" style={{ margin: '1rem 0' }}>Nous aurons le bonheur de vous y<br/>accueillir à partir de 11h.</p>
+        <p className="body-italic" style={{ margin: '0.8rem 0 0.4rem 0' }}>Nous aurons le bonheur de vous y<br/>accueillir à partir de 11h.</p>
+        
+        {/* Ftour Schedule Badge */}
+        <div style={{ 
+          display: 'inline-flex', 
+          alignItems: 'center', 
+          gap: '0.45rem', 
+          padding: '0.45rem 1.1rem', 
+          margin: '0.3rem 0 1.2rem 0',
+          backgroundColor: 'rgba(138, 75, 86, 0.05)', 
+          border: '1px solid rgba(138, 75, 86, 0.18)', 
+          borderRadius: '50px' 
+        }}>
+          <Utensils size={13} color="#8a4b56" strokeWidth={1.5} />
+          <span className="label-uppercase" style={{ fontSize: 'clamp(0.72rem, 2.1vw, 0.82rem)', color: '#8a4b56', letterSpacing: '1.2px' }}>
+            Le ftour sera de 11h30 à 13h30
+          </span>
+        </div>
         
         <motion.a 
           href="https://www.google.com/maps/search/?api=1&query=P4H4%2BPCR%2C%20Tizi%20Ouzou%2C%20Algeria" 
