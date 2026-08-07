@@ -144,7 +144,6 @@ const StaggeredText = ({ text, className, style, delay = 0, speed = 0.08 }) => {
 const SVGTextWrite = ({ text, className, delay = 0 }) => {
   return (
     <div style={{ position: 'relative', display: 'inline-block' }}>
-      {/* The drawing stroke effect */}
       <svg width="100%" height="100%" style={{ position: 'absolute', top: 0, left: 0, overflow: 'visible', pointerEvents: 'none' }}>
         <defs>
           <linearGradient id="rose-gold-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -152,14 +151,20 @@ const SVGTextWrite = ({ text, className, delay = 0 }) => {
             <stop offset="50%" stopColor="#c88d9b" />
             <stop offset="100%" stopColor="#b76e79" />
           </linearGradient>
+          
+          <filter id="drop-shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="4" stdDeviation="4" floodColor="#000000" floodOpacity="0.1" />
+          </filter>
         </defs>
+        
+        {/* The animated stroke */}
         <motion.text
           x="50%"
           y="50%"
           dominantBaseline="middle"
           textAnchor="middle"
           className={className}
-          style={{ fill: 'transparent', stroke: 'url(#rose-gold-gradient)', strokeWidth: '2px', WebkitTextStroke: '1px #b76e79' }}
+          style={{ fill: 'transparent', stroke: 'url(#rose-gold-gradient)', strokeWidth: '1.5px' }}
           initial={{ strokeDasharray: '0 1000' }}
           whileInView={{ strokeDasharray: '1000 0' }}
           viewport={{ once: true }}
@@ -167,28 +172,31 @@ const SVGTextWrite = ({ text, className, delay = 0 }) => {
         >
           {text}
         </motion.text>
+
+        {/* The faded-in fill text */}
+        <motion.text
+          x="50%"
+          y="50%"
+          dominantBaseline="middle"
+          textAnchor="middle"
+          className={className}
+          style={{ fill: 'url(#rose-gold-gradient)', filter: 'url(#drop-shadow)' }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1.5, delay: delay + 2.5 }}
+        >
+          {text}
+        </motion.text>
       </svg>
-      {/* The actual filled text that fades in afterwards */}
-      <motion.div
-        className={`${className} rose-gold-foil`}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.5, delay: delay + 2.5 }}
-        style={{ visibility: 'hidden' }} /* reserve space */
+      
+      {/* Invisible HTML text to reserve the exact layout dimensions */}
+      <div
+        className={className}
+        style={{ visibility: 'hidden', pointerEvents: 'none' }}
       >
         {text}
-      </motion.div>
-      <motion.div
-        className={`${className} rose-gold-foil`}
-        style={{ position: 'absolute', top: 0, left: 0, width: '100%' }}
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.5, delay: delay + 2.5 }}
-      >
-        {text}
-      </motion.div>
+      </div>
     </div>
   );
 };
