@@ -895,7 +895,7 @@ const Venue = () => {
         </motion.div>
         
         <motion.a 
-          href="https://www.google.com/maps/search/?api=1&query=P4H4%2BPCR%2C%20Tizi%20Ouzou%2C%20Algeria" 
+          href="https://maps.app.goo.gl/qTZ3zUwh5P11e73B9" 
           target="_blank" 
           rel="noopener noreferrer"
           className="label-uppercase"
