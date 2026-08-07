@@ -841,7 +841,7 @@ const Venue = () => {
           className="script-heading"
           variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 20, mass: 1.2 } } }}
         >
-          Rendez-vous à
+          Rendez-vous à,
         </motion.h2>
         
         <motion.h3 
@@ -895,7 +895,7 @@ const Venue = () => {
         </motion.div>
         
         <motion.a 
-          href="https://www.google.com/maps/search/?api=1&query=P4H4%2BPCR%2C%20Tizi%20Ouzou%2C%20Algeria" 
+          href="https://maps.app.goo.gl/qTZ3zUwh5P11e73B9" 
           target="_blank" 
           rel="noopener noreferrer"
           className="label-uppercase"
