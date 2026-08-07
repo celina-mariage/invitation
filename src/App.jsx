@@ -841,7 +841,7 @@ const Venue = () => {
           className="script-heading"
           variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 20, mass: 1.2 } } }}
         >
-          Rendez-vous à
+          Rendez-vous à,
         </motion.h2>
         
         <motion.h3 
