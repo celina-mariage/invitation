@@ -1286,9 +1286,18 @@ function App() {
   const handleOpen = () => {
     setIsOpen(true);
     if (audioRef.current && !isPlaying) {
-      audioRef.current.volume = 0.15; // Decrease volume further
+      audioRef.current.volume = 0; // Start silent
       audioRef.current.play().then(() => {
         setIsPlaying(true);
+        // Gradually fade in the volume over 3 seconds so it never startles
+        let vol = 0;
+        const target = 0.07;
+        const steps = 60;
+        const interval = setInterval(() => {
+          vol = Math.min(vol + target / steps, target);
+          audioRef.current.volume = vol;
+          if (vol >= target) clearInterval(interval);
+        }, 3000 / steps);
       }).catch(e => {
         console.log("Autoplay prevented:", e);
       });
