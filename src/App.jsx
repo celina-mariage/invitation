@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useMotionTemplate, useSpring } from 'framer-motion';
 import { MapPin, CalendarHeart, Heart, Volume2, VolumeX, ChevronDown, Utensils } from 'lucide-react';
 
@@ -300,6 +300,65 @@ const AmbientPulse = () => (
     transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
   />
 );
+
+// Auto-scroll progress bar — fully isolated, fixed position, never overlaps content
+const AutoScrollBar = ({ containerRef, isActive }) => {
+  const [animKey, setAnimKey] = useState(0);
+  const [done, setDone] = useState(false);
+
+  const reset = useCallback(() => {
+    setAnimKey(k => k + 1);
+  }, []);
+
+  // Attach interaction listeners to the scroll container
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || !isActive) return;
+    const events = ['touchstart', 'click', 'wheel'];
+    events.forEach(e => container.addEventListener(e, reset, { passive: true }));
+    return () => events.forEach(e => container.removeEventListener(e, reset));
+  }, [isActive, containerRef, reset]);
+
+  const handleAnimationEnd = () => {
+    const container = containerRef.current;
+    if (!container) return;
+    const { scrollTop, scrollHeight, clientHeight } = container;
+    // If at the bottom, hide bar forever
+    if (scrollTop + clientHeight >= scrollHeight - 50) {
+      setDone(true);
+      return;
+    }
+    // Scroll one page down, then restart the bar after the smooth scroll settles
+    container.scrollBy({ top: clientHeight, behavior: 'smooth' });
+    setTimeout(() => setAnimKey(k => k + 1), 600);
+  };
+
+  if (!isActive || done) return null;
+
+  return (
+    <div style={{
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      width: '100%',
+      height: '3px',
+      backgroundColor: 'rgba(212, 175, 55, 0.15)',
+      zIndex: 9999,
+      pointerEvents: 'none', // Never blocks taps or clicks on content below
+    }}>
+      <div
+        key={animKey}
+        onAnimationEnd={handleAnimationEnd}
+        style={{
+          height: '100%',
+          width: '0%',
+          background: 'linear-gradient(90deg, #b8962e, #D4AF37, #f5e27a, #D4AF37)',
+          animation: 'fillBar 8s linear forwards',
+        }}
+      />
+    </div>
+  );
+};
 
 const EntranceScreen = ({ onOpen }) => {
   const container = {
@@ -1234,70 +1293,6 @@ function App() {
     };
   }, [isPlaying]);
 
-  // Auto-scrolling logic
-  useEffect(() => {
-    if (!isOpen) return;
-
-    let timeoutId;
-    let cleanupListeners = () => {};
-
-    const startScrollLoop = () => {
-      const container = containerRef.current;
-      
-      // Because of AnimatePresence, the container takes a second to actually mount in the DOM.
-      if (!container) {
-        timeoutId = setTimeout(startScrollLoop, 500);
-        return;
-      }
-
-      const autoScroll = () => {
-        const currentScroll = container.scrollTop;
-        const scrollHeight = container.scrollHeight;
-        const clientHeight = container.clientHeight;
-
-        // Stop forever if we are at the bottom
-        if (currentScroll + clientHeight >= scrollHeight - 50) {
-          return;
-        }
-
-        // Scroll down smoothly by one full screen
-        container.scrollBy({
-          top: clientHeight,
-          behavior: 'smooth'
-        });
-        
-        resetTimer();
-      };
-
-      const resetTimer = () => {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(autoScroll, 8000);
-      };
-
-      // Reset timer on distinct physical interactions
-      const interactionEvents = ['touchstart', 'touchmove', 'wheel', 'click'];
-      interactionEvents.forEach(event => {
-        container.addEventListener(event, resetTimer, { passive: true });
-      });
-
-      cleanupListeners = () => {
-        interactionEvents.forEach(event => {
-          container.removeEventListener(event, resetTimer);
-        });
-      };
-
-      // Start the very first scroll timer
-      timeoutId = setTimeout(autoScroll, 8000);
-    };
-
-    startScrollLoop();
-
-    return () => {
-      clearTimeout(timeoutId);
-      cleanupListeners();
-    };
-  }, [isOpen]);
-
   return (
     <main style={{ backgroundColor: 'var(--color-bg-primary)', minHeight: '100vh', width: '100%', position: 'relative', overflow: 'hidden' }}>
       <audio ref={audioRef} loop src="https://kad-jemputan-kahwin.vercel.app/music/Beautiful%20in%20White%20x%20Canon%20in%20D%20(Piano%20Cover%20by%20Riyandi%20Kusuma).mp3" />
@@ -1333,6 +1328,8 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
+      {/* Gold progress bar — fixed, isolated, never overlaps content */}
+      <AutoScrollBar containerRef={containerRef} isActive={isOpen} />
     </main>
   );
 }
