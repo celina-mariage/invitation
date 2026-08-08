@@ -1209,30 +1209,20 @@ function App() {
     let timeoutId;
 
     const autoScroll = () => {
-      const sections = Array.from(container.querySelectorAll('.snap-section'));
-      if (sections.length === 0) return;
-      
-      let currentIndex = 0;
-      let minDistance = Infinity;
-      
-      sections.forEach((section, index) => {
-        // Get precise distance from the top of the viewport
-        const rect = section.getBoundingClientRect();
-        const distance = Math.abs(rect.top);
-        if (distance < minDistance) {
-          minDistance = distance;
-          currentIndex = index;
-        }
-      });
+      const currentScroll = container.scrollTop;
+      const scrollHeight = container.scrollHeight;
+      const clientHeight = container.clientHeight;
 
-      // Stop forever if we reach the last section (Footer)
-      if (currentIndex >= sections.length - 1) {
+      // Stop forever if we are at the bottom (Footer)
+      if (currentScroll + clientHeight >= scrollHeight - 50) {
         return;
       }
 
-      // Scroll to the next section cleanly
-      const nextSection = sections[currentIndex + 1];
-      nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Scroll down smoothly by one full screen (it will automatically snap to the section)
+      container.scrollBy({
+        top: clientHeight,
+        behavior: 'smooth'
+      });
       
       resetTimer();
     };
@@ -1242,7 +1232,8 @@ function App() {
       timeoutId = setTimeout(autoScroll, 6000);
     };
 
-    const interactionEvents = ['touchstart', 'wheel', 'mousemove', 'click', 'scroll'];
+    // We only detect distinct physical interactions to avoid 'mousemove' instantly resetting the timer endlessly
+    const interactionEvents = ['touchstart', 'touchmove', 'wheel', 'click'];
     
     interactionEvents.forEach(event => {
       container.addEventListener(event, resetTimer, { passive: true });
