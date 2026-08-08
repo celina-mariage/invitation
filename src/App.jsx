@@ -432,17 +432,20 @@ const EntranceScreen = ({ onOpen }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
+              {/* Spinning Gold Background Layer */}
               <motion.div
                 style={{
                   position: 'absolute',
-                  top: '-50%',
-                  left: '-50%',
-                  width: '200%',
-                  height: '200%',
-                  background: 'conic-gradient(transparent, transparent, transparent, #D4AF37)',
+                  top: '50%',
+                  left: '50%',
+                  width: '1000px',
+                  height: '1000px',
+                  marginLeft: '-500px',
+                  marginTop: '-500px',
+                  background: 'conic-gradient(from 0deg, transparent 0%, transparent 60%, rgba(212, 175, 55, 0.2) 85%, #D4AF37 100%)',
                   zIndex: 0,
                 }}
-                animate={{ rotate: [0, 360] }}
+                animate={{ rotate: 360 }}
                 transition={{ repeat: Infinity, duration: 2.5, ease: 'linear' }}
               />
               <button
