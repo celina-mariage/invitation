@@ -936,7 +936,7 @@ const Venue = () => {
         </motion.div>
         
         <motion.a 
-          href="https://maper.info/2fyVM6" 
+          href="https://maps.app.goo.gl/qTZ3zUwh5P11e73B9" 
           target="_blank" 
           rel="noopener noreferrer"
           className="label-uppercase"
