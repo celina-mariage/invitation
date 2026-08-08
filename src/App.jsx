@@ -420,22 +420,52 @@ const EntranceScreen = ({ onOpen }) => {
             animate={{ opacity: 1 }}
             transition={{ delay: 5.0, duration: 1 }}
           >
-            <motion.button 
-              className="btn-primary" 
-              style={{ 
-                padding: 'clamp(0.8rem, 3vw, 1rem) clamp(2.5rem, 6vw, 3.5rem)', backgroundColor: '#f3a6b6', border: 'none', borderRadius: '50px',
-                color: '#fff', boxShadow: '0 4px 15px rgba(243, 166, 182, 0.4)',
-                fontFamily: 'var(--font-body)', fontWeight: '500', letterSpacing: '3px', fontSize: '0.85rem', textTransform: 'uppercase',
-                maxWidth: '92%', boxSizing: 'border-box'
+            <motion.div
+              style={{
+                position: 'relative',
+                borderRadius: '50px',
+                overflow: 'hidden',
+                padding: '2px',
+                display: 'inline-flex',
+                boxShadow: '0 4px 15px rgba(212, 175, 55, 0.4)',
               }}
-              onClick={onOpen}
-              whileHover={{ scale: 1.05, backgroundColor: '#e5989b' }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              animate={{ boxShadow: ['0 4px 15px rgba(243, 166, 182, 0.4)', '0 4px 25px rgba(243, 166, 182, 0.7)', '0 4px 15px rgba(243, 166, 182, 0.4)'] }}
-              transition={{ repeat: Infinity, duration: 3 }}
             >
-              Ouvrir
-            </motion.button>
+              <motion.div
+                style={{
+                  position: 'absolute',
+                  top: '-50%',
+                  left: '-50%',
+                  width: '200%',
+                  height: '200%',
+                  background: 'conic-gradient(transparent, transparent, transparent, #D4AF37)',
+                  zIndex: 0,
+                }}
+                animate={{ rotate: [0, 360] }}
+                transition={{ repeat: Infinity, duration: 2.5, ease: 'linear' }}
+              />
+              <button
+                style={{
+                  padding: 'clamp(0.8rem, 3vw, 1rem) clamp(2.5rem, 6vw, 3.5rem)', 
+                  backgroundColor: '#f3a6b6', 
+                  border: 'none', 
+                  borderRadius: '50px',
+                  color: '#fff', 
+                  fontFamily: 'var(--font-body)', 
+                  fontWeight: '500', 
+                  letterSpacing: '3px', 
+                  fontSize: '0.85rem', 
+                  textTransform: 'uppercase',
+                  position: 'relative',
+                  zIndex: 1,
+                  cursor: 'pointer',
+                }}
+                onClick={onOpen}
+              >
+                Ouvrir
+              </button>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
@@ -1238,7 +1268,7 @@ function App() {
 
       const resetTimer = () => {
         clearTimeout(timeoutId);
-        timeoutId = setTimeout(autoScroll, 6000);
+        timeoutId = setTimeout(autoScroll, 8000);
       };
 
       // Reset timer on distinct physical interactions
@@ -1254,7 +1284,7 @@ function App() {
       };
 
       // Start the very first scroll timer
-      resetTimer();
+      timeoutId = setTimeout(autoScroll, 8000);
     };
 
     startScrollLoop();
