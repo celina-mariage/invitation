@@ -1218,7 +1218,7 @@ function App() {
         return;
       }
 
-      // Scroll down smoothly by one full screen (it will automatically snap to the section)
+      // Scroll down smoothly by one full screen
       container.scrollBy({
         top: clientHeight,
         behavior: 'smooth'
@@ -1232,21 +1232,11 @@ function App() {
       timeoutId = setTimeout(autoScroll, 6000);
     };
 
-    // We only detect distinct physical interactions to avoid 'mousemove' instantly resetting the timer endlessly
-    const interactionEvents = ['touchstart', 'touchmove', 'wheel', 'click'];
-    
-    interactionEvents.forEach(event => {
-      container.addEventListener(event, resetTimer, { passive: true });
-    });
-
-    // Start timer initially when component opens
+    // Start timer initially when component opens (no interaction resets)
     resetTimer();
 
     return () => {
       clearTimeout(timeoutId);
-      interactionEvents.forEach(event => {
-        container.removeEventListener(event, resetTimer);
-      });
     };
   }, [isOpen]);
 
