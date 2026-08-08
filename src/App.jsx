@@ -1178,6 +1178,7 @@ function App() {
   const handleOpen = () => {
     setIsOpen(true);
     if (audioRef.current && !isPlaying) {
+      audioRef.current.volume = 0.4; // Decrease volume
       audioRef.current.play().then(() => {
         setIsPlaying(true);
       }).catch(e => {
@@ -1205,12 +1206,12 @@ function App() {
     if (!isOpen) return;
 
     let timeoutId;
+    let cleanupListeners = () => {};
 
     const startScrollLoop = () => {
       const container = containerRef.current;
       
       // Because of AnimatePresence, the container takes a second to actually mount in the DOM.
-      // If it's not ready yet, we wait 500ms and try again.
       if (!container) {
         timeoutId = setTimeout(startScrollLoop, 500);
         return;
@@ -1232,17 +1233,35 @@ function App() {
           behavior: 'smooth'
         });
         
+        resetTimer();
+      };
+
+      const resetTimer = () => {
+        clearTimeout(timeoutId);
         timeoutId = setTimeout(autoScroll, 6000);
       };
 
+      // Reset timer on distinct physical interactions
+      const interactionEvents = ['touchstart', 'touchmove', 'wheel', 'click'];
+      interactionEvents.forEach(event => {
+        container.addEventListener(event, resetTimer, { passive: true });
+      });
+
+      cleanupListeners = () => {
+        interactionEvents.forEach(event => {
+          container.removeEventListener(event, resetTimer);
+        });
+      };
+
       // Start the very first scroll timer
-      timeoutId = setTimeout(autoScroll, 6000);
+      resetTimer();
     };
 
     startScrollLoop();
 
     return () => {
       clearTimeout(timeoutId);
+      cleanupListeners();
     };
   }, [isOpen]);
 
