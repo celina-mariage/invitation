@@ -301,37 +301,74 @@ const AmbientPulse = () => (
   />
 );
 
-// Auto-scroll progress bar — fully isolated, fixed position, never overlaps content
-const AutoScrollBar = ({ containerRef, isActive }) => {
-  const [animKey, setAnimKey] = useState(0);
-  const [done, setDone] = useState(false);
+// Auto-scroll progress bar — rAF-driven for 60fps, direct DOM updates to avoid re-renders
+const SCROLL_DURATION = 8000; // ms base countdown
+const ADD_ON_INTERACT = 2000; // ms added per interaction
 
-  const reset = useCallback(() => {
-    setAnimKey(k => k + 1);
+const AutoScrollBar = ({ containerRef, isActive }) => {
+  const [done, setDone] = useState(false);
+  const barRef = useRef(null);
+  const remainingRef = useRef(SCROLL_DURATION);
+  const lastTimeRef = useRef(null);
+  const rafRef = useRef(null);
+  const doneRef = useRef(false);
+
+  // On interaction, add 2 seconds (capped at max duration)
+  const addTime = useCallback(() => {
+    remainingRef.current = Math.min(remainingRef.current + ADD_ON_INTERACT, SCROLL_DURATION);
   }, []);
 
-  // Attach interaction listeners to document to avoid AnimatePresence race condition
-  // (containerRef.current is null when this effect first runs)
+  // Attach listeners to document (always available, no race condition)
   useEffect(() => {
     if (!isActive) return;
     const events = ['touchstart', 'click', 'wheel'];
-    events.forEach(e => document.addEventListener(e, reset, { passive: true }));
-    return () => events.forEach(e => document.removeEventListener(e, reset));
-  }, [isActive, reset]);
+    events.forEach(e => document.addEventListener(e, addTime, { passive: true }));
+    return () => events.forEach(e => document.removeEventListener(e, addTime));
+  }, [isActive, addTime]);
 
-  const handleAnimationEnd = () => {
-    const container = containerRef.current;
-    if (!container) return;
-    const { scrollTop, scrollHeight, clientHeight } = container;
-    // If at the bottom, hide bar forever
-    if (scrollTop + clientHeight >= scrollHeight - 50) {
-      setDone(true);
-      return;
-    }
-    // Scroll one page down, then restart the bar after the smooth scroll settles
-    container.scrollBy({ top: clientHeight, behavior: 'smooth' });
-    setTimeout(() => setAnimKey(k => k + 1), 600);
-  };
+  // rAF loop — directly updates bar width without React re-renders
+  useEffect(() => {
+    if (!isActive || done) return;
+
+    remainingRef.current = SCROLL_DURATION;
+    lastTimeRef.current = null;
+    doneRef.current = false;
+
+    const tick = (timestamp) => {
+      if (!lastTimeRef.current) lastTimeRef.current = timestamp;
+      const elapsed = timestamp - lastTimeRef.current;
+      lastTimeRef.current = timestamp;
+
+      remainingRef.current = Math.max(0, remainingRef.current - elapsed);
+      const progress = (1 - remainingRef.current / SCROLL_DURATION) * 100;
+
+      // Direct DOM update — zero React overhead
+      if (barRef.current) barRef.current.style.width = `${progress}%`;
+
+      if (remainingRef.current <= 0) {
+        const container = containerRef.current;
+        if (!container) { rafRef.current = requestAnimationFrame(tick); return; }
+        const { scrollTop, scrollHeight, clientHeight } = container;
+
+        // Stop at the bottom forever
+        if (scrollTop + clientHeight >= scrollHeight - 50) {
+          setDone(true);
+          doneRef.current = true;
+          return;
+        }
+
+        // Scroll to next section and reset the bar
+        container.scrollBy({ top: clientHeight, behavior: 'smooth' });
+        remainingRef.current = SCROLL_DURATION;
+        lastTimeRef.current = null;
+      }
+
+      if (!doneRef.current) rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+  }, [isActive, done, containerRef]);
 
   if (!isActive || done) return null;
 
@@ -345,17 +382,16 @@ const AutoScrollBar = ({ containerRef, isActive }) => {
       backgroundColor: 'rgba(243, 166, 182, 0.15)',
       zIndex: 9999,
       pointerEvents: 'none',
-      overflow: 'visible', // allow the ball to poke above the bar
+      overflow: 'visible',
     }}>
+      {/* Bar — width driven directly by rAF, not CSS animation */}
       <div
-        key={animKey}
-        onAnimationEnd={handleAnimationEnd}
+        ref={barRef}
         style={{
           position: 'relative',
           height: '100%',
           width: '0%',
           background: 'linear-gradient(90deg, transparent, #e5989b, #f3a6b6)',
-          animation: 'fillBar 8s linear forwards',
         }}
       >
         {/* Glowing burning orb at the leading edge */}
