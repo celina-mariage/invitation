@@ -345,17 +345,33 @@ const AutoScrollBar = ({ containerRef, isActive }) => {
       backgroundColor: 'rgba(243, 166, 182, 0.15)',
       zIndex: 9999,
       pointerEvents: 'none',
+      overflow: 'visible', // allow the ball to poke above the bar
     }}>
       <div
         key={animKey}
         onAnimationEnd={handleAnimationEnd}
         style={{
+          position: 'relative',
           height: '100%',
           width: '0%',
-          background: 'linear-gradient(90deg, #e5989b, #f3a6b6, #ffccd5, #f3a6b6)',
+          background: 'linear-gradient(90deg, transparent, #e5989b, #f3a6b6)',
           animation: 'fillBar 8s linear forwards',
         }}
-      />
+      >
+        {/* Glowing burning orb at the leading edge */}
+        <div style={{
+          position: 'absolute',
+          right: -7,
+          top: '50%',
+          transform: 'translateY(-50%)',
+          width: 14,
+          height: 14,
+          borderRadius: '50%',
+          backgroundColor: '#fff0f3',
+          boxShadow: '0 0 6px 3px #f3a6b6, 0 0 14px 6px rgba(229, 152, 155, 0.7), 0 0 22px 10px rgba(229, 152, 155, 0.3)',
+          animation: 'pulseGlow 1s ease-in-out infinite alternate',
+        }} />
+      </div>
     </div>
   );
 };

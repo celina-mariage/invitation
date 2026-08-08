@@ -176,6 +176,17 @@ p {
   to   { width: 100%; }
 }
 
+@keyframes pulseGlow {
+  from {
+    box-shadow: 0 0 6px 3px #f3a6b6, 0 0 14px 6px rgba(229, 152, 155, 0.7), 0 0 22px 10px rgba(229, 152, 155, 0.3);
+    transform: translateY(-50%) scale(1);
+  }
+  to {
+    box-shadow: 0 0 10px 5px #f3a6b6, 0 0 20px 10px rgba(229, 152, 155, 0.9), 0 0 32px 14px rgba(229, 152, 155, 0.5);
+    transform: translateY(-50%) scale(1.25);
+  }
+}
+
 /* Floral Banners (Parallax Containers) */
 .floral-header {
   width: 100%;
