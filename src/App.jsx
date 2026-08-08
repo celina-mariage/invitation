@@ -310,14 +310,14 @@ const AutoScrollBar = ({ containerRef, isActive }) => {
     setAnimKey(k => k + 1);
   }, []);
 
-  // Attach interaction listeners to the scroll container
+  // Attach interaction listeners to document to avoid AnimatePresence race condition
+  // (containerRef.current is null when this effect first runs)
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container || !isActive) return;
+    if (!isActive) return;
     const events = ['touchstart', 'click', 'wheel'];
-    events.forEach(e => container.addEventListener(e, reset, { passive: true }));
-    return () => events.forEach(e => container.removeEventListener(e, reset));
-  }, [isActive, containerRef, reset]);
+    events.forEach(e => document.addEventListener(e, reset, { passive: true }));
+    return () => events.forEach(e => document.removeEventListener(e, reset));
+  }, [isActive, reset]);
 
   const handleAnimationEnd = () => {
     const container = containerRef.current;
