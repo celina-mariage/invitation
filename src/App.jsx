@@ -1305,18 +1305,34 @@ function App() {
   };
 
   useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.hidden && audioRef.current && isPlaying) {
+    const stopAudio = () => {
+      if (audioRef.current) {
         audioRef.current.pause();
+        audioRef.current.currentTime = 0; // Reset to beginning
         setIsPlaying(false);
       }
     };
 
+    const handleVisibilityChange = () => {
+      if (document.hidden) stopAudio();
+    };
+
+    // visibilitychange: user switches tabs or minimizes browser
     document.addEventListener('visibilitychange', handleVisibilityChange);
+    // pagehide: user navigates away on mobile (more reliable than unload on iOS)
+    window.addEventListener('pagehide', stopAudio);
+    // beforeunload: user closes tab on desktop
+    window.addEventListener('beforeunload', stopAudio);
+    // blur: user switches apps on mobile or alt-tabs on desktop
+    window.addEventListener('blur', stopAudio);
+
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('pagehide', stopAudio);
+      window.removeEventListener('beforeunload', stopAudio);
+      window.removeEventListener('blur', stopAudio);
     };
-  }, [isPlaying]);
+  }, []);
 
   return (
     <main style={{ backgroundColor: 'var(--color-bg-primary)', minHeight: '100vh', width: '100%', position: 'relative', overflow: 'hidden' }}>
