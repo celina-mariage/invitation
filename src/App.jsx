@@ -1202,38 +1202,44 @@ function App() {
 
   // Auto-scrolling logic
   useEffect(() => {
-    // Only run if the invitation is open
-    if (!isOpen || !containerRef.current) return;
+    if (!isOpen) return;
 
-    const container = containerRef.current;
     let timeoutId;
 
-    const autoScroll = () => {
-      const currentScroll = container.scrollTop;
-      const scrollHeight = container.scrollHeight;
-      const clientHeight = container.clientHeight;
-
-      // Stop forever if we are at the bottom (Footer)
-      if (currentScroll + clientHeight >= scrollHeight - 50) {
+    const startScrollLoop = () => {
+      const container = containerRef.current;
+      
+      // Because of AnimatePresence, the container takes a second to actually mount in the DOM.
+      // If it's not ready yet, we wait 500ms and try again.
+      if (!container) {
+        timeoutId = setTimeout(startScrollLoop, 500);
         return;
       }
 
-      // Scroll down smoothly by one full screen
-      container.scrollBy({
-        top: clientHeight,
-        behavior: 'smooth'
-      });
-      
-      resetTimer();
-    };
+      const autoScroll = () => {
+        const currentScroll = container.scrollTop;
+        const scrollHeight = container.scrollHeight;
+        const clientHeight = container.clientHeight;
 
-    const resetTimer = () => {
-      clearTimeout(timeoutId);
+        // Stop forever if we are at the bottom
+        if (currentScroll + clientHeight >= scrollHeight - 50) {
+          return;
+        }
+
+        // Scroll down smoothly by one full screen
+        container.scrollBy({
+          top: clientHeight,
+          behavior: 'smooth'
+        });
+        
+        timeoutId = setTimeout(autoScroll, 6000);
+      };
+
+      // Start the very first scroll timer
       timeoutId = setTimeout(autoScroll, 6000);
     };
 
-    // Start timer initially when component opens (no interaction resets)
-    resetTimer();
+    startScrollLoop();
 
     return () => {
       clearTimeout(timeoutId);
