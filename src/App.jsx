@@ -357,9 +357,20 @@ const AutoScrollBar = ({ containerRef, isActive }) => {
     doneRef.current = false;
 
     const tick = (timestamp) => {
+      // Check every frame: if user has manually scrolled to the last section, hide bar immediately
+      const container = containerRef.current;
+      if (container) {
+        const { scrollTop, scrollHeight, clientHeight } = container;
+        if (scrollTop + clientHeight >= scrollHeight - 50) {
+          setDone(true);
+          doneRef.current = true;
+          return;
+        }
+      }
+
       // While paused, just keep the loop alive without ticking down
       if (pausedRef.current) {
-        lastTimeRef.current = null; // reset so no burst of elapsed time on resume
+        lastTimeRef.current = null;
         rafRef.current = requestAnimationFrame(tick);
         return;
       }
@@ -375,16 +386,7 @@ const AutoScrollBar = ({ containerRef, isActive }) => {
       if (barRef.current) barRef.current.style.width = `${progress}%`;
 
       if (remainingRef.current <= 0) {
-        const container = containerRef.current;
         if (!container) { rafRef.current = requestAnimationFrame(tick); return; }
-        const { scrollTop, scrollHeight, clientHeight } = container;
-
-        // Stop at the bottom forever
-        if (scrollTop + clientHeight >= scrollHeight - 50) {
-          setDone(true);
-          doneRef.current = true;
-          return;
-        }
 
         // Scroll to next section and reset the bar
         container.scrollBy({ top: clientHeight, behavior: 'smooth' });
