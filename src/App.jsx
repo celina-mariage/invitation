@@ -1211,7 +1211,7 @@ function App() {
   const handleOpen = () => {
     setIsOpen(true);
     if (audioRef.current && !isPlaying) {
-      audioRef.current.volume = 0.4; // Decrease volume
+      audioRef.current.volume = 0.15; // Decrease volume further
       audioRef.current.play().then(() => {
         setIsPlaying(true);
       }).catch(e => {
