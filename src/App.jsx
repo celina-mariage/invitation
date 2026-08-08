@@ -312,6 +312,7 @@ const AutoScrollBar = ({ containerRef, isActive }) => {
   const lastTimeRef = useRef(null);
   const rafRef = useRef(null);
   const doneRef = useRef(false);
+  const pausedRef = useRef(false); // paused when page loses focus
 
   // On interaction, add 2 seconds (capped at max duration)
   const addTime = useCallback(() => {
@@ -326,6 +327,27 @@ const AutoScrollBar = ({ containerRef, isActive }) => {
     return () => events.forEach(e => document.removeEventListener(e, addTime));
   }, [isActive, addTime]);
 
+  // Pause countdown when page loses focus, resume when it comes back
+  useEffect(() => {
+    if (!isActive) return;
+    const pause = () => {
+      pausedRef.current = true;
+      lastTimeRef.current = null; // discard elapsed time during absence
+    };
+    const resume = () => { pausedRef.current = false; };
+
+    document.addEventListener('visibilitychange', () => {
+      document.hidden ? pause() : resume();
+    });
+    window.addEventListener('blur', pause);
+    window.addEventListener('focus', resume);
+    return () => {
+      document.removeEventListener('visibilitychange', pause);
+      window.removeEventListener('blur', pause);
+      window.removeEventListener('focus', resume);
+    };
+  }, [isActive]);
+
   // rAF loop — directly updates bar width without React re-renders
   useEffect(() => {
     if (!isActive || done) return;
@@ -335,6 +357,13 @@ const AutoScrollBar = ({ containerRef, isActive }) => {
     doneRef.current = false;
 
     const tick = (timestamp) => {
+      // While paused, just keep the loop alive without ticking down
+      if (pausedRef.current) {
+        lastTimeRef.current = null; // reset so no burst of elapsed time on resume
+        rafRef.current = requestAnimationFrame(tick);
+        return;
+      }
+
       if (!lastTimeRef.current) lastTimeRef.current = timestamp;
       const elapsed = timestamp - lastTimeRef.current;
       lastTimeRef.current = timestamp;
