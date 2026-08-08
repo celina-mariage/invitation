@@ -342,9 +342,9 @@ const AutoScrollBar = ({ containerRef, isActive }) => {
       left: 0,
       width: '100%',
       height: '3px',
-      backgroundColor: 'rgba(212, 175, 55, 0.15)',
+      backgroundColor: 'rgba(243, 166, 182, 0.15)',
       zIndex: 9999,
-      pointerEvents: 'none', // Never blocks taps or clicks on content below
+      pointerEvents: 'none',
     }}>
       <div
         key={animKey}
@@ -352,7 +352,7 @@ const AutoScrollBar = ({ containerRef, isActive }) => {
         style={{
           height: '100%',
           width: '0%',
-          background: 'linear-gradient(90deg, #b8962e, #D4AF37, #f5e27a, #D4AF37)',
+          background: 'linear-gradient(90deg, #e5989b, #f3a6b6, #ffccd5, #f3a6b6)',
           animation: 'fillBar 8s linear forwards',
         }}
       />
