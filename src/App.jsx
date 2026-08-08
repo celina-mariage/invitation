@@ -301,6 +301,20 @@ const AmbientPulse = () => (
   />
 );
 
+// Slow cinematic scroll helper — eased over `duration` ms
+const slowScrollBy = (container, distance, duration = 1400) => {
+  const start = container.scrollTop;
+  const target = start + distance;
+  const startTime = performance.now();
+  const easeInOut = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+  const step = (now) => {
+    const t = Math.min((now - startTime) / duration, 1);
+    container.scrollTop = start + (target - start) * easeInOut(t);
+    if (t < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+};
+
 // Auto-scroll progress bar — rAF-driven for 60fps, direct DOM updates to avoid re-renders
 const SCROLL_DURATION = 8000; // ms base countdown
 const ADD_ON_INTERACT = 2000; // ms added per interaction
@@ -388,8 +402,8 @@ const AutoScrollBar = ({ containerRef, isActive }) => {
       if (remainingRef.current <= 0) {
         if (!container) { rafRef.current = requestAnimationFrame(tick); return; }
 
-        // Scroll to next section and reset the bar
-        container.scrollBy({ top: clientHeight, behavior: 'smooth' });
+        // Slow cinematic scroll to next section, then restart the bar
+        slowScrollBy(container, clientHeight, 1400);
         remainingRef.current = SCROLL_DURATION;
         lastTimeRef.current = null;
       }
