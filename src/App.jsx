@@ -1211,14 +1211,14 @@ function App() {
     const autoScroll = () => {
       const sections = Array.from(container.querySelectorAll('.snap-section'));
       if (sections.length === 0) return;
-
-      const currentScroll = container.scrollTop;
       
       let currentIndex = 0;
       let minDistance = Infinity;
       
       sections.forEach((section, index) => {
-        const distance = Math.abs(section.offsetTop - currentScroll);
+        // Get precise distance from the top of the viewport
+        const rect = section.getBoundingClientRect();
+        const distance = Math.abs(rect.top);
         if (distance < minDistance) {
           minDistance = distance;
           currentIndex = index;
@@ -1230,12 +1230,9 @@ function App() {
         return;
       }
 
-      // Scroll to the next section
+      // Scroll to the next section cleanly
       const nextSection = sections[currentIndex + 1];
-      container.scrollTo({
-        top: nextSection.offsetTop,
-        behavior: 'smooth'
-      });
+      nextSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       
       resetTimer();
     };
