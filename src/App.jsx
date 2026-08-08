@@ -1200,6 +1200,68 @@ function App() {
     };
   }, [isPlaying]);
 
+  // Auto-scrolling logic
+  useEffect(() => {
+    // Only run if the invitation is open
+    if (!isOpen || !containerRef.current) return;
+
+    const container = containerRef.current;
+    let timeoutId;
+
+    const autoScroll = () => {
+      const sections = Array.from(container.querySelectorAll('.snap-section'));
+      if (sections.length === 0) return;
+
+      const currentScroll = container.scrollTop;
+      
+      let currentIndex = 0;
+      let minDistance = Infinity;
+      
+      sections.forEach((section, index) => {
+        const distance = Math.abs(section.offsetTop - currentScroll);
+        if (distance < minDistance) {
+          minDistance = distance;
+          currentIndex = index;
+        }
+      });
+
+      // Stop forever if we reach the last section (Footer)
+      if (currentIndex >= sections.length - 1) {
+        return;
+      }
+
+      // Scroll to the next section
+      const nextSection = sections[currentIndex + 1];
+      container.scrollTo({
+        top: nextSection.offsetTop,
+        behavior: 'smooth'
+      });
+      
+      resetTimer();
+    };
+
+    const resetTimer = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(autoScroll, 6000);
+    };
+
+    const interactionEvents = ['touchstart', 'wheel', 'mousemove', 'click', 'scroll'];
+    
+    interactionEvents.forEach(event => {
+      container.addEventListener(event, resetTimer, { passive: true });
+    });
+
+    // Start timer initially when component opens
+    resetTimer();
+
+    return () => {
+      clearTimeout(timeoutId);
+      interactionEvents.forEach(event => {
+        container.removeEventListener(event, resetTimer);
+      });
+    };
+  }, [isOpen]);
+
   return (
     <main style={{ backgroundColor: 'var(--color-bg-primary)', minHeight: '100vh', width: '100%', position: 'relative', overflow: 'hidden' }}>
       <audio ref={audioRef} loop src="https://kad-jemputan-kahwin.vercel.app/music/Beautiful%20in%20White%20x%20Canon%20in%20D%20(Piano%20Cover%20by%20Riyandi%20Kusuma).mp3" />
