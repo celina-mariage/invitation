@@ -486,46 +486,46 @@ const ScrollIndicator = () => {
   };
 
   return (
-    <motion.button 
+    <motion.button
       onClick={handleScrollDown}
       aria-label="Section suivante"
       style={{ 
         position: 'absolute',
-        bottom: '1.5rem',
+        bottom: '1.2rem',
         left: '50%',
-        x: '-50%',
+        transform: 'translateX(-50%)',
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
-        background: 'none',
-        border: 'none',
+        gap: '0.4rem',
+        background: 'rgba(255, 253, 252, 0.85)',
+        border: '1px solid rgba(138, 75, 86, 0.2)',
+        borderRadius: '50px',
         cursor: 'pointer',
         pointerEvents: 'auto',
         zIndex: 50,
-        padding: 0
+        padding: '0.4rem 1rem',
+        backdropFilter: 'blur(8px)',
+        boxShadow: '0 4px 15px rgba(138, 75, 86, 0.15)',
+        whiteSpace: 'nowrap',
       }}
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 1.5, duration: 1 }}
-      whileTap={{ scale: 0.9 }}
+      animate={{ opacity: 1, y: [0, 4, 0] }}
+      transition={{ 
+        opacity: { delay: 1.5, duration: 1 },
+        y: { duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }
+      }}
+      whileTap={{ scale: 0.95 }}
     >
-      <motion.div
-        animate={{ y: [0, 8, 0] }}
-        transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
-        style={{ 
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '42px',
-          height: '42px',
-          borderRadius: '50%',
-          backgroundColor: 'rgba(255, 253, 252, 0.9)',
-          boxShadow: '0 4px 15px rgba(138, 75, 86, 0.25), 0 0 1px rgba(138, 75, 86, 0.2)',
-          backdropFilter: 'blur(8px)'
-        }}
-      >
-        <ChevronDown size={24} color="#8a4b56" strokeWidth={2.2} />
-      </motion.div>
+      <span style={{
+        fontFamily: 'var(--font-body)',
+        fontSize: '0.7rem',
+        fontWeight: '500',
+        letterSpacing: '0.12em',
+        textTransform: 'uppercase',
+        color: '#8a4b56',
+      }}>
+        Défiler ↓
+      </span>
     </motion.button>
   );
 };
