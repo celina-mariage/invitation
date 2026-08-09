@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue, useMotionTemplate, useSpring } from 'framer-motion';
 import { MapPin, CalendarHeart, Heart, Volume2, VolumeX, ChevronDown, Utensils } from 'lucide-react';
 
@@ -300,81 +300,6 @@ const AmbientPulse = () => (
     transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
   />
 );
-
-// Auto-scroll progress bar — fully isolated, fixed position, never overlaps content
-const AutoScrollBar = ({ containerRef, isActive }) => {
-  const [animKey, setAnimKey] = useState(0);
-  const [done, setDone] = useState(false);
-
-  const reset = useCallback(() => {
-    setAnimKey(k => k + 1);
-  }, []);
-
-  // Attach interaction listeners to the scroll container
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!container || !isActive) return;
-    const events = ['touchstart', 'click', 'wheel'];
-    events.forEach(e => container.addEventListener(e, reset, { passive: true }));
-    return () => events.forEach(e => container.removeEventListener(e, reset));
-  }, [isActive, containerRef, reset]);
-
-  const handleAnimationEnd = () => {
-    const container = containerRef.current;
-    if (!container) return;
-    const { scrollTop, scrollHeight, clientHeight } = container;
-    // If at the bottom, hide bar forever
-    if (scrollTop + clientHeight >= scrollHeight - 50) {
-      setDone(true);
-      return;
-    }
-    // Scroll one page down, then restart the bar after the smooth scroll settles
-    container.scrollBy({ top: clientHeight, behavior: 'smooth' });
-    setTimeout(() => setAnimKey(k => k + 1), 600);
-  };
-
-  if (!isActive || done) return null;
-
-  return (
-    <div style={{
-      position: 'fixed',
-      bottom: 0,
-      left: 0,
-      width: '100%',
-      height: '3px',
-      backgroundColor: 'rgba(243, 166, 182, 0.15)',
-      zIndex: 9999,
-      pointerEvents: 'none',
-      overflow: 'visible', // allow the ball to poke above the bar
-    }}>
-      <div
-        key={animKey}
-        onAnimationEnd={handleAnimationEnd}
-        style={{
-          position: 'relative',
-          height: '100%',
-          width: '0%',
-          background: 'linear-gradient(90deg, transparent, #e5989b, #f3a6b6)',
-          animation: 'fillBar 8s linear forwards',
-        }}
-      >
-        {/* Glowing burning orb at the leading edge */}
-        <div style={{
-          position: 'absolute',
-          right: -7,
-          top: '50%',
-          transform: 'translateY(-50%)',
-          width: 14,
-          height: 14,
-          borderRadius: '50%',
-          backgroundColor: '#fff0f3',
-          boxShadow: '0 0 6px 3px #f3a6b6, 0 0 14px 6px rgba(229, 152, 155, 0.7), 0 0 22px 10px rgba(229, 152, 155, 0.3)',
-          animation: 'pulseGlow 1s ease-in-out infinite alternate',
-        }} />
-      </div>
-    </div>
-  );
-};
 
 const EntranceScreen = ({ onOpen }) => {
   const container = {
@@ -1369,8 +1294,6 @@ function App() {
           </motion.div>
         )}
       </AnimatePresence>
-      {/* Gold progress bar — fixed, isolated, never overlaps content */}
-      <AutoScrollBar containerRef={containerRef} isActive={isOpen} />
     </main>
   );
 }
