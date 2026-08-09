@@ -486,47 +486,55 @@ const ScrollIndicator = () => {
   };
 
   return (
-    <motion.button
-      onClick={handleScrollDown}
-      aria-label="Section suivante"
-      style={{ 
-        position: 'absolute',
-        bottom: '1.2rem',
-        left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex',
-        alignItems: 'center',
-        gap: '0.4rem',
-        background: 'rgba(255, 253, 252, 0.85)',
-        border: '1px solid rgba(138, 75, 86, 0.2)',
-        borderRadius: '50px',
-        cursor: 'pointer',
-        pointerEvents: 'auto',
-        zIndex: 50,
-        padding: '0.4rem 1rem',
-        backdropFilter: 'blur(8px)',
-        boxShadow: '0 4px 15px rgba(138, 75, 86, 0.15)',
-        whiteSpace: 'nowrap',
-      }}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, y: [0, 4, 0] }}
-      transition={{ 
-        opacity: { delay: 1.5, duration: 1 },
-        y: { duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }
-      }}
-      whileTap={{ scale: 0.95 }}
-    >
-      <span style={{
-        fontFamily: 'var(--font-body)',
-        fontSize: '0.7rem',
-        fontWeight: '500',
-        letterSpacing: '0.12em',
-        textTransform: 'uppercase',
-        color: '#8a4b56',
-      }}>
-        Défiler ↓
-      </span>
-    </motion.button>
+    <div style={{
+      position: 'absolute',
+      bottom: 'clamp(0.8rem, 2vh, 1.5rem)',
+      left: 0,
+      width: '100%',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      pointerEvents: 'none',
+      zIndex: 50
+    }}>
+      <motion.button
+        onClick={handleScrollDown}
+        aria-label="Section suivante"
+        style={{ 
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '0.4rem',
+          background: 'rgba(255, 253, 252, 0.88)',
+          border: '1px solid rgba(138, 75, 86, 0.2)',
+          borderRadius: '50px',
+          cursor: 'pointer',
+          pointerEvents: 'auto',
+          padding: 'clamp(0.35rem, 1vh, 0.45rem) clamp(0.85rem, 2.5vw, 1.2rem)',
+          backdropFilter: 'blur(8px)',
+          WebkitBackdropFilter: 'blur(8px)',
+          boxShadow: '0 4px 15px rgba(138, 75, 86, 0.15)',
+          whiteSpace: 'nowrap',
+        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1, y: [0, 4, 0] }}
+        transition={{ 
+          opacity: { delay: 1.5, duration: 1 },
+          y: { duration: 2, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }
+        }}
+        whileTap={{ scale: 0.95 }}
+      >
+        <span style={{
+          fontFamily: 'var(--font-body)',
+          fontSize: 'clamp(0.65rem, 1.8vw, 0.75rem)',
+          fontWeight: '500',
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase',
+          color: '#8a4b56',
+        }}>
+          Défiler ↓
+        </span>
+      </motion.button>
+    </div>
   );
 };
 
