@@ -307,10 +307,20 @@ const slowScrollBy = (container, distance, duration = 1400) => {
   const target = start + distance;
   const startTime = performance.now();
   const easeInOut = (t) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+
+  // Temporarily disable CSS scroll-snap so our manual scrollTop isn't overridden
+  const prevSnap = container.style.scrollSnapType;
+  container.style.scrollSnapType = 'none';
+
   const step = (now) => {
     const t = Math.min((now - startTime) / duration, 1);
     container.scrollTop = start + (target - start) * easeInOut(t);
-    if (t < 1) requestAnimationFrame(step);
+    if (t < 1) {
+      requestAnimationFrame(step);
+    } else {
+      // Restore scroll-snap after animation completes
+      container.style.scrollSnapType = prevSnap;
+    }
   };
   requestAnimationFrame(step);
 };
