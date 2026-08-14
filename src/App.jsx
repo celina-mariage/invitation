@@ -649,6 +649,7 @@ const Hero = () => {
 
 const Countdown = () => {
   const targetDate = new Date('2026-08-29T11:00:00+01:00').getTime();
+  const [isEventReached, setIsEventReached] = useState(false);
   const [timeLeft, setTimeLeft] = useState({
     Jours: 0, Heures: 0, Min: 0, Sec: 0
   });
@@ -662,7 +663,7 @@ UID:${new Date().getTime()}@izriwedding.com
 DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
 DTSTART:20260829T093000Z
 DTEND:20260829T180000Z
-SUMMARY:Mariage de Celina – Famille Izri
+SUMMARY:Mariage de Celina - Famille Izri
 LOCATION:Salle des Fêtes Palais Royal, Wilaya de Tizi Ouzou, Algeria
 DESCRIPTION:Faites-nous l'honneur de votre présence lors de cette merveilleuse journée. Le déjeuner aura lieu de 11h30 à 13h30.
 BEGIN:VALARM
@@ -691,12 +692,18 @@ END:VCALENDAR`;
       const now = new Date().getTime();
       const distance = targetDate - now;
 
-      setTimeLeft({
-        Jours: Math.floor(distance / (1000 * 60 * 60 * 24)),
-        Heures: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-        Min: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
-        Sec: Math.floor((distance % (1000 * 60)) / 1000)
-      });
+      if (distance <= 0) {
+        setIsEventReached(true);
+        setTimeLeft({ Jours: 0, Heures: 0, Min: 0, Sec: 0 });
+      } else {
+        setIsEventReached(false);
+        setTimeLeft({
+          Jours: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          Heures: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          Min: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          Sec: Math.floor((distance % (1000 * 60)) / 1000)
+        });
+      }
     }, 1000);
     return () => clearInterval(interval);
   }, [targetDate]);
@@ -752,97 +759,159 @@ END:VCALENDAR`;
           </motion.div>
         </motion.div>
         
-        <motion.h2 
-          className="subheader-uppercase"
-          style={{ fontSize: 'clamp(1.2rem, 5vw, 1.85rem)', letterSpacing: '4px', margin: '0.8rem 0' }}
-          variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
-        >
-          Le Grand Jour
-        </motion.h2>
-        
-        <motion.p 
-          className="date-script-heading"
-          style={{ 
-            fontSize: 'clamp(1.8rem, 8vw, 4.5rem)', 
-            margin: '0.5rem 0 1.5rem 0',
-            whiteSpace: 'normal',
-            wordWrap: 'break-word',
-            width: '100%',
-            lineHeight: '1.2'
-          }}
-          variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
-        >
-          Samedi 29 août 2026
-        </motion.p>
-        
-        {/* Countdown units separated into distinct elegant rectangles */}
-        <motion.div 
-          style={{ display: 'flex', gap: 'clamp(0.4rem, 1.5vw, 0.8rem)', justifyContent: 'center', marginTop: 'clamp(1rem, 4vw, 1.5rem)', flexWrap: 'wrap' }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.6 } }
-          }}
-        >
-          {Object.entries(timeLeft).map(([unit, value]) => (
-            <motion.div 
-              key={unit} 
-              variants={{ hidden: { opacity: 0, scale: 0.5 }, visible: { opacity: 1, scale: 1, transition: { type: 'spring', damping: 12, stiffness: 200 } } }}
+        {isEventReached ? (
+          <motion.div
+            variants={{ hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } } }}
+            style={{
+              padding: 'clamp(1.5rem, 5vw, 2.5rem) clamp(1rem, 4vw, 2rem)',
+              background: 'linear-gradient(135deg, rgba(255, 240, 245, 0.95) 0%, rgba(255, 253, 252, 0.98) 50%, rgba(248, 215, 223, 0.85) 100%)',
+              borderRadius: '24px',
+              border: '1.5px solid rgba(229, 152, 155, 0.4)',
+              boxShadow: '0 12px 35px rgba(201, 107, 125, 0.12), inset 0 0 20px rgba(255, 255, 255, 0.8)',
+              marginTop: '0.8rem',
+              marginBottom: '0.5rem',
+              position: 'relative',
+              overflow: 'hidden'
+            }}
+          >
+            {/* Elegant Bienvenue Pill Badge */}
+            <div style={{
+              display: 'inline-block',
+              padding: '0.35rem 1.4rem',
+              background: 'linear-gradient(135deg, #e5989b, #b76e79)',
+              borderRadius: '50px',
+              color: '#ffffff',
+              fontFamily: "'Cormorant Garamond', serif",
+              fontSize: 'clamp(1.1rem, 3.8vw, 1.45rem)',
+              fontStyle: 'italic',
+              fontWeight: 600,
+              letterSpacing: '2px',
+              boxShadow: '0 4px 12px rgba(183, 110, 121, 0.3)',
+              marginBottom: '0.8rem'
+            }}>
+              Bienvenue
+            </div>
+
+            <h3 style={{
+              fontFamily: "'Allura', cursive",
+              fontSize: 'clamp(2.5rem, 9vw, 4.8rem)',
+              color: '#8a4b56',
+              margin: '0.2rem 0 0.8rem 0',
+              lineHeight: 1.15,
+              textShadow: '0 2px 10px rgba(229, 152, 155, 0.2)'
+            }}>
+              C'est Le Grand Jour !
+            </h3>
+
+            <p style={{
+              fontFamily: 'var(--font-body)',
+              fontSize: 'clamp(0.95rem, 3.2vw, 1.1rem)',
+              color: '#4a3b3f',
+              lineHeight: 1.65,
+              margin: '0.8rem auto 0 auto',
+              maxWidth: '480px',
+              fontWeight: 400
+            }}>
+              Aujourd'hui, nous célébrons avec une immense joie le mariage de <span style={{ color: '#c96b7d', fontWeight: 600 }}>Celina</span>. Nous sommes si heureux de partager ce moment inoubliable avec vous !
+            </p>
+          </motion.div>
+        ) : (
+          <>
+            <motion.h2 
+              className="subheader-uppercase"
+              style={{ fontSize: 'clamp(1.2rem, 5vw, 1.85rem)', letterSpacing: '4px', margin: '0.8rem 0' }}
+              variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+            >
+              Le Grand Jour
+            </motion.h2>
+
+            <motion.p 
+              className="date-script-heading"
               style={{ 
-                display: 'flex', 
-                flexDirection: 'column', 
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: 'rgba(255,253,252,0.9)',
-                border: '1px solid rgba(138, 75, 86, 0.2)',
-                borderRadius: 'clamp(10px, 3vw, 16px)',
-                padding: 'clamp(0.5rem, 2vw, 0.8rem) clamp(0.6rem, 2.5vw, 1.2rem)',
-                minWidth: 'clamp(58px, 16vw, 75px)',
-                boxShadow: '0 8px 20px rgba(0,0,0,0.04)',
-                flex: '1 1 auto',
-                maxWidth: '120px'
+                fontSize: 'clamp(1.8rem, 8vw, 4.5rem)', 
+                margin: '0.5rem 0 1.5rem 0',
+                whiteSpace: 'normal',
+                wordWrap: 'break-word',
+                width: '100%',
+                lineHeight: '1.2'
+              }}
+              variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+            >
+              Samedi 29 août 2026
+            </motion.p>
+
+            {/* Countdown units separated into distinct elegant rectangles */}
+            <motion.div 
+              style={{ display: 'flex', gap: 'clamp(0.4rem, 1.5vw, 0.8rem)', justifyContent: 'center', marginTop: 'clamp(1rem, 4vw, 1.5rem)', flexWrap: 'wrap' }}
+              variants={{
+                hidden: { opacity: 0 },
+                visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.6 } }
               }}
             >
-              <div style={{ 
-                fontFamily: 'var(--font-heading)', 
-                fontSize: 'clamp(1.8rem, 5.5vw, 2.8rem)', 
-                fontWeight: 500, 
-                color: '#4a3b3f', 
-                lineHeight: 1 
-              }}>
-                {String(value).padStart(2, '0')}
-              </div>
-              <div className="label-uppercase" style={{ fontSize: 'clamp(0.75rem, 2.2vw, 0.95rem)', marginTop: '6px', opacity: 0.85, letterSpacing: '2px' }}>{unit}</div>
+              {Object.entries(timeLeft).map(([unit, value]) => (
+                <motion.div 
+                  key={unit} 
+                  variants={{ hidden: { opacity: 0, scale: 0.5 }, visible: { opacity: 1, scale: 1, transition: { type: 'spring', damping: 12, stiffness: 200 } } }}
+                  style={{ 
+                    display: 'flex', 
+                    flexDirection: 'column', 
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: 'rgba(255,253,252,0.9)',
+                    border: '1px solid rgba(138, 75, 86, 0.2)',
+                    borderRadius: 'clamp(10px, 3vw, 16px)',
+                    padding: 'clamp(0.5rem, 2vw, 0.8rem) clamp(0.6rem, 2.5vw, 1.2rem)',
+                    minWidth: 'clamp(58px, 16vw, 75px)',
+                    boxShadow: '0 8px 20px rgba(0,0,0,0.04)',
+                    flex: '1 1 auto',
+                    maxWidth: '120px'
+                  }}
+                >
+                  <div style={{ 
+                    fontFamily: 'var(--font-heading)', 
+                    fontSize: 'clamp(1.8rem, 5.5vw, 2.8rem)', 
+                    fontWeight: 500, 
+                    color: '#4a3b3f', 
+                    lineHeight: 1 
+                  }}>
+                    {String(value).padStart(2, '0')}
+                  </div>
+                  <div className="label-uppercase" style={{ fontSize: 'clamp(0.75rem, 2.2vw, 0.95rem)', marginTop: '6px', opacity: 0.85, letterSpacing: '2px' }}>{unit}</div>
+                </motion.div>
+              ))}
             </motion.div>
-          ))}
-        </motion.div>
+          </>
+        )}
         
-        <motion.button 
-          className="label-uppercase" 
-          variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
-          style={{ 
-            display: 'inline-block', 
-            padding: 'clamp(0.6rem, 2vw, 1rem) clamp(1rem, 4vw, 2.8rem)', 
-            backgroundColor: 'transparent', 
-            border: '1.5px solid rgba(74, 59, 63, 0.4)', 
-            borderRadius: '50px',
-            color: '#4a3b3f', 
-            whiteSpace: 'normal',
-            wordWrap: 'break-word',
-            maxWidth: '100%',
-            width: 'auto',
-            boxSizing: 'border-box',
-            marginTop: 'clamp(1.5rem, 5vw, 2.5rem)',
-            cursor: 'pointer',
-            fontSize: 'clamp(0.65rem, 2.5vw, 1rem)',
-            letterSpacing: 'clamp(1px, 1vw, 2.5px)',
-            transition: 'all 0.3s ease'
-          }}
-          onClick={downloadICS}
-          whileHover={{ scale: 1.03, backgroundColor: 'rgba(74, 59, 63, 0.04)', borderColor: '#4a3b3f' }}
-          whileTap={{ scale: 0.97 }}
-        >
-          Ajouter au calendrier
-        </motion.button>
+        {!isEventReached && (
+          <motion.button 
+            className="label-uppercase" 
+            variants={{ hidden: { opacity: 0, y: 15 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 15 } } }}
+            style={{ 
+              display: 'inline-block', 
+              padding: 'clamp(0.6rem, 2vw, 1rem) clamp(1rem, 4vw, 2.8rem)', 
+              backgroundColor: 'transparent', 
+              border: '1.5px solid rgba(74, 59, 63, 0.4)', 
+              borderRadius: '50px',
+              color: '#4a3b3f', 
+              whiteSpace: 'normal',
+              wordWrap: 'break-word',
+              maxWidth: '100%',
+              width: 'auto',
+              boxSizing: 'border-box',
+              marginTop: 'clamp(1.5rem, 5vw, 2.5rem)',
+              cursor: 'pointer',
+              fontSize: 'clamp(0.65rem, 2.5vw, 1rem)',
+              letterSpacing: 'clamp(1px, 1vw, 2.5px)',
+              transition: 'all 0.3s ease'
+            }}
+            onClick={downloadICS}
+            whileHover={{ scale: 1.03, backgroundColor: 'rgba(74, 59, 63, 0.04)', borderColor: '#4a3b3f' }}
+            whileTap={{ scale: 0.97 }}
+          >
+            Ajouter au calendrier
+          </motion.button>
+        )}
       </motion.div>
       </div>
       
