@@ -688,7 +688,7 @@ END:VCALENDAR`;
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const calculateTime = () => {
       const now = new Date().getTime();
       const distance = targetDate - now;
 
@@ -704,7 +704,10 @@ END:VCALENDAR`;
           Sec: Math.floor((distance % (1000 * 60)) / 1000)
         });
       }
-    }, 1000);
+    };
+
+    calculateTime(); // Run immediately on mount
+    const interval = setInterval(calculateTime, 1000);
     return () => clearInterval(interval);
   }, [targetDate]);
 
