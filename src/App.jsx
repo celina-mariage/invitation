@@ -648,7 +648,7 @@ const Hero = () => {
 };
 
 const Countdown = () => {
-  const targetDate = new Date('2026-08-29T11:00:00+01:00').getTime();
+  const targetDate = new Date('2026-08-29T10:30:00+01:00').getTime();
   const [isEventReached, setIsEventReached] = useState(false);
   const [timeLeft, setTimeLeft] = useState({
     Jours: 0, Heures: 0, Min: 0, Sec: 0
@@ -658,23 +658,25 @@ const Countdown = () => {
       const icsData = `BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//IZRI Wedding//FR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
 BEGIN:VEVENT
 UID:${new Date().getTime()}@izriwedding.com
 DTSTAMP:${new Date().toISOString().replace(/[-:]/g, '').split('.')[0]}Z
 DTSTART:20260829T093000Z
 DTEND:20260829T180000Z
 SUMMARY:Mariage de Celina - Famille Izri
-LOCATION:Salle des Fêtes Palais Royal, Wilaya de Tizi Ouzou, Algeria
-DESCRIPTION:Faites-nous l'honneur de votre présence lors de cette merveilleuse journée. Le déjeuner aura lieu de 11h30 à 13h30.
+LOCATION:Salle des Fêtes Palais Royal, Wilaya de Tizi Ouzou, Algérie
+DESCRIPTION:Monsieur et Madame Izri sont heureux de vous convier au mariage de leur fille Celina.\\nAccueil des invités à partir de 10h30.\\nLe déjeuner aura lieu de 11h30 à 13h30.
 BEGIN:VALARM
 TRIGGER:-PT1D
 ACTION:DISPLAY
-DESCRIPTION:Rappel: Invitation de mariage IZRI demain !
+DESCRIPTION:Rappel : Mariage de Celina demain !
 END:VALARM
 BEGIN:VALARM
 TRIGGER:-PT2H
 ACTION:DISPLAY
-DESCRIPTION:Rappel: Invitation de mariage IZRI dans 2 heures !
+DESCRIPTION:Rappel : Mariage de Celina dans 2 heures !
 END:VALARM
 END:VEVENT
 END:VCALENDAR`;
@@ -962,7 +964,7 @@ const Venue = () => {
           className="script-heading"
           variants={{ hidden: { opacity: 0, y: 12 }, visible: { opacity: 1, y: 0, transition: { type: 'spring', damping: 20, mass: 1.2 } } }}
         >
-          Rendez-vous à,
+          Rendez-vous à
         </motion.h2>
         
         <motion.h3 
@@ -1140,60 +1142,30 @@ const Footer = () => {
           </motion.div>
         </motion.div>
 
-        {/* Quranic Verse — framed with proper Unicode Quranic brackets */}
+        {/* Quranic Verse */}
         <motion.div
           variants={{ 
-            hidden: { opacity: 0 }, 
-            visible: { opacity: 1, transition: { duration: 0.5 } } 
+            hidden: { opacity: 0, scale: 0.96 }, 
+            visible: { opacity: 1, scale: 1, transition: { duration: 0.8 } } 
           }}
           style={{ 
             display: 'flex', 
             alignItems: 'center', 
             justifyContent: 'center', 
-            gap: '0.3rem',
             margin: '0.4rem 0 0.8rem 0',
-            flexWrap: 'nowrap'
           }}
         >
-          {/* Right Quranic bracket (RTL: right comes first visually) */}
-          <motion.span
-            variants={{ hidden: { opacity: 0, x: 15 }, visible: { opacity: 1, x: 0, transition: { duration: 1.2, ease: 'easeOut', delay: 0.2 } } }}
-            style={{ 
-              fontFamily: "'Lateef', serif", 
-              fontSize: 'clamp(3rem, 10vw, 5rem)', 
-              color: '#b76e79',
-              lineHeight: 1,
-              userSelect: 'none'
-            }}
-          >
-            ﴾
-          </motion.span>
-
-          {/* The verse text */}
           <motion.p 
             className="arabic-text" 
-            style={{ fontSize: 'clamp(1.85rem, 6.2vw, 2.8rem)', color: '#8a4b56', margin: 0, lineHeight: 1.3 }}
+            dir="rtl"
+            style={{ fontSize: 'clamp(1.85rem, 6.2vw, 2.8rem)', color: '#8a4b56', margin: 0, lineHeight: 1.4 }}
             variants={{ 
               hidden: { opacity: 0, clipPath: 'inset(0 0 0 100%)' }, 
               visible: { opacity: 1, clipPath: 'inset(0 0 0 0)', transition: { duration: 2, ease: 'easeInOut' } } 
             }}
           >
-            وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً
+            ﴿ وَجَعَلَ بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ﴾
           </motion.p>
-
-          {/* Left Quranic bracket */}
-          <motion.span
-            variants={{ hidden: { opacity: 0, x: -15 }, visible: { opacity: 1, x: 0, transition: { duration: 1.2, ease: 'easeOut', delay: 0.2 } } }}
-            style={{ 
-              fontFamily: "'Lateef', serif", 
-              fontSize: 'clamp(3rem, 10vw, 5rem)', 
-              color: '#b76e79',
-              lineHeight: 1,
-              userSelect: 'none'
-            }}
-          >
-            ﴿
-          </motion.span>
         </motion.div>
 
         <motion.div
@@ -1341,7 +1313,7 @@ function App() {
 
   return (
     <main style={{ backgroundColor: 'var(--color-bg-primary)', minHeight: '100vh', width: '100%', position: 'relative', overflow: 'hidden' }}>
-      <audio ref={audioRef} loop src="https://kad-jemputan-kahwin.vercel.app/music/Beautiful%20in%20White%20x%20Canon%20in%20D%20(Piano%20Cover%20by%20Riyandi%20Kusuma).mp3" />
+      <audio ref={audioRef} loop src={`${import.meta.env.BASE_URL}wedding_music.mp3`} />
       <motion.button
         onClick={toggleAudio}
         className="fab-audio"
